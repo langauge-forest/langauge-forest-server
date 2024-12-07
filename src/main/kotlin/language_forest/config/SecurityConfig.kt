@@ -20,7 +20,7 @@ class SecurityConfig(
         return http
             .authorizeHttpRequests { authz ->
                 authz
-                    .requestMatchers("/", "/auth/**", "/hello").permitAll()
+                    .requestMatchers("/", "/auth/**", "/hello/**").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)

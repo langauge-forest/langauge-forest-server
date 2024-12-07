@@ -56,32 +56,33 @@ dependencies {
 
 // OpenAPI Generator 설정
 openApiGenerate {
-	inputSpec.set("$rootDir/src/main/resources/api.yml") // 여기서 스펙 파일 경로 지정
-	generatorName.set("spring") // spring 서버 스텁 생성
+	inputSpec.set("$rootDir/language-forest-api/api.yml") // 여기서 스펙 파일 경로 지정
+	generatorName.set("kotlin-spring") // Kotlin 전용 생성기 사용
 	outputDir.set(layout.buildDirectory.dir("generated").get().asFile.absolutePath)
 	apiPackage.set("language_forest.generated.api")
 	modelPackage.set("language_forest.generated.model")
 	invokerPackage.set("language_forest.generated.invoker")
 
+	configOptions.put("useKotlin", "true") // Kotlin 모델 활성화
+	configOptions.put("library", "spring-boot")
+	configOptions.set(mapOf("useSpringBoot3" to "true"))
 	configOptions.put("documentationProvider", "none") // Swagger 및 SpringDoc 제거
 	configOptions.put("delegatePattern", "true") // Delegate 패턴 활성화
-	configOptions.put("interfaceOnly", "true") // 인터페이스만 생성, 컨트롤러 생성 X
+//	configOptions.put("interfaceOnly", "true") // 인터페이스만 생성, 컨트롤러 생성 X
 }
 
-tasks.named("openApiGenerate") {
-	doLast {
-		// 생성된 ApiUtil.java 파일 강제 삭제
-		file("$buildDir/generated/src/main/java/language_forest/generated/api/ApiUtil.java").delete()
-		fileTree(layout.buildDirectory.dir("generated")).forEach { file ->
-			if (file.name.endsWith(".java")) {
-				file.writeText(
-					file.readText()
-						.replace("javax", "jakarta")
-				)
-			}
-		}
-	}
-}
+//tasks.named("openApiGenerate") {
+//	doLast {
+//		fileTree(layout.buildDirectory.dir("generated")).forEach { file ->
+//			if (file.name.endsWith(".java")) {
+//				file.writeText(
+//					file.readText()
+//						.replace("javax", "jakarta")
+//				)
+//			}
+//		}
+//	}
+//}
 
 tasks.register("buildApi") {
 	dependsOn("openApiGenerate")
@@ -92,8 +93,8 @@ tasks.register("buildApi") {
 
 sourceSets {
 	main {
-		java {
-			srcDir(layout.buildDirectory.dir("generated/src/main/java"))
+		kotlin {
+			srcDir(layout.buildDirectory.dir("generated/src/main/kotlin"))
 		}
 	}
 }
