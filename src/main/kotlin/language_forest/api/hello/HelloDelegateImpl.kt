@@ -1,6 +1,5 @@
 package language_forest.api.hello
 
-import language_forest.generated.api.HelloApi
 import language_forest.generated.api.HelloApiDelegate
 import language_forest.generated.model.YourTextDto
 import org.springframework.http.ResponseEntity

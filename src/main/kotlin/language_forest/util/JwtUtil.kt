@@ -3,6 +3,7 @@ package language_forest.util
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
+import language_forest.entity.User
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.time.temporal.ChronoUnit
@@ -17,9 +18,9 @@ class JwtUtil {
     /**
      * JWT 토큰 생성
      */
-    fun generateToken(): String {
+    fun generateToken(user: User): String {
         val claims: Claims = Jwts.claims()
-            .add("uid", "uid")
+            .add("uid", user.id.toString())
             .build()
 
         val now = Instant.now()
