@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.6"
 	kotlin("plugin.jpa") version "1.9.25"
 	id("org.openapi.generator") version "7.10.0"
+	id("com.google.cloud.tools.jib") version "3.4.4"
 }
 
 group = "language-forest"
@@ -13,6 +14,21 @@ version = "0.0.1-SNAPSHOT"
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+jib {
+	from {
+		image = "amazoncorretto:21-alpine"
+	}
+	to {
+		image = "11t518s/language-forest"
+		tags = setOf("latest", "0.0.1")
+	}
+	container {
+		ports = listOf("8080")
+		jvmFlags = listOf("-Xms512m", "-Xmx1024m")
+		mainClass = "language_forest.LanguageForestApplicationKt"
 	}
 }
 
