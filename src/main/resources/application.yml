@@ -16,6 +16,10 @@ spring:
         format_sql: true
         jdbc:
           time_zone: UTC
+        connection:
+          characterEncoding: utf8mb4
+          useUnicode: true
+
   flyway:
     baseline-on-migrate: true
     enabled: true
