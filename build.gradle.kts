@@ -6,6 +6,7 @@ plugins {
 	kotlin("plugin.jpa") version "1.9.25"
 	id("org.openapi.generator") version "7.10.0"
 	id("com.google.cloud.tools.jib") version "3.4.4"
+	id("org.flywaydb.flyway") version "11.1.0"
 }
 
 group = "language-forest"
@@ -16,6 +17,33 @@ java {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
+
+val envName: String? by project
+
+// 환경별 .env 파일 경로
+val envFile = when(envName) {
+	"prod" -> file(".env.prod")
+	"dev" -> file(".env.dev")
+	"local" -> file(".env.local")
+	else -> file(".env.local") // 기본값 local
+}
+
+// env 파일을 읽는 로직(커스텀)
+fun loadEnv(file: File): Map<String, String> {
+	return file.readLines()
+		.filter { it.contains("=") }
+		.map {
+			val (key, value) = it.split("=", limit=2)
+			key.trim() to value.trim()
+		}.toMap()
+}
+
+val envVars = loadEnv(envFile)
+
+springBoot {
+	mainClass = "language_forest.LanguageForestApplicationKt"
+}
+
 
 jib {
 	from {
@@ -46,12 +74,13 @@ dependencies {
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.flywaydb:flyway-mysql")
 
 	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
-	runtimeOnly("com.mysql:mysql-connector-j")
+	implementation("org.flywaydb:flyway-core:11.1.0")
+	implementation("org.flywaydb:flyway-mysql:11.1.0")
+	runtimeOnly("com.mysql:mysql-connector-j:8.2.0")
 
 	// Jackson Nullable
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
@@ -66,15 +95,21 @@ dependencies {
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-
 }
 
+
+flyway {
+	url = envVars["DB_URL"] ?: "jdbc:mysql://localhost:3306/db"
+	user = envVars["DB_USERNAME"] ?: "mysql"
+	password = envVars["DB_PASSWORD"] ?: "mysql"
+	locations = arrayOf("classpath:db/migration")
+}
 
 // OpenAPI Generator 설정
 openApiGenerate {
 	inputSpec.set("$rootDir/language-forest-api/api.yml") // 여기서 스펙 파일 경로 지정
 	generatorName.set("kotlin-spring") // Kotlin 전용 생성기 사용
-	outputDir.set(layout.buildDirectory.dir("generated").get().asFile.absolutePath)
+	outputDir.set("$rootDir/generated-language-forest-api") // build 외부 디렉토리로 변경
 	apiPackage.set("language_forest.generated.api")
 	modelPackage.set("language_forest.generated.model")
 	invokerPackage.set("language_forest.generated.invoker")
@@ -87,19 +122,6 @@ openApiGenerate {
 //	configOptions.put("interfaceOnly", "true") // 인터페이스만 생성, 컨트롤러 생성 X
 }
 
-//tasks.named("openApiGenerate") {
-//	doLast {
-//		fileTree(layout.buildDirectory.dir("generated")).forEach { file ->
-//			if (file.name.endsWith(".java")) {
-//				file.writeText(
-//					file.readText()
-//						.replace("javax", "jakarta")
-//				)
-//			}
-//		}
-//	}
-//}
-
 tasks.register("buildApi") {
 	dependsOn("openApiGenerate")
 	doLast {
@@ -107,10 +129,25 @@ tasks.register("buildApi") {
 	}
 }
 
+tasks.named("flywayMigrate") {
+	outputs.dir(layout.buildDirectory.dir("generated").get().asFile.absolutePath)
+}
+
+tasks.register("testDriver") {
+	doLast {
+		try {
+			val driver = Class.forName("com.mysql.cj.jdbc.Driver")
+			println("Driver loaded successfully: $driver")
+		} catch (e: Exception) {
+			println("Failed to load driver: ${e.message}")
+		}
+	}
+}
+
 sourceSets {
 	main {
 		kotlin {
-			srcDir(layout.buildDirectory.dir("generated/src/main/kotlin"))
+			srcDir("$rootDir/generated-language-forest-api")
 		}
 	}
 }

@@ -25,7 +25,7 @@ class AuthService(
 
             // Google 사용자 정보 저장
             val googleInfo = GoogleUserInfo(
-                uid = savedUser.id!!,
+                uid = savedUser.id,
                 googleId = googleOAuth.sub,
                 email = googleOAuth.email,
                 name = googleOAuth.name,
