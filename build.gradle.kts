@@ -80,7 +80,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 	implementation("org.flywaydb:flyway-core:11.1.0")
 	implementation("org.flywaydb:flyway-mysql:11.1.0")
-	runtimeOnly("com.mysql:mysql-connector-j:8.2.0")
+	implementation("com.mysql:mysql-connector-j:8.2.0")
 
 	// Jackson Nullable
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
@@ -97,12 +97,21 @@ dependencies {
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.flywaydb:flyway-mysql:11.1.0")
+	}
+}
 
 flyway {
-	url = envVars["DB_URL"] ?: "jdbc:mysql://localhost:3306/db"
-	user = envVars["DB_USERNAME"] ?: "mysql"
-	password = envVars["DB_PASSWORD"] ?: "mysql"
-	locations = arrayOf("classpath:db/migration")
+	driver = "com.mysql.cj.jdbc.Driver"
+	url = "jdbc:mysql://localhost:3306/db"
+	user = "mysql"
+	password = "mysql"
+	locations = arrayOf("filesystem:src/main/resources/db/migration")
 }
 
 // OpenAPI Generator 설정
@@ -129,17 +138,15 @@ tasks.register("buildApi") {
 	}
 }
 
-tasks.named("flywayMigrate") {
-	outputs.dir(layout.buildDirectory.dir("generated").get().asFile.absolutePath)
-}
+//tasks.named("flywayMigrate") {
+//	outputs.dir(layout.buildDirectory.dir("generated").get().asFile.absolutePath)
+//}
 
-tasks.register("testDriver") {
+tasks.register("flywayClasspath") {
 	doLast {
-		try {
-			val driver = Class.forName("com.mysql.cj.jdbc.Driver")
-			println("Driver loaded successfully: $driver")
-		} catch (e: Exception) {
-			println("Failed to load driver: ${e.message}")
+		println("Flyway Classpath:")
+		project.configurations.getByName("runtimeClasspath").files.forEach { file ->
+			println(file.absolutePath)
 		}
 	}
 }
