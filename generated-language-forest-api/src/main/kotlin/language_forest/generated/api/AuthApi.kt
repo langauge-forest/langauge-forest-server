@@ -5,6 +5,7 @@
 */
 package language_forest.generated.api
 
+import language_forest.generated.model.AuthRefreshRequest
 import language_forest.generated.model.TokenDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -33,6 +34,17 @@ import kotlin.collections.Map
 interface AuthApi {
 
     fun getDelegate(): AuthApiDelegate = object: AuthApiDelegate {}
+
+
+    @RequestMapping(
+            method = [RequestMethod.POST],
+            value = ["/auth/refresh"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun authRefresh( @Valid @RequestBody authRefreshRequest: AuthRefreshRequest): ResponseEntity<TokenDto> {
+        return getDelegate().authRefresh(authRefreshRequest)
+    }
 
 
     @RequestMapping(

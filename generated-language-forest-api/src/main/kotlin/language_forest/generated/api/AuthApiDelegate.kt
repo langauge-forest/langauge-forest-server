@@ -1,5 +1,6 @@
 package language_forest.generated.api
 
+import language_forest.generated.model.AuthRefreshRequest
 import language_forest.generated.model.TokenDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -19,13 +20,30 @@ interface AuthApiDelegate {
     fun getRequest(): Optional<NativeWebRequest> = Optional.empty()
 
     /**
+     * @see AuthApi#authRefresh
+     */
+    fun authRefresh(authRefreshRequest: AuthRefreshRequest): ResponseEntity<TokenDto> {
+        getRequest().ifPresent { request ->
+            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"accessToken\" : \"accessToken\",  \"refreshToken\" : \"refreshToken\"}")
+                    break
+                }
+            }
+        }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
      * @see AuthApi#googleLogin
      */
     fun googleLogin(tokenDto: TokenDto): ResponseEntity<TokenDto> {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"accessToken\" : \"accessToken\"}")
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"accessToken\" : \"accessToken\",  \"refreshToken\" : \"refreshToken\"}")
                     break
                 }
             }

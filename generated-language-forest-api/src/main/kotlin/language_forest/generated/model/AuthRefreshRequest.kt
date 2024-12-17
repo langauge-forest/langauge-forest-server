@@ -14,14 +14,11 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param accessToken 
- * @param refreshToken 
+ * @param refreshToken 리프레시 토큰
  */
-data class TokenDto(
+data class AuthRefreshRequest(
 
-    @get:JsonProperty("accessToken", required = true) val accessToken: kotlin.String,
-
-    @get:JsonProperty("refreshToken") val refreshToken: kotlin.String? = null
+    @get:JsonProperty("refreshToken", required = true) val refreshToken: kotlin.String
     ) {
 
 }
