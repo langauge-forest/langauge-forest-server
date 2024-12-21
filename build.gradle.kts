@@ -138,19 +138,6 @@ tasks.register("buildApi") {
 	}
 }
 
-//tasks.named("flywayMigrate") {
-//	outputs.dir(layout.buildDirectory.dir("generated").get().asFile.absolutePath)
-//}
-
-tasks.register("flywayClasspath") {
-	doLast {
-		println("Flyway Classpath:")
-		project.configurations.getByName("runtimeClasspath").files.forEach { file ->
-			println(file.absolutePath)
-		}
-	}
-}
-
 sourceSets {
 	main {
 		kotlin {
