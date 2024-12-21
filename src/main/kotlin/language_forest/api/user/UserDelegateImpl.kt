@@ -10,8 +10,20 @@ import org.springframework.stereotype.Component
 class UserDelegateImpl(
     private val userService: UserService
 ) : UserApiDelegate {
-    override fun getUserInfo(): ResponseEntity<UserInfoDto> {
+    override fun getUserInfoMe(): ResponseEntity<UserInfoDto> {
         val userInfo = userService.getUserMe(getUid())
-        return ResponseEntity.ok(UserInfoDto(id = userInfo.id, email = userInfo.email))
+        return ResponseEntity.ok(
+            UserInfoDto(
+                id = userInfo.id,
+                email = userInfo.email,
+                username = userInfo.username,
+                birthday = userInfo.birthday,
+                gender = userInfo.gender,
+            )
+        )
+    }
+
+    override fun updateUserInfo(userInfoDto: UserInfoDto): ResponseEntity<UserInfoDto> {
+        return super.updateUserInfo(userInfoDto)
     }
 }

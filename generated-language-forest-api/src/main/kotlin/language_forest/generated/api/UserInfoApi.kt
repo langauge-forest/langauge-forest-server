@@ -5,9 +5,8 @@
 */
 package language_forest.generated.api
 
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.BaseUserStudyLanguage
-import language_forest.generated.model.UpdateUserStudyLanguageRequest
+import language_forest.generated.model.CreateUserInfoRequest
+import language_forest.generated.model.UserInfoDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -32,29 +31,28 @@ import kotlin.collections.Map
 
 @RestController
 @Validated
-interface UserApi {
+interface UserInfoApi {
 
-    fun getDelegate(): UserApiDelegate = object: UserApiDelegate {}
+    fun getDelegate(): UserInfoApiDelegate = object: UserInfoApiDelegate {}
 
 
     @RequestMapping(
-            method = [RequestMethod.PATCH],
-            value = ["/user"],
+            method = [RequestMethod.POST],
+            value = ["/user-info"],
             produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun updateUser( @Valid @RequestBody baseUser: BaseUser): ResponseEntity<BaseUser> {
-        return getDelegate().updateUser(baseUser)
+    fun createUserInfo( @Valid @RequestBody createUserInfoRequest: CreateUserInfoRequest): ResponseEntity<UserInfoDto> {
+        return getDelegate().createUserInfo(createUserInfoRequest)
     }
 
 
     @RequestMapping(
-            method = [RequestMethod.PATCH],
-            value = ["/user/study-language/{userStudyLanguageId}"],
-            produces = ["application/json"],
-            consumes = ["application/json"]
+            method = [RequestMethod.GET],
+            value = ["/user-info/me"],
+            produces = ["application/json"]
     )
-    fun updateUserStudyLanguage( @PathVariable("userStudyLanguageId") userStudyLanguageId: java.util.UUID, @Valid @RequestBody updateUserStudyLanguageRequest: UpdateUserStudyLanguageRequest): ResponseEntity<BaseUserStudyLanguage> {
-        return getDelegate().updateUserStudyLanguage(userStudyLanguageId, updateUserStudyLanguageRequest)
+    fun getUserInfoMe(): ResponseEntity<UserInfoDto> {
+        return getDelegate().getUserInfoMe()
     }
 }

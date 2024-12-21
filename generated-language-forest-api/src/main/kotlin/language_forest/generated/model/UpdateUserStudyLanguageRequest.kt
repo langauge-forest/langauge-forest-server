@@ -24,9 +24,10 @@ import jakarta.validation.Valid
  * @param level 
  * @param purpose 학습 목적
  */
-data class BaseUserStudyLanguage(
+data class UpdateUserStudyLanguageRequest(
 
-    @get:JsonProperty("id", required = true) val id: java.util.UUID,
+    @field:Valid
+    @get:JsonProperty("id", required = true) val id: kotlin.Any?,
 
     @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
 

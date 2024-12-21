@@ -4,7 +4,7 @@ import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
-import language_forest.generated.model.BaseUserStudyLanguage
+import language_forest.generated.model.LanguageEnum
 import language_forest.generated.model.LevelEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -19,29 +19,25 @@ import jakarta.validation.Valid
 /**
  * 
  * @param id 
- * @param email 유저 이메일
- * @param username 유저 이름
- * @param birthday 유저 생년월일 (yyyy-MM-dd)
- * @param gender 
- * @param studyLanguages 
+ * @param uid 
+ * @param language 
+ * @param level 
+ * @param purpose 학습 목적
  */
-data class UpdateUserInfoDto(
+data class CreateUserInfoRequestAllOfStudyLanguagesInner(
 
     @field:Valid
     @get:JsonProperty("id", required = true) val id: kotlin.Any?,
 
-    @get:JsonProperty("email", required = true) val email: kotlin.String,
-
-    @get:JsonProperty("username", required = true) val username: kotlin.String,
+    @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
 
     @field:Valid
-    @get:JsonProperty("birthday", required = true) val birthday: java.time.LocalDate,
+    @get:JsonProperty("language") val language: LanguageEnum? = null,
 
     @field:Valid
-    @get:JsonProperty("gender", required = true) val gender: LevelEnum,
+    @get:JsonProperty("level") val level: LevelEnum? = null,
 
-    @field:Valid
-    @get:JsonProperty("studyLanguages", required = true) val studyLanguages: kotlin.collections.List<BaseUserStudyLanguage>
+    @get:JsonProperty("purpose") val purpose: kotlin.String? = null
     ) {
 
 }

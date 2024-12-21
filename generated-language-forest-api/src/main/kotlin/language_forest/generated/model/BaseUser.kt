@@ -4,7 +4,8 @@ import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
-import language_forest.generated.model.LevelEnum
+import language_forest.generated.model.GenderEnum
+import language_forest.generated.model.LanguageEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -22,20 +23,24 @@ import jakarta.validation.Valid
  * @param username 유저 이름
  * @param birthday 유저 생년월일 (yyyy-MM-dd)
  * @param gender 
+ * @param language 
  */
-data class BaseUserInfo(
+data class BaseUser(
 
     @get:JsonProperty("id", required = true) val id: java.util.UUID,
 
-    @get:JsonProperty("email", required = true) val email: kotlin.String,
+    @get:JsonProperty("email") val email: kotlin.String? = null,
 
-    @get:JsonProperty("username", required = true) val username: kotlin.String,
-
-    @field:Valid
-    @get:JsonProperty("birthday", required = true) val birthday: java.time.LocalDate,
+    @get:JsonProperty("username") val username: kotlin.String? = null,
 
     @field:Valid
-    @get:JsonProperty("gender", required = true) val gender: LevelEnum
+    @get:JsonProperty("birthday") val birthday: java.time.LocalDate? = null,
+
+    @field:Valid
+    @get:JsonProperty("gender") val gender: GenderEnum? = null,
+
+    @field:Valid
+    @get:JsonProperty("language") val language: LanguageEnum? = null
     ) {
 
 }
