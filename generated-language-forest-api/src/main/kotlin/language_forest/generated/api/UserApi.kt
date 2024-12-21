@@ -5,6 +5,7 @@
 */
 package language_forest.generated.api
 
+import language_forest.generated.model.UpdateUserInfoDto
 import language_forest.generated.model.UserInfoDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -42,5 +43,16 @@ interface UserApi {
     )
     fun getUserInfo(): ResponseEntity<UserInfoDto> {
         return getDelegate().getUserInfo()
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.PATCH],
+            value = ["/user"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun updateUserInfo( @Valid @RequestBody updateUserInfoDto: UpdateUserInfoDto): ResponseEntity<UserInfoDto> {
+        return getDelegate().updateUserInfo(updateUserInfoDto)
     }
 }

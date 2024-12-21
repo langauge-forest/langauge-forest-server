@@ -18,16 +18,17 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param id 유저 ID
+ * @param id 
  * @param email 유저 이메일
  * @param username 유저 이름
  * @param birthday 유저 생년월일 (yyyy-MM-dd)
  * @param gender 
  * @param studyLanguages 
  */
-data class UserInfoDto(
+data class UpdateUserInfoDto(
 
-    @get:JsonProperty("id", required = true) val id: java.util.UUID,
+    @field:Valid
+    @get:JsonProperty("id", required = true) val id: kotlin.Any?,
 
     @get:JsonProperty("email", required = true) val email: kotlin.String,
 

@@ -12,6 +12,12 @@ src/main/kotlin/language_forest/generated/api/UserApiController.kt
 src/main/kotlin/language_forest/generated/api/UserApiDelegate.kt
 src/main/kotlin/language_forest/generated/invoker/Application.kt
 src/main/kotlin/language_forest/generated/model/AuthRefreshRequest.kt
+src/main/kotlin/language_forest/generated/model/BaseUserInfo.kt
+src/main/kotlin/language_forest/generated/model/BaseUserStudyLanguage.kt
+src/main/kotlin/language_forest/generated/model/GenderEnum.kt
+src/main/kotlin/language_forest/generated/model/LanguageEnum.kt
+src/main/kotlin/language_forest/generated/model/LevelEnum.kt
 src/main/kotlin/language_forest/generated/model/TokenDto.kt
+src/main/kotlin/language_forest/generated/model/UpdateUserInfoDto.kt
 src/main/kotlin/language_forest/generated/model/UserInfoDto.kt
 src/main/resources/application.yaml
