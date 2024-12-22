@@ -1,10 +1,7 @@
 package language_forest.api.userInfo
 
 import language_forest.entity.User
-import language_forest.exception.UnauthorizedException
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.BaseUserStudyLanguage
-import language_forest.generated.model.UserInfoDto
+import language_forest.entity.UserStudyLanguage
 import language_forest.repository.UserRepository
 import language_forest.repository.UserStudyLanguageRepository
 import org.springframework.stereotype.Service
@@ -16,48 +13,32 @@ class UserInfoService(
     private val userRepository: UserRepository,
     private val userStudyLanguageRepository: UserStudyLanguageRepository
 ) {
-    fun getUser(uid: UUID): BaseUser {
-        val user = userRepository.findById(uid).orElseThrow {
-            UnauthorizedException("유저 정보를 찾아올 수 없습니다")
-        }
 
-        return BaseUser(
-            id = user.id,
-            email = user.email,
-            username = user.username,
-            birthday = user.birthday,
-            gender = user.gender,
-            language =user.language
+    fun getUser(uid: UUID): User {
+        return userRepository.findById(uid).orElseThrow {
+            throw IllegalArgumentException("User not found for uid: $uid")
+        }
+    }
+
+    fun getUserStudyLanguage(uid: UUID): List<UserStudyLanguage> {
+        return userStudyLanguageRepository.findByUid(uid)
+    }
+
+    @Transactional
+    fun updateUser(newUser: User): User {
+        val oldUser = getUser(newUser.id)
+        oldUser.updateFrom(newUser)
+        return userRepository.save(oldUser)
+    }
+
+    @Transactional
+    fun createUserStudyLanguage(uid: UUID, studyLanguage: UserStudyLanguage): UserStudyLanguage {
+        val entity = UserStudyLanguage(
+            uid = uid,
+            language = studyLanguage.language,
+            level = studyLanguage.level,
+            purpose = studyLanguage.purpose
         )
-    }
-
-    fun getUserStudyLanguage(uid: UUID): List<BaseUserStudyLanguage> {
-        val userStudyLanguage = userStudyLanguageRepository.findByUid(uid)
-        return userStudyLanguage.map {
-            BaseUserStudyLanguage(
-                id = it.id,
-                uid = it.uid,
-                language = it.language,
-                level = it.level,
-                purpose = it.purpose
-            )
-        }
-    }
-
-
-    @Transactional
-    fun updateUser(user: User): User {
-        val existingUser = userRepository.findById(user.id)
-            .orElseThrow { IllegalArgumentException("User not found with uid: ${user.id}") }
-
-        existingUser.updateFrom(user)
-
-        return userRepository.save(user)
-    }
-
-    @Transactional
-    fun creatUserStudyLanguage(uid: UUID) {
-
-
+        return userStudyLanguageRepository.save(entity)
     }
 }

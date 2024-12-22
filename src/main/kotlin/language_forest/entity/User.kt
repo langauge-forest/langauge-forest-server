@@ -1,7 +1,7 @@
 package language_forest.entity
 
-import BaseTimestampEntity
 import jakarta.persistence.*
+import language_forest.generated.model.BaseUser
 import language_forest.generated.model.GenderEnum
 import language_forest.generated.model.LanguageEnum
 import org.hibernate.annotations.UuidGenerator
@@ -25,13 +25,4 @@ class User(
     var gender: GenderEnum? = null,
 
     var language: LanguageEnum? = null,
-) : BaseTimestampEntity() {
-
-    fun updateFrom(other: User) {
-        other.email?.let { this.email = it }
-        other.username?.let { this.username = it }
-        other.birthday?.let { this.birthday = it }
-        other.gender?.let { this.gender = it }
-        other.language?.let { this.language = it }
-    }
-}
+) : BaseTimestampEntity() 

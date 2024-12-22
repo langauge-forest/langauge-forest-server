@@ -20,6 +20,9 @@ import jakarta.validation.Valid
 /**
  * 
  * @param id 유저 ID
+ * @param createdAt 생성 일시
+ * @param updatedAt 수정 일시
+ * @param deletedAt 삭제 일시
  * @param email 유저 이메일
  * @param username 유저 이름
  * @param birthday 유저 생년월일 (yyyy-MM-dd)
@@ -30,6 +33,12 @@ import jakarta.validation.Valid
 data class UserInfoDto(
 
     @get:JsonProperty("id", required = true) val id: java.util.UUID,
+
+    @get:JsonProperty("createdAt") val createdAt: java.time.OffsetDateTime? = null,
+
+    @get:JsonProperty("updatedAt") val updatedAt: java.time.OffsetDateTime? = null,
+
+    @get:JsonProperty("deletedAt") val deletedAt: java.time.OffsetDateTime? = null,
 
     @get:JsonProperty("email") val email: kotlin.String? = null,
 

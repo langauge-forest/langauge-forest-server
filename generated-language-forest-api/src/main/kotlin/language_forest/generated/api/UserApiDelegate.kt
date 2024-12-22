@@ -27,7 +27,7 @@ interface UserApiDelegate {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"birthday\" : \"2000-01-23\",  \"gender\" : \"gender\",  \"language\" : \"language\",  \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"email\" : \"email\",  \"username\" : \"username\"}")
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"birthday\" : \"2000-01-23\",  \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"deletedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"gender\" : \"MALE\",  \"language\" : \"EN\",  \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"email\" : \"email\",  \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"username\" : \"username\"}")
                     break
                 }
             }
@@ -45,7 +45,7 @@ interface UserApiDelegate {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"level\" : \"EASY\",  \"purpose\" : \"purpose\",  \"language\" : \"EN\",  \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\"}")
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"deletedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"level\" : \"EASY\",  \"purpose\" : \"purpose\",  \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\"}")
                     break
                 }
             }

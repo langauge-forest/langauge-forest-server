@@ -7,6 +7,7 @@ plugins {
 	id("org.openapi.generator") version "7.10.0"
 	id("com.google.cloud.tools.jib") version "3.4.4"
 	id("org.flywaydb.flyway") version "11.1.0"
+	id("org.jetbrains.kotlin.kapt") version "1.9.25"
 }
 
 group = "language-forest"
@@ -81,6 +82,10 @@ dependencies {
 	implementation("org.flywaydb:flyway-core:11.1.0")
 	implementation("org.flywaydb:flyway-mysql:11.1.0")
 	implementation("com.mysql:mysql-connector-j:8.2.0")
+
+	// MapStruct
+	implementation("org.mapstruct:mapstruct:1.6.3") // MapStruct 라이브러리
+	kapt("org.mapstruct:mapstruct-processor:1.6.3") // Annotation Processor
 
 	// Jackson Nullable
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")

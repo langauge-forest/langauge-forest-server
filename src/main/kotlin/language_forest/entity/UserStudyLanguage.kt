@@ -11,7 +11,7 @@ import java.util.*
 class UserStudyLanguage(
     @Id
     @Column(columnDefinition = "BINARY(16)")
-    val id: UUID,
+    val id: UUID = UUID(0, 0), // 기본값 설정 (Hibernate가 무시하고 UUID를 할당)
 
     val uid: UUID,
 
@@ -23,4 +23,10 @@ class UserStudyLanguage(
 
     var purpose: String,
 
-)
+) : BaseTimestampEntity() {
+    fun updateFrom(other: UserStudyLanguage) {
+        other.language.let {this.language = it }
+        other.purpose.let {this.purpose = it}
+        other.level.let {this.level = it }
+    }
+}

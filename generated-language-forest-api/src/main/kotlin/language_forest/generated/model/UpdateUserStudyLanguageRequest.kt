@@ -22,22 +22,30 @@ import jakarta.validation.Valid
  * @param uid 
  * @param language 
  * @param level 
- * @param purpose 학습 목적
+ * @param purpose 
+ * @param createdAt 생성 일시
+ * @param updatedAt 수정 일시
+ * @param deletedAt 삭제 일시
  */
 data class UpdateUserStudyLanguageRequest(
 
-    @field:Valid
-    @get:JsonProperty("id", required = true) val id: kotlin.Any?,
+    @get:JsonProperty("id", required = true) val id: java.util.UUID,
 
     @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
 
     @field:Valid
-    @get:JsonProperty("language") val language: LanguageEnum? = null,
+    @get:JsonProperty("language", required = true) val language: LanguageEnum,
 
     @field:Valid
-    @get:JsonProperty("level") val level: LevelEnum? = null,
+    @get:JsonProperty("level", required = true) val level: LevelEnum,
 
-    @get:JsonProperty("purpose") val purpose: kotlin.String? = null
+    @get:JsonProperty("purpose", required = true) val purpose: kotlin.String?,
+
+    @get:JsonProperty("createdAt") val createdAt: java.time.OffsetDateTime? = null,
+
+    @get:JsonProperty("updatedAt") val updatedAt: java.time.OffsetDateTime? = null,
+
+    @get:JsonProperty("deletedAt") val deletedAt: java.time.OffsetDateTime? = null
     ) {
 
 }

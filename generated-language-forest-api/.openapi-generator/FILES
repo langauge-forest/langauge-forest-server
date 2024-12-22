@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 README.md
 build.gradle.kts
 pom.xml
@@ -23,6 +22,7 @@ src/main/kotlin/language_forest/generated/model/CreateUserInfoRequestAllOfStudyL
 src/main/kotlin/language_forest/generated/model/GenderEnum.kt
 src/main/kotlin/language_forest/generated/model/LanguageEnum.kt
 src/main/kotlin/language_forest/generated/model/LevelEnum.kt
+src/main/kotlin/language_forest/generated/model/Timestamped.kt
 src/main/kotlin/language_forest/generated/model/TokenDto.kt
 src/main/kotlin/language_forest/generated/model/UpdateUserStudyLanguageRequest.kt
 src/main/kotlin/language_forest/generated/model/UserInfoDto.kt
