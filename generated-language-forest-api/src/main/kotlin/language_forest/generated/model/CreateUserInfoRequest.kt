@@ -4,7 +4,7 @@ import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
-import language_forest.generated.model.BaseUserStudyLanguage
+import language_forest.generated.model.CreateUserInfoRequestAllOfStudyLanguagesInner
 import language_forest.generated.model.GenderEnum
 import language_forest.generated.model.LanguageEnum
 import jakarta.validation.constraints.DecimalMax
@@ -19,7 +19,7 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param id 유저 ID
+ * @param id 
  * @param createdAt 생성 일시
  * @param updatedAt 수정 일시
  * @param deletedAt 삭제 일시
@@ -30,9 +30,10 @@ import jakarta.validation.Valid
  * @param language 
  * @param studyLanguages 
  */
-data class UserInfoDto(
+data class CreateUserInfoRequest(
 
-    @get:JsonProperty("id", required = true) val id: java.util.UUID,
+    @field:Valid
+    @get:JsonProperty("id", required = true) val id: kotlin.Any?,
 
     @get:JsonProperty("createdAt") val createdAt: java.time.OffsetDateTime? = null,
 
@@ -54,7 +55,7 @@ data class UserInfoDto(
     @get:JsonProperty("language") val language: LanguageEnum? = null,
 
     @field:Valid
-    @get:JsonProperty("studyLanguages") val studyLanguages: kotlin.collections.List<BaseUserStudyLanguage>? = null
+    @get:JsonProperty("studyLanguages") val studyLanguages: kotlin.collections.List<CreateUserInfoRequestAllOfStudyLanguagesInner>? = null
     ) {
 
 }

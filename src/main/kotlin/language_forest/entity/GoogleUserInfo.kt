@@ -1,9 +1,7 @@
 package language_forest.entity
 
-import BaseTimestampEntity
 import jakarta.persistence.*
 import java.util.*
-
 
 @Entity
 @Table(
@@ -25,4 +23,5 @@ class GoogleUserInfo(
     val name: String?, // 사용자 이름 (옵션)
     val picture: String?, // 프로필 사진 URL
     val locale: String?, // 언어 및 지역 정보
+
 ) : BaseTimestampEntity()

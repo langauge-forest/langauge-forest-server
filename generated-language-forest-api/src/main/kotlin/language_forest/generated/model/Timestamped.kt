@@ -14,11 +14,17 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param yourText 
+ * @param createdAt 생성 일시
+ * @param updatedAt 수정 일시
+ * @param deletedAt 삭제 일시
  */
-data class YourTextDto(
+data class Timestamped(
 
-    @get:JsonProperty("yourText") val yourText: kotlin.String? = null
+    @get:JsonProperty("createdAt") val createdAt: java.time.OffsetDateTime? = null,
+
+    @get:JsonProperty("updatedAt") val updatedAt: java.time.OffsetDateTime? = null,
+
+    @get:JsonProperty("deletedAt") val deletedAt: java.time.OffsetDateTime? = null
     ) {
 
 }
