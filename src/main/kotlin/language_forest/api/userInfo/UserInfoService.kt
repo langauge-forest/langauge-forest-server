@@ -1,7 +1,9 @@
 package language_forest.api.userInfo
 
+import language_forest.api.user.UserService
 import language_forest.entity.User
 import language_forest.entity.UserStudyLanguage
+import language_forest.mapper.UserMapper
 import language_forest.repository.UserRepository
 import language_forest.repository.UserStudyLanguageRepository
 import org.springframework.stereotype.Service
@@ -11,7 +13,8 @@ import java.util.UUID
 @Service
 class UserInfoService(
     private val userRepository: UserRepository,
-    private val userStudyLanguageRepository: UserStudyLanguageRepository
+    private val userStudyLanguageRepository: UserStudyLanguageRepository,
+    private val userService: UserService
 ) {
 
     fun getUser(uid: UUID): User {
@@ -24,11 +27,8 @@ class UserInfoService(
         return userStudyLanguageRepository.findByUid(uid)
     }
 
-    @Transactional
     fun updateUser(newUser: User): User {
-        val oldUser = getUser(newUser.id)
-        oldUser.updateFrom(newUser)
-        return userRepository.save(oldUser)
+        return userService.updateUser(newUser)
     }
 
     @Transactional
