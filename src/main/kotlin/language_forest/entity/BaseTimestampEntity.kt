@@ -2,21 +2,24 @@ package language_forest.entity
 
 import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.Column
+import jakarta.persistence.EntityListeners
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
-import java.time.OffsetDateTime
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.LocalDateTime
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener::class) // 리스너를 추가합니다.
 abstract class BaseTimestampEntity {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    var createdAt: OffsetDateTime? = null
+    lateinit var createdAt: LocalDateTime;
 
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: OffsetDateTime? = null
+    lateinit var updatedAt: LocalDateTime
 
     @Column(name = "deleted_at")
-    var deletedAt: OffsetDateTime? = null
+    var deletedAt: LocalDateTime? = null
 }

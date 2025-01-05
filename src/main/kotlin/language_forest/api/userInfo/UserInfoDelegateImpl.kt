@@ -6,6 +6,7 @@ import language_forest.generated.model.UserInfoDto
 import language_forest.mapper.UserMapper
 import language_forest.mapper.UserStudyLanguageMapper
 import language_forest.util.getUid
+import language_forest.util.toUtcOffsetDateTime
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 
@@ -46,7 +47,7 @@ class UserInfoDelegateImpl(
     override fun createUserInfo(createUserInfoRequest: CreateUserInfoRequest): ResponseEntity<UserInfoDto> {
         val uid = getUid()
 
-        val newUser = userMapper.fromCreateUserInfoRequestToEntity(createUserInfoRequest, uid)
+        val newUser = userMapper.fromCreateUserInfoRequestToEntity(createUserInfoRequest)
         val updatedUser = userInfoService.updateUser(newUser)
 
 
@@ -68,9 +69,9 @@ class UserInfoDelegateImpl(
                     gender = updatedUser.gender,
                     language = updatedUser.language,
                     studyLanguages = updatedStudyLanguages,
-                    createdAt = updatedUser.createdAt,
-                    updatedAt = updatedUser.updatedAt,
-                    deletedAt = updatedUser.deletedAt
+                    createdAt = updatedUser.createdAt.toUtcOffsetDateTime(),
+                    updatedAt = updatedUser.updatedAt.toUtcOffsetDateTime(),
+                    deletedAt = updatedUser.deletedAt?.toUtcOffsetDateTime()
                 )
             )
         }
