@@ -128,11 +128,14 @@ openApiGenerate {
 	modelPackage.set("language_forest.generated.model")
 	invokerPackage.set("language_forest.generated.invoker")
 
+
 	configOptions.put("useKotlin", "true") // Kotlin 모델 활성화
 	configOptions.put("library", "spring-boot")
 	configOptions.set(mapOf("useSpringBoot3" to "true"))
 	configOptions.put("documentationProvider", "none") // Swagger 및 SpringDoc 제거
 	configOptions.put("delegatePattern", "true") // Delegate 패턴 활성화
+
+	typeMappings.set(mapOf("OffsetDateTime" to "LocalDateTime"))
 //	configOptions.put("interfaceOnly", "true") // 인터페이스만 생성, 컨트롤러 생성 X
 }
 
