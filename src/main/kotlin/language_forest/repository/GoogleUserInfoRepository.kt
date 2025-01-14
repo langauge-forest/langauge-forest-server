@@ -1,9 +1,9 @@
 package language_forest.repository
 
-import language_forest.entity.GoogleUserInfo
+import language_forest.entity.GoogleUserInfoEntity
 import org.springframework.data.jpa.repository.JpaRepository
-import java.util.UUID
+import java.util.*
 
-interface GoogleUserInfoRepository: JpaRepository<GoogleUserInfo, UUID> {
-    fun findByGoogleId(googleId: String): GoogleUserInfo?
+interface GoogleUserInfoRepository : JpaRepository<GoogleUserInfoEntity, UUID> {
+    fun findByGoogleId(googleId: String): GoogleUserInfoEntity?
 }

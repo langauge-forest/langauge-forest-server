@@ -15,21 +15,17 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 학습 수준 (A/B/C/D/E)
-* Values: A,B,C,D,E
+* push 알림 타입입니다.
+* Values: DAILY_STUDY
 */
-enum class LevelEnum(@get:JsonValue val value: kotlin.String) {
+enum class NotificationEnum(@get:JsonValue val value: kotlin.String) {
 
-    A("A"),
-    B("B"),
-    C("C"),
-    D("D"),
-    E("E");
+    DAILY_STUDY("DAILY_STUDY");
 
     companion object {
         @JvmStatic
         @JsonCreator
-        fun forValue(value: kotlin.String): LevelEnum {
+        fun forValue(value: kotlin.String): NotificationEnum {
                 return values().first{it -> it.value == value}
         }
     }

@@ -1,10 +1,8 @@
 package language_forest.api.auth
 
 import language_forest.api.auth.dto.GoogleOAuth
-import language_forest.entity.GoogleUserInfo
-import language_forest.entity.User
-import language_forest.exception.NotFoundException
-import language_forest.generated.model.LanguageEnum
+import language_forest.entity.GoogleUserInfoEntity
+import language_forest.entity.UserEntity
 import language_forest.repository.GoogleUserInfoRepository
 import language_forest.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -17,18 +15,18 @@ class AuthService(
     private val googleUserInfoRepository: GoogleUserInfoRepository
 ) {
     @Transactional
-    fun googleLogin(googleOAuth: GoogleOAuth): User {
+    fun googleLogin(googleOAuth: GoogleOAuth, language: String): UserEntity {
         val googleId = googleOAuth.sub
         val googleUserInfo = googleUserInfoRepository.findByGoogleId(googleId)
         return if (googleUserInfo == null) {
             // 유저 정보가 없을 경우 새로 생성
-            val newUser = User(email = googleOAuth.email, language = LanguageEnum.KO)
+            val newUser = UserEntity(language = language, nickname = googleOAuth.name ?: "")
             try {
                 val savedUser = userRepository.save(newUser) // 저장 후 반환된 엔티티에서 ID 확인
 
                 // Google 사용자 정보 저장
-                val googleInfo = GoogleUserInfo(
-                    uid = savedUser.id,
+                val googleInfo = GoogleUserInfoEntity(
+                    uid = savedUser.uid,
                     googleId = googleOAuth.sub,
                     email = googleOAuth.email,
                     name = googleOAuth.name,

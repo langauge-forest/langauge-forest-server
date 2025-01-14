@@ -14,9 +14,9 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param createdAt 생성 일시
- * @param updatedAt 수정 일시
- * @param deletedAt 삭제 일시
+ * @param createdAt 생성 일시 (DB 자동)
+ * @param updatedAt 수정 일시 (DB 자동)
+ * @param deletedAt 삭제 일시 (소프트 딜리트)
  */
 data class Timestamped(
 

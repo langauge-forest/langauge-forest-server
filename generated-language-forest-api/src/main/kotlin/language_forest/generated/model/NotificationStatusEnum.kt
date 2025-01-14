@@ -15,21 +15,20 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 학습 수준 (A/B/C/D/E)
-* Values: A,B,C,D,E
+* push 상태를 관리하는 enum입니다.
+* Values: SUCCESS,FAIL,SCHEDULE,CANCEL
 */
-enum class LevelEnum(@get:JsonValue val value: kotlin.String) {
+enum class NotificationStatusEnum(@get:JsonValue val value: kotlin.String) {
 
-    A("A"),
-    B("B"),
-    C("C"),
-    D("D"),
-    E("E");
+    SUCCESS("SUCCESS"),
+    FAIL("FAIL"),
+    SCHEDULE("SCHEDULE"),
+    CANCEL("CANCEL");
 
     companion object {
         @JvmStatic
         @JsonCreator
-        fun forValue(value: kotlin.String): LevelEnum {
+        fun forValue(value: kotlin.String): NotificationStatusEnum {
                 return values().first{it -> it.value == value}
         }
     }

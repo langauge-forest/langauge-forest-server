@@ -1,43 +1,58 @@
 package language_forest.api.user
 
-import language_forest.entity.User
+import language_forest.entity.UserEntity
+import language_forest.entity.UserInfoEntity
 import language_forest.generated.api.UserApiDelegate
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.BaseUserStudyLanguage
-import language_forest.generated.model.UpdateUserStudyLanguageRequest
-import language_forest.mapper.UserMapper
-import language_forest.mapper.UserStudyLanguageMapper
-import language_forest.util.getUid
+import language_forest.generated.model.CreateUserRequest
+import language_forest.generated.model.UserResponse
+import language_forest.util.toUtcOffsetDateTime
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class UserDelegateImpl(
     private val userService: UserService,
-    private val userStudyLanguageMapper: UserStudyLanguageMapper,
-    private val userMapper: UserMapper
 ) : UserApiDelegate {
-    override fun updateUser(baseUser: BaseUser): ResponseEntity<BaseUser> {
-        val updatedUser = userService.updateUser(userMapper.fromBaseUser(baseUser))
-        return ResponseEntity.ok(userMapper.fromEntityToBaseUser(updatedUser))
-    }
+    override fun createUser(createUserRequest: CreateUserRequest): ResponseEntity<UserResponse> {
 
-    override fun updateUserStudyLanguage(
-        userStudyLanguageId: UUID,
-        updateUserStudyLanguageRequest: UpdateUserStudyLanguageRequest
-    ): ResponseEntity<BaseUserStudyLanguage> {
-        val uid = getUid()
+        val user = UserEntity(
+            language = createUserRequest.language,
+            nickname = createUserRequest.nickname,
+        )
+        val userInfo = UserInfoEntity(
+            gender = createUserRequest.gender,
+            yearOfBirth = createUserRequest.yearOfBirth,
+            occupation = createUserRequest.occupation,
+            interest = createUserRequest.interest,
+            level = createUserRequest.level,
+            purpose = createUserRequest.purpose,
+            languageSecond = createUserRequest.languageSecond,
+            studyPlace = createUserRequest.studyPlace,
+            mbti = createUserRequest.mbti,
+        )
 
-        // Mapper를 통해 DTO → 엔터티 변환
-        val entity = userStudyLanguageMapper.updateRequestToEntity(updateUserStudyLanguageRequest)
+        userService.saveUser(user)
+        userService.saveUserInfo(userInfo)
 
-        // Service에 엔터티 전달
-        val updatedEntity = userService.updateUserStudyLanguage(uid, entity)
+        return ResponseEntity.ok(
+            UserResponse(
+                gender = userInfo.gender,
+                yearOfBirth = userInfo.yearOfBirth,
+                occupation = userInfo.occupation,
+                interest = userInfo.interest,
+                level = userInfo.level,
+                purpose = userInfo.purpose,
+                languageSecond = userInfo.languageSecond,
+                studyPlace = userInfo.studyPlace,
+                mbti = userInfo.mbti,
+                uid = userInfo.uid,
+                nickname = user.nickname,
+                language = user.language,
+                createdAt = user.createdAt.toUtcOffsetDateTime(),
+                updatedAt = user.updatedAt.toUtcOffsetDateTime(),
+                deletedAt = user.deletedAt?.toUtcOffsetDateTime(),
+            )
 
-        // Mapper를 통해 엔터티 → DTO 변환
-        val response = userStudyLanguageMapper.entityToBaseDto(updatedEntity)
-
-        return ResponseEntity.ok(response)
+        )
     }
 }

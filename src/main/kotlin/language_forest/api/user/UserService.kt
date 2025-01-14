@@ -1,11 +1,15 @@
 package language_forest.api.user
 
-import language_forest.entity.User
-import language_forest.entity.UserStudyLanguage
+import language_forest.entity.UserEntity
+import language_forest.entity.UserInfoEntity
+import language_forest.entity.UserNotificationEntity
+import language_forest.entity.UserPointEntity
 import language_forest.exception.ForbiddenException
 import language_forest.mapper.UserMapper
+import language_forest.repository.UserInfoRepository
+import language_forest.repository.UserNotificationRepository
+import language_forest.repository.UserPointRepository
 import language_forest.repository.UserRepository
-import language_forest.repository.UserStudyLanguageRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
@@ -13,36 +17,24 @@ import java.util.UUID
 @Service
 class UserService(
     private val userRepository: UserRepository,
-    private val userStudyLanguageRepository: UserStudyLanguageRepository,
-    private val userMapper: UserMapper
+    private val userInfoRepository: UserInfoRepository,
+    private val userPointRepository: UserPointRepository,
+    private val userNotificationRepository: UserNotificationRepository
 ) {
-    fun getUser(uid: UUID): User {
+    @Transactional(readOnly = true)
+    fun getUser(uid: UUID): UserEntity {
         return userRepository.findById(uid).orElseThrow {
             throw RuntimeException("User not found for uid: $uid")
         }
     }
 
     @Transactional
-    fun updateUser(newUser: User): User {
-        val existingUser = getUser(newUser.id)
-        existingUser.updateFrom(newUser)
-
-        return userRepository.save(existingUser)
+    fun saveUser(newUser: UserEntity): UserEntity {
+        return userRepository.save(newUser)
     }
 
     @Transactional
-    fun updateUserStudyLanguage(uid: UUID, studyLanguage: UserStudyLanguage): UserStudyLanguage {
-        val existingLanguage = userStudyLanguageRepository.findById(studyLanguage.id).orElseThrow {
-            throw RuntimeException("UserStudyLanguage not found for id: ${studyLanguage.id}")
-        }
-
-        if (existingLanguage.uid != uid) {
-            throw ForbiddenException("정보를 수정할 권한이 없습니다.")
-        }
-
-        // 기존 엔터티 업데이트
-        existingLanguage.updateFrom(studyLanguage)
-
-        return userStudyLanguageRepository.save(existingLanguage)
+    fun saveUserInfo(newUserInfo: UserInfoEntity): UserInfoEntity {
+        return userInfoRepository.save(newUserInfo)
     }
 }

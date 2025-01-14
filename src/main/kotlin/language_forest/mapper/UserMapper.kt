@@ -1,9 +1,8 @@
 package language_forest.mapper
 
 import org.mapstruct.*
-import language_forest.entity.User
+import language_forest.entity.UserEntity
 import language_forest.generated.model.BaseUser
-import language_forest.generated.model.CreateUserInfoRequest
 
 @Mapper(
     componentModel = "spring",
@@ -11,9 +10,8 @@ import language_forest.generated.model.CreateUserInfoRequest
 )
 interface UserMapper {
 
-    fun fromBaseUser(baseUser: BaseUser): User
+    fun fromBaseUser(baseUser: BaseUser): UserEntity
 
-    fun fromEntityToBaseUser(user: User): BaseUser
+    fun fromEntityToBaseUser(user: UserEntity): BaseUser
 
-    fun fromCreateUserInfoRequestToEntity(createUserInfoRequest: CreateUserInfoRequest): User
 }
