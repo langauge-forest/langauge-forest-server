@@ -115,5 +115,5 @@ CREATE TABLE user_study_info (
    deleted_at DATETIME NULL,
 
    CONSTRAINT pk_user_study_info PRIMARY KEY (uid),
-   INDEX idx_deleted_at (deleted_at),
+   INDEX idx_deleted_at (deleted_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
