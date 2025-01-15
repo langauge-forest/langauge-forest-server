@@ -2,6 +2,7 @@ package language_forest.entity
 
 import jakarta.persistence.*
 import language_forest.generated.model.LevelEnum
+import language_forest.generated.model.VoiceTypeEnum
 import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
@@ -11,9 +12,6 @@ import java.util.*
 class UserStudyInfoEntity(
     @Id
     @UuidGenerator
-    @Column(name = "id", columnDefinition = "BINARY(16)")
-    val id: UUID = UUID(0, 0),
-
     @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
     val uid: UUID,
 
@@ -23,10 +21,8 @@ class UserStudyInfoEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "voice_type", columnDefinition = "ENUM")
-    var voiceType:
+    var voiceType: VoiceTypeEnum,
 
     @Column(name = "sentence_amount")
     var sentenceAmount: Short,
-
-
 ) : BaseTimestampEntity()

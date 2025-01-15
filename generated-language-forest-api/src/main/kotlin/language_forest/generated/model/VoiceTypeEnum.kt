@@ -1,8 +1,9 @@
 package language_forest.generated.model
 
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import language_forest.generated.model.TokenDto
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -14,18 +15,21 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
- * 
- * @param user 
- * @param token 
- */
-data class GoogleLoginRequest(
+* ai 목소리에 맵핑되는 enum입니다.
+* Values: A,B,C
+*/
+enum class VoiceTypeEnum(@get:JsonValue val value: kotlin.String) {
 
-    @field:Valid
-    @get:JsonProperty("user") val user: TokenDto? = null,
+    A("A"),
+    B("B"),
+    C("C");
 
-    @field:Valid
-    @get:JsonProperty("token") val token: TokenDto? = null
-    ) {
-
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): VoiceTypeEnum {
+                return values().first{it -> it.value == value}
+        }
+    }
 }
 

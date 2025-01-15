@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import language_forest.generated.model.GenderEnum
-import language_forest.generated.model.LevelEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -22,7 +21,6 @@ import jakarta.validation.Valid
  * @param yearOfBirth 옵션 - 태어난 해
  * @param occupation 옵션 - 직업
  * @param interest 옵션 - 관심사
- * @param level 
  * @param purpose 옵션 - 학습 목적
  * @param languageSecond 옵션 - 2차 언어 (ex. JP)
  * @param studyPlace 옵션 - 학습 장소 (ex. ONLINE, OFFLINE)
@@ -38,9 +36,6 @@ data class BaseUserInfo(
     @get:JsonProperty("occupation") val occupation: kotlin.String? = null,
 
     @get:JsonProperty("interest") val interest: kotlin.String? = null,
-
-    @field:Valid
-    @get:JsonProperty("level") val level: LevelEnum? = null,
 
     @get:JsonProperty("purpose") val purpose: kotlin.String? = null,
 

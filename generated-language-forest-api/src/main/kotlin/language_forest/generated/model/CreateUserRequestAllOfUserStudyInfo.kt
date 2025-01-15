@@ -1,8 +1,11 @@
 package language_forest.generated.model
 
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import language_forest.generated.model.TokenDto
+import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.LevelEnum
+import language_forest.generated.model.VoiceTypeEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -15,16 +18,19 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param user 
- * @param token 
+ * @param level 
+ * @param voiceType 
+ * @param sentenceAmount 학습할 문장 수
  */
-data class GoogleLoginRequest(
+data class CreateUserRequestAllOfUserStudyInfo(
 
     @field:Valid
-    @get:JsonProperty("user") val user: TokenDto? = null,
+    @get:JsonProperty("level", required = true) val level: LevelEnum,
 
     @field:Valid
-    @get:JsonProperty("token") val token: TokenDto? = null
+    @get:JsonProperty("voiceType") val voiceType: VoiceTypeEnum? = null,
+
+    @get:JsonProperty("sentenceAmount") val sentenceAmount: kotlin.Int? = null
     ) {
 
 }

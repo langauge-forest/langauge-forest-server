@@ -14,7 +14,9 @@ src/main/kotlin/language_forest/generated/invoker/Application.kt
 src/main/kotlin/language_forest/generated/model/AuthRefreshRequest.kt
 src/main/kotlin/language_forest/generated/model/BaseUser.kt
 src/main/kotlin/language_forest/generated/model/BaseUserInfo.kt
+src/main/kotlin/language_forest/generated/model/BaseUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequest.kt
+src/main/kotlin/language_forest/generated/model/CreateUserRequestAllOfUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/GenderEnum.kt
 src/main/kotlin/language_forest/generated/model/GoogleLoginRequest.kt
 src/main/kotlin/language_forest/generated/model/LevelEnum.kt
@@ -24,4 +26,5 @@ src/main/kotlin/language_forest/generated/model/PointEnum.kt
 src/main/kotlin/language_forest/generated/model/Timestamped.kt
 src/main/kotlin/language_forest/generated/model/TokenDto.kt
 src/main/kotlin/language_forest/generated/model/UserResponse.kt
+src/main/kotlin/language_forest/generated/model/VoiceTypeEnum.kt
 src/main/resources/application.yaml

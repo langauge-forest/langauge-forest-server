@@ -26,7 +26,7 @@ interface UserApiDelegate {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"occupation\" : \"occupation\",  \"gender\" : \"MALE\",  \"level\" : \"A\",  \"purpose\" : \"purpose\",  \"language\" : \"language\",  \"languageSecond\" : \"languageSecond\",  \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"deletedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"studyPlace\" : \"studyPlace\",  \"interest\" : \"interest\",  \"nickname\" : \"nickname\",  \"mbti\" : \"mbti\",  \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"yearOfBirth\" : 0}")
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"userInfo\" : {    \"languageSecond\" : \"languageSecond\",    \"occupation\" : \"occupation\",    \"studyPlace\" : \"studyPlace\",    \"gender\" : \"MALE\",    \"interest\" : \"interest\",    \"purpose\" : \"purpose\",    \"mbti\" : \"mbti\",    \"yearOfBirth\" : 0  },  \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"deletedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"user\" : {    \"nickname\" : \"nickname\",    \"language\" : \"language\"  },  \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\"}")
                     break
                 }
             }
