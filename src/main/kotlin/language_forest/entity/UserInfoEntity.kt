@@ -27,10 +27,6 @@ class UserInfoEntity(
     @Column(name = "interest", length = 255)
     var interest: String? = null,
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "level", columnDefinition = "ENUM('A','B','C','D','E')")
-    var level: LevelEnum? = null,
-
     @Column(name = "purpose", length = 255)
     var purpose: String? = null,
 
