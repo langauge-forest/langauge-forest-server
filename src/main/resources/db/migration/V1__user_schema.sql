@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE user (
     uid BINARY(16) NOT NULL,
     nickname VARCHAR(50) NOT NULL,
     language VARCHAR(5) NOT NULL,
@@ -17,7 +17,6 @@ CREATE TABLE user_info (
    year_of_birth SMALLINT NULL,
    occupation VARCHAR(255) NULL,
    interest VARCHAR(255) NULL,
-   level ENUM('A', 'B', 'C', 'D', 'E') DEFAULT NULL,
    purpose VARCHAR(255) NULL,
    language_second VARCHAR(5) NULL,
    study_place VARCHAR(10) NULL,
@@ -31,7 +30,7 @@ CREATE TABLE user_info (
    INDEX idx_deleted_at (deleted_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS google_user_info (
+CREATE TABLE google_user_info (
     uid BINARY(16) NOT NULL,
     google_id VARCHAR(50) NOT NULL,
     email VARCHAR(100) NULL,
@@ -71,7 +70,8 @@ CREATE TABLE user_point_log (
     deleted_at DATETIME NULL,
 
     CONSTRAINT pk_user_point_log PRIMARY KEY (id),
-    INDEX idx_deleted_at (deleted_at)
+    INDEX idx_deleted_at (deleted_at),
+    INDEX idx_uid (uid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE user_notification_log (
@@ -86,7 +86,8 @@ CREATE TABLE user_notification_log (
    deleted_at DATETIME NULL,
 
    CONSTRAINT pk_user_notification_log PRIMARY KEY (id),
-   INDEX idx_deleted_at (deleted_at)
+   INDEX idx_deleted_at (deleted_at),
+   INDEX idx_uid (uid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE user_notification (
@@ -100,4 +101,19 @@ CREATE TABLE user_notification (
 
    CONSTRAINT pk_user_notification PRIMARY KEY (uid),
    INDEX idx_deleted_at (deleted_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE user_study_info (
+   uid BINARY(16) NOT NULL,
+
+   voice_type ENUM('A', 'B', 'C') NOT NULL,
+   level ENUM('A', 'B', 'C', 'D', 'E') NOT NULL,
+   sentence_amount SMALLINT NOT NULL,
+
+   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   deleted_at DATETIME NULL,
+
+   CONSTRAINT pk_user_study_info PRIMARY KEY (uid),
+   INDEX idx_deleted_at (deleted_at),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
