@@ -16,7 +16,7 @@ class UserNotificationLogEntity(
     val id: UUID = UUID(0, 0),
 
     @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
-    val uid: UUID,
+    val uid: UUID = UUID(0, 0),
 
     @Column(name = "title", length = 255, nullable = false)
     var title: String,

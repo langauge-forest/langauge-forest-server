@@ -13,7 +13,7 @@ class UserStudyInfoEntity(
     @Id
     @UuidGenerator
     @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
-    val uid: UUID,
+    val uid: UUID = UUID(0, 0),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "level", columnDefinition = "ENUM('A','B','C','D','E')")
@@ -23,6 +23,6 @@ class UserStudyInfoEntity(
     @Column(name = "voice_type", columnDefinition = "ENUM")
     var voiceType: VoiceTypeEnum,
 
-    @Column(name = "sentence_amount")
-    var sentenceAmount: Short,
+    @Column(name = "sentence_amount", columnDefinition = "SMALLINT")
+    var sentenceAmount: Int,
 ) : BaseTimestampEntity()

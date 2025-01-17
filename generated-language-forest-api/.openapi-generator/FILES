@@ -16,7 +16,9 @@ src/main/kotlin/language_forest/generated/model/BaseUser.kt
 src/main/kotlin/language_forest/generated/model/BaseUserInfo.kt
 src/main/kotlin/language_forest/generated/model/BaseUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequest.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestAllOfUserStudyInfo.kt
+src/main/kotlin/language_forest/generated/model/CreateUserRequestUser.kt
+src/main/kotlin/language_forest/generated/model/CreateUserRequestUserInfo.kt
+src/main/kotlin/language_forest/generated/model/CreateUserRequestUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/GenderEnum.kt
 src/main/kotlin/language_forest/generated/model/GoogleLoginRequest.kt
 src/main/kotlin/language_forest/generated/model/LevelEnum.kt

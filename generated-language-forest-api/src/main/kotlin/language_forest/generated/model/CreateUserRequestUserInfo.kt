@@ -27,9 +27,10 @@ import jakarta.validation.Valid
  * @param studyPlace 옵션 - 학습 장소 (ex. ONLINE, OFFLINE)
  * @param mbti 옵션 - MBTI
  */
-data class BaseUserInfo(
+data class CreateUserRequestUserInfo(
 
-    @get:JsonProperty("uid") val uid: java.util.UUID? = null,
+    @field:Valid
+    @get:JsonProperty("uid") val uid: kotlin.Any? = null,
 
     @field:Valid
     @get:JsonProperty("gender") val gender: GenderEnum? = null,

@@ -16,7 +16,7 @@ open class UserPointLogEntity(
     val id: UUID = UUID(0, 0),
 
     @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
-    val uid: UUID,
+    val uid: UUID = UUID(0, 0),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type", columnDefinition = "ENUM('DAILY_STUDY')", nullable = false)

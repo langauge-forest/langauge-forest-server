@@ -2,9 +2,9 @@ package language_forest.generated.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.BaseUserInfo
-import language_forest.generated.model.CreateUserRequestAllOfUserStudyInfo
+import language_forest.generated.model.CreateUserRequestUser
+import language_forest.generated.model.CreateUserRequestUserInfo
+import language_forest.generated.model.CreateUserRequestUserStudyInfo
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -24,13 +24,13 @@ import jakarta.validation.Valid
 data class CreateUserRequest(
 
     @field:Valid
-    @get:JsonProperty("user") val user: BaseUser? = null,
+    @get:JsonProperty("user", required = true) val user: CreateUserRequestUser,
 
     @field:Valid
-    @get:JsonProperty("userInfo") val userInfo: BaseUserInfo? = null,
+    @get:JsonProperty("userInfo", required = true) val userInfo: CreateUserRequestUserInfo,
 
     @field:Valid
-    @get:JsonProperty("userStudyInfo") val userStudyInfo: CreateUserRequestAllOfUserStudyInfo? = null
+    @get:JsonProperty("userStudyInfo", required = true) val userStudyInfo: CreateUserRequestUserStudyInfo
     ) {
 
 }

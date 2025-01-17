@@ -18,20 +18,21 @@ import jakarta.validation.Valid
 
 /**
  * 
+ * @param level 
  * @param id 
  * @param uid 
- * @param level 
  * @param voiceType 
  * @param sentenceAmount 학습할 문장 수
  */
-data class BaseUserStudyInfo(
-
-    @get:JsonProperty("id") val id: java.util.UUID? = null,
-
-    @get:JsonProperty("uid") val uid: java.util.UUID? = null,
+data class CreateUserRequestUserStudyInfo(
 
     @field:Valid
-    @get:JsonProperty("level") val level: LevelEnum? = null,
+    @get:JsonProperty("level", required = true) val level: LevelEnum,
+
+    @field:Valid
+    @get:JsonProperty("id") val id: kotlin.Any? = null,
+
+    @get:JsonProperty("uid") val uid: java.util.UUID? = null,
 
     @field:Valid
     @get:JsonProperty("voiceType") val voiceType: VoiceTypeEnum? = null,

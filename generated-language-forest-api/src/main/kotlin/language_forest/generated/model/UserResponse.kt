@@ -21,7 +21,6 @@ import jakarta.validation.Valid
  * @param deletedAt 삭제 일시 (소프트 딜리트)
  * @param user 
  * @param userInfo 
- * @param uid UserEntity.uid (서버에서 생성)
  */
 data class UserResponse(
 
@@ -35,9 +34,7 @@ data class UserResponse(
     @get:JsonProperty("user") val user: BaseUser? = null,
 
     @field:Valid
-    @get:JsonProperty("userInfo") val userInfo: BaseUserInfo? = null,
-
-    @get:JsonProperty("uid") val uid: java.util.UUID? = null
+    @get:JsonProperty("userInfo") val userInfo: BaseUserInfo? = null
     ) {
 
 }

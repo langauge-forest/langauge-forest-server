@@ -1,15 +1,9 @@
 package language_forest.api.user
 
-import language_forest.entity.UserEntity
-import language_forest.entity.UserInfoEntity
-import language_forest.entity.UserNotificationEntity
-import language_forest.entity.UserPointEntity
+import language_forest.entity.*
 import language_forest.exception.ForbiddenException
 import language_forest.mapper.UserMapper
-import language_forest.repository.UserInfoRepository
-import language_forest.repository.UserNotificationRepository
-import language_forest.repository.UserPointRepository
-import language_forest.repository.UserRepository
+import language_forest.repository.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
@@ -18,6 +12,7 @@ import java.util.UUID
 class UserService(
     private val userRepository: UserRepository,
     private val userInfoRepository: UserInfoRepository,
+    private val userStudyInfoRepository: UserStudyInfoRepository,
     private val userPointRepository: UserPointRepository,
     private val userNotificationRepository: UserNotificationRepository
 ) {
@@ -36,5 +31,17 @@ class UserService(
     @Transactional
     fun saveUserInfo(newUserInfo: UserInfoEntity): UserInfoEntity {
         return userInfoRepository.save(newUserInfo)
+    }
+
+    @Transactional
+    fun saveDefaultUserStudyInfo(newUserStudyInfo: UserStudyInfoEntity): UserStudyInfoEntity {
+        return userStudyInfoRepository.save(newUserStudyInfo.let {
+            UserStudyInfoEntity(
+                uid = it.uid,
+                level = it.level,
+                voiceType = it.voiceType,
+                sentenceAmount = it.sentenceAmount,
+            )
+        })
     }
 }
