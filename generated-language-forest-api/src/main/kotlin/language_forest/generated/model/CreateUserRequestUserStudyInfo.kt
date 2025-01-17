@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import language_forest.generated.model.LevelEnum
-import language_forest.generated.model.VoiceTypeEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -19,10 +18,10 @@ import jakarta.validation.Valid
 /**
  * 
  * @param level 
+ * @param voiceType 
+ * @param sentenceAmount 
  * @param id 
  * @param uid 
- * @param voiceType 
- * @param sentenceAmount 학습할 문장 수
  */
 data class CreateUserRequestUserStudyInfo(
 
@@ -30,14 +29,16 @@ data class CreateUserRequestUserStudyInfo(
     @get:JsonProperty("level", required = true) val level: LevelEnum,
 
     @field:Valid
-    @get:JsonProperty("id") val id: kotlin.Any? = null,
-
-    @get:JsonProperty("uid") val uid: java.util.UUID? = null,
+    @get:JsonProperty("voiceType", required = true) val voiceType: kotlin.Any?,
 
     @field:Valid
-    @get:JsonProperty("voiceType") val voiceType: VoiceTypeEnum? = null,
+    @get:JsonProperty("sentenceAmount", required = true) val sentenceAmount: kotlin.Any?,
 
-    @get:JsonProperty("sentenceAmount") val sentenceAmount: kotlin.Int? = null
+    @field:Valid
+    @get:JsonProperty("id") val id: kotlin.Any? = null,
+
+    @field:Valid
+    @get:JsonProperty("uid") val uid: kotlin.Any? = null
     ) {
 
 }

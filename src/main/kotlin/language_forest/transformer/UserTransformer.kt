@@ -1,30 +1,39 @@
 package language_forest.transformer
 
+import language_forest.entity.UserEntity
 import language_forest.entity.UserInfoEntity
+import language_forest.generated.model.BaseUser
 import language_forest.generated.model.BaseUserInfo
+import language_forest.generated.model.CreateUserRequestUser
 
-fun UserInfoEntity.toBaseUserInfo(): BaseUserInfo {
-    return BaseUserInfo(
-        gender = this.gender,
-        yearOfBirth = this.yearOfBirth,
-        occupation = this.occupation,
-        interest = this.interest,
-        purpose = this.purpose,
-        languageSecond = this.languageSecond,
-        studyPlace = this.studyPlace,
-        mbti = this.mbti
+//BaseUser
+fun UserEntity.toBaseUser(): BaseUser {
+    return BaseUser(
+        uid = this.uid,
+        nickname = this.nickname,
+        language = this.language,
     )
 }
 
-fun BaseUserInfo.toUserInfoEntity(): UserInfoEntity {
-    return UserInfoEntity(
-        gender = this.gender,
-        yearOfBirth = this.yearOfBirth,
-        occupation = this.occupation,
-        interest = this.interest,
-        purpose = this.purpose,
-        languageSecond = this.languageSecond,
-        studyPlace = this.studyPlace,
-        mbti = this.mbti
+fun BaseUser.toUserEntity(): UserEntity {
+    return UserEntity(
+        nickname = this.nickname,
+        language = this.language,
+    )
+}
+
+//CreateUserRequestUser
+fun UserEntity.toCreateUserRequestUser(): CreateUserRequestUser {
+    return CreateUserRequestUser(
+        uid = this.uid,
+        nickname = this.nickname,
+        language = this.language,
+    )
+}
+
+fun CreateUserRequestUser.toUserEntity(): UserEntity {
+    return UserEntity(
+        nickname = this.nickname,
+        language = this.language,
     )
 }
