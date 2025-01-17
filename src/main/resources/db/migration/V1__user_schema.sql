@@ -104,6 +104,7 @@ CREATE TABLE user_notification (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE user_study_info (
+   id BINARY(16) NOT NULL,
    uid BINARY(16) NOT NULL,
 
    voice_type ENUM('A', 'B', 'C') NOT NULL,
@@ -114,6 +115,7 @@ CREATE TABLE user_study_info (
    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    deleted_at DATETIME NULL,
 
-   CONSTRAINT pk_user_study_info PRIMARY KEY (uid),
+   CONSTRAINT pk_user_study_info PRIMARY KEY (id),
    INDEX idx_deleted_at (deleted_at),
+   INDEX idx_uid (uid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
