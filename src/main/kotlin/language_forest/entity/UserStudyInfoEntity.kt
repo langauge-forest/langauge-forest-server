@@ -13,11 +13,11 @@ class UserStudyInfoEntity(
     @Id
     @UuidGenerator
     @Column(name = "id")
-    val id: UUID = UUID(0, 0),
+    val id: UUID = UUID.randomUUID(),
 
     @UuidGenerator
     @Column(name = "uid")
-    val uid: UUID = UUID(0, 0),
+    val uid: UUID = UUID.randomUUID(),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "level")

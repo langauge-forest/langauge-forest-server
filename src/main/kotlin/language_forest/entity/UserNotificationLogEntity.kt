@@ -12,11 +12,11 @@ class UserNotificationLogEntity(
     @Id
     @UuidGenerator
     @Column(name = "id")
-    val id: UUID = UUID(0, 0),
+    val id: UUID = UUID.randomUUID(),
 
     @UuidGenerator
     @Column(name = "uid")
-    val uid: UUID = UUID(0, 0),
+    val uid: UUID = UUID.randomUUID(),
 
     @Column(name = "title")
     var title: String,

@@ -12,7 +12,7 @@ class GoogleUserInfoEntity(
     @Id
     @UuidGenerator
     @Column(name = "uid", columnDefinition = "BINARY(16)")
-    val uid: UUID = UUID(0, 0),
+    val uid: UUID = UUID.randomUUID(),
 
     @Column(name = "google_id", length = 50, nullable = false, unique = true)
     val googleId: String,

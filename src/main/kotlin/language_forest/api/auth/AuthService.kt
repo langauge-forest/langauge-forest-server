@@ -18,7 +18,7 @@ class AuthService(
     fun googleLogin(googleOAuth: GoogleOAuth, language: String): UserEntity {
         val googleId = googleOAuth.sub
         val googleUserInfo = googleUserInfoRepository.findByGoogleId(googleId)
-        return if (googleUserInfo == null) {
+        if (googleUserInfo == null) {
             // 유저 정보가 없을 경우 새로 생성
             val newUser = UserEntity(language = language, nickname = googleOAuth.name ?: "")
             try {
@@ -35,12 +35,12 @@ class AuthService(
                 )
                 googleUserInfoRepository.save(googleInfo)
 
-                newUser
+                return newUser
             }catch (e: Exception) {
                 throw Exception(e)
             }
         } else {
-            userRepository.findByIdOrNull(googleUserInfo.uid)
+            return userRepository.findByIdOrNull(googleUserInfo.uid)
                 ?: throw IllegalStateException("User not found for UID: ${googleUserInfo.uid}")
         }
     }

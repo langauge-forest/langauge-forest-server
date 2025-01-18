@@ -13,7 +13,7 @@ class UserNotificationEntity(
     @Id
     @UuidGenerator
     @Column(name = "uid")
-    val uid: UUID = UUID(0, 0),
+    val uid: UUID = UUID.randomUUID(),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "notification_preference")

@@ -12,7 +12,7 @@ class UserPointEntity(
     @Id
     @UuidGenerator
     @Column(name = "uid")
-    val uid: UUID = UUID(0, 0),
+    val uid: UUID = UUID.randomUUID(),
 
     @Column(name = "amount")
     var amount: Int = 0,
