@@ -2,6 +2,7 @@ package language_forest.generated.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
+import language_forest.generated.model.GoogleLoginRequestUser
 import language_forest.generated.model.TokenDto
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -21,10 +22,10 @@ import jakarta.validation.Valid
 data class GoogleLoginRequest(
 
     @field:Valid
-    @get:JsonProperty("user") val user: TokenDto? = null,
+    @get:JsonProperty("user", required = true) val user: GoogleLoginRequestUser,
 
     @field:Valid
-    @get:JsonProperty("token") val token: TokenDto? = null
+    @get:JsonProperty("token", required = true) val token: TokenDto
     ) {
 
 }

@@ -18,10 +18,10 @@ class AuthDelegateImpl(
     private val authService: AuthService
 ) : AuthApiDelegate {
     override fun googleLogin(googleLoginRequest: GoogleLoginRequest): ResponseEntity<TokenDto> {
-        val googleToken = googleLoginRequest.accessToken
+        val googleToken = googleLoginRequest.token.accessToken
 
         val googleOAuth = authGoogleService.getUserInfo(googleToken)
-        val user = authService.googleLogin(googleOAuth, googleLoginRequest.language)
+        val user = authService.googleLogin(googleOAuth, googleLoginRequest.user.language)
 
         val accessToken = jwtUtil.generateToken(user)
         val refreshToken = jwtUtil.generateRefreshToken(user)

@@ -14,17 +14,17 @@ import jakarta.validation.Valid
 
 /**
  * 
+ * @param uid 
  * @param nickname 유저 닉네임 (필수)
  * @param language 대표 언어 (필수)
- * @param uid 
  */
 data class BaseUser(
 
+    @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
+
     @get:JsonProperty("nickname", required = true) val nickname: kotlin.String,
 
-    @get:JsonProperty("language", required = true) val language: kotlin.String,
-
-    @get:JsonProperty("uid") val uid: java.util.UUID? = null
+    @get:JsonProperty("language", required = true) val language: kotlin.String
     ) {
 
 }

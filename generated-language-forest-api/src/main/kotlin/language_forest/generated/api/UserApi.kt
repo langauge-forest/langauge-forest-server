@@ -45,4 +45,14 @@ interface UserApi {
     fun createUser( @Valid @RequestBody createUserRequest: CreateUserRequest): ResponseEntity<UserResponse> {
         return getDelegate().createUser(createUserRequest)
     }
+
+
+    @RequestMapping(
+            method = [RequestMethod.GET],
+            value = ["/user/me"],
+            produces = ["application/json"]
+    )
+    fun getUserMe(): ResponseEntity<UserResponse> {
+        return getDelegate().getUserMe()
+    }
 }

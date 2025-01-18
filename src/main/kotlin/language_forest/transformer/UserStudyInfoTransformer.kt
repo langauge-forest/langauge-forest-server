@@ -10,6 +10,7 @@ import language_forest.generated.model.VoiceTypeEnum
 //BaseUserStudyInfo
 fun UserStudyInfoEntity.toBaseUserStudyInfo(): BaseUserStudyInfo {
     return BaseUserStudyInfo(
+        id = this.id,
         uid = this.uid,
         level = this.level,
         voiceType = this.voiceType,
@@ -28,6 +29,7 @@ fun BaseUserStudyInfo.toUserInfoEntity(): UserStudyInfoEntity {
 
 fun UserStudyInfoEntity.toCreateUserRequestUserStudyInfo(): CreateUserRequestUserStudyInfo {
     return CreateUserRequestUserStudyInfo(
+        id = this.id,
         uid = this.uid,
         level = this.level,
         voiceType = this.voiceType,

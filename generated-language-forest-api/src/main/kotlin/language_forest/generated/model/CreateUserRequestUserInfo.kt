@@ -30,7 +30,7 @@ import jakarta.validation.Valid
 data class CreateUserRequestUserInfo(
 
     @field:Valid
-    @get:JsonProperty("uid") val uid: kotlin.Any? = null,
+    @get:JsonProperty("uid", required = true) val uid: kotlin.Any?,
 
     @field:Valid
     @get:JsonProperty("gender") val gender: GenderEnum? = null,

@@ -13,6 +13,10 @@ class UserStudyInfoEntity(
     @Id
     @UuidGenerator
     @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
+    val id: UUID = UUID(0, 0),
+
+    @UuidGenerator
+    @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
     val uid: UUID = UUID(0, 0),
 
     @Enumerated(EnumType.STRING)

@@ -29,7 +29,7 @@ import jakarta.validation.Valid
  */
 data class BaseUserInfo(
 
-    @get:JsonProperty("uid") val uid: java.util.UUID? = null,
+    @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
 
     @field:Valid
     @get:JsonProperty("gender") val gender: GenderEnum? = null,
