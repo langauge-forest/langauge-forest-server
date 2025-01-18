@@ -8,6 +8,7 @@ import language_forest.transformer.*
 import language_forest.util.getUid
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
+import java.util.UUID
 
 @Component
 class UserDelegateImpl(
@@ -27,10 +28,11 @@ class UserDelegateImpl(
             )
         }
 
-        val userInfo = userInfoRequest.toUserInfoEntity()
+        val userInfo = userInfoRequest.toUserInfoEntity(uid)
 
         val userStudyInfo = userStudyInfoRequest.let {
             UserStudyInfoEntity(
+                id = UUID.randomUUID(),
                 uid = uid,
                 level = it.level,
                 voiceType = VoiceTypeEnum.A,
@@ -40,7 +42,7 @@ class UserDelegateImpl(
 
         val savedUser = userService.saveUser(user)
         val savedUserInfo = userService.saveUserInfo(userInfo)
-        val savedUserStudyInfo = userService.saveDefaultUserStudyInfo(userStudyInfo)
+        val savedUserStudyInfo = userService.saveUserStudyInfo(userStudyInfo)
 
         return ResponseEntity.ok(UserResponse(
             user = savedUser.toBaseUser(),

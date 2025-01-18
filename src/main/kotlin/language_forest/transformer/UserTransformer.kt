@@ -5,6 +5,7 @@ import language_forest.entity.UserInfoEntity
 import language_forest.generated.model.BaseUser
 import language_forest.generated.model.BaseUserInfo
 import language_forest.generated.model.CreateUserRequestUser
+import java.util.UUID
 
 //BaseUser
 fun UserEntity.toBaseUser(): BaseUser {
@@ -17,6 +18,7 @@ fun UserEntity.toBaseUser(): BaseUser {
 
 fun BaseUser.toUserEntity(): UserEntity {
     return UserEntity(
+        uid = this.uid,
         nickname = this.nickname,
         language = this.language,
     )
@@ -31,8 +33,9 @@ fun UserEntity.toCreateUserRequestUser(): CreateUserRequestUser {
     )
 }
 
-fun CreateUserRequestUser.toUserEntity(): UserEntity {
+fun CreateUserRequestUser.toUserEntity(uid: UUID): UserEntity {
     return UserEntity(
+        uid = uid,
         nickname = this.nickname,
         language = this.language,
     )

@@ -8,6 +8,7 @@ import language_forest.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.UUID
 
 @Service
 class AuthService(
@@ -20,7 +21,7 @@ class AuthService(
         val googleUserInfo = googleUserInfoRepository.findByGoogleId(googleId)
         if (googleUserInfo == null) {
             // 유저 정보가 없을 경우 새로 생성
-            val newUser = UserEntity(language = language, nickname = googleOAuth.name ?: "")
+            val newUser = UserEntity(uid = UUID.randomUUID(), language = language, nickname = googleOAuth.name ?: "")
             try {
                 val savedUser = userRepository.save(newUser) // 저장 후 반환된 엔티티에서 ID 확인
 

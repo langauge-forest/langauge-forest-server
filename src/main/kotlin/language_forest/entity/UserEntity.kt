@@ -7,14 +7,7 @@ import java.util.UUID
 @Entity
 @Table(name = "`user`")
 class UserEntity(
-    @Id
-    @UuidGenerator
-    @Column(name = "uid")
-    val uid: UUID = UUID.randomUUID(),
-
-    @Column(name = "nickname")
+    @Id val uid: UUID,
     var nickname: String = "",
-
-    @Column(name = "language")
     var language: String = "",
 ) : BaseTimestampEntity()

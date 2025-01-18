@@ -12,21 +12,10 @@ import java.util.*
 class UserStudyInfoEntity(
     @Id
     @UuidGenerator
-    @Column(name = "id")
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID,
 
-    @UuidGenerator
-    @Column(name = "uid")
-    val uid: UUID = UUID.randomUUID(),
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "level")
+    val uid: UUID,
     var level: LevelEnum,
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "voice_type")
     var voiceType: VoiceTypeEnum,
-
-    @Column(name = "sentence_amount")
     var sentenceAmount: Int,
 ) : BaseTimestampEntity()

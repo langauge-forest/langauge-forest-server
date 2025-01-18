@@ -6,6 +6,7 @@ import language_forest.generated.model.BaseUserInfo
 import language_forest.generated.model.BaseUserStudyInfo
 import language_forest.generated.model.CreateUserRequestUserStudyInfo
 import language_forest.generated.model.VoiceTypeEnum
+import java.util.UUID
 
 //BaseUserStudyInfo
 fun UserStudyInfoEntity.toBaseUserStudyInfo(): BaseUserStudyInfo {
@@ -20,6 +21,8 @@ fun UserStudyInfoEntity.toBaseUserStudyInfo(): BaseUserStudyInfo {
 
 fun BaseUserStudyInfo.toUserInfoEntity(): UserStudyInfoEntity {
     return UserStudyInfoEntity(
+        id = this.id,
+        uid = this.uid,
         level = this.level,
         voiceType = this.voiceType,
         sentenceAmount = this.sentenceAmount,
@@ -37,8 +40,10 @@ fun UserStudyInfoEntity.toCreateUserRequestUserStudyInfo(): CreateUserRequestUse
     )
 }
 
-fun CreateUserRequestUserStudyInfo.toUserInfoEntity(): UserStudyInfoEntity {
+fun CreateUserRequestUserStudyInfo.toUserInfoEntity(id: UUID, uid: UUID): UserStudyInfoEntity {
     return UserStudyInfoEntity(
+        id = id,
+        uid = uid,
         level = this.level,
         // 기본값을 넣어둡니다.
         voiceType = VoiceTypeEnum.A,

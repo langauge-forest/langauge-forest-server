@@ -1,6 +1,5 @@
 package language_forest.api.user
 
-import jakarta.persistence.EntityNotFoundException
 import language_forest.entity.*
 import language_forest.repository.*
 import org.springframework.data.repository.findByIdOrNull
@@ -45,14 +44,7 @@ class UserService(
     }
 
     @Transactional
-    fun saveDefaultUserStudyInfo(newUserStudyInfo: UserStudyInfoEntity): UserStudyInfoEntity {
-        return userStudyInfoRepository.save(newUserStudyInfo.let {
-            UserStudyInfoEntity(
-                uid = it.uid,
-                level = it.level,
-                voiceType = it.voiceType,
-                sentenceAmount = it.sentenceAmount,
-            )
-        })
+    fun saveUserStudyInfo(newUserStudyInfo: UserStudyInfoEntity): UserStudyInfoEntity {
+        return userStudyInfoRepository.save(newUserStudyInfo)
     }
 }

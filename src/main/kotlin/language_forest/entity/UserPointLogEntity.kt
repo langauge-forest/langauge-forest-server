@@ -12,18 +12,10 @@ import java.util.UUID
 class UserPointLogEntity(
     @Id
     @UuidGenerator
-    @Column(name = "id")
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID,
 
-    @UuidGenerator
-    @Column(name = "uid")
-    val uid: UUID = UUID.randomUUID(),
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "transaction_type")
+    val uid: UUID,
     val transactionType: PointEnum,
-
-    @Column(name = "amount")
     val amount: Int,
 
 ) : BaseTimestampEntity()
