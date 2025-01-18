@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import language_forest.generated.model.GenderEnum
+import language_forest.generated.model.LanguageEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -18,7 +19,7 @@ import jakarta.validation.Valid
 /**
  * 
  * @param uid 
- * @param gender 
+ * @param gender 옵션 - 성별
  * @param yearOfBirth 옵션 - 태어난 해
  * @param occupation 옵션 - 직업
  * @param interest 옵션 - 관심사
@@ -42,7 +43,8 @@ data class BaseUserInfo(
 
     @get:JsonProperty("purpose") val purpose: kotlin.String? = null,
 
-    @get:JsonProperty("languageSecond") val languageSecond: kotlin.String? = null,
+    @field:Valid
+    @get:JsonProperty("languageSecond") val languageSecond: LanguageEnum? = null,
 
     @get:JsonProperty("studyPlace") val studyPlace: kotlin.String? = null,
 

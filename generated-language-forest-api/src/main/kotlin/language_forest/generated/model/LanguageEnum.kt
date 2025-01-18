@@ -1,10 +1,9 @@
 package language_forest.generated.model
 
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.annotation.JsonValue
-import language_forest.generated.model.LanguageEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -16,22 +15,25 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
- * 
- * @param uid 
- * @param nickname 
- * @param language 대표 언어 (필수)
- */
-data class CreateUserRequestUser(
+* 일본어, 중국어, 프랑스어, 스페인어, 독일어, 영어, 한국어
+* Values: JA,ZH,FR,ES,DE,EN,KO
+*/
+enum class LanguageEnum(@get:JsonValue val value: kotlin.String) {
 
-    @field:Valid
-    @get:JsonProperty("uid", required = true) val uid: kotlin.Any?,
+    JA("JA"),
+    ZH("ZH"),
+    FR("FR"),
+    ES("ES"),
+    DE("DE"),
+    EN("EN"),
+    KO("KO");
 
-    @field:Valid
-    @get:JsonProperty("nickname", required = true) val nickname: kotlin.Any?,
-
-    @field:Valid
-    @get:JsonProperty("language", required = true) val language: LanguageEnum
-    ) {
-
+    companion object {
+        @JvmStatic
+        @JsonCreator
+        fun forValue(value: kotlin.String): LanguageEnum {
+                return values().first{it -> it.value == value}
+        }
+    }
 }
 

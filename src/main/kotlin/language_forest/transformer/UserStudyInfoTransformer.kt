@@ -2,10 +2,7 @@ package language_forest.transformer
 
 import language_forest.entity.UserInfoEntity
 import language_forest.entity.UserStudyInfoEntity
-import language_forest.generated.model.BaseUserInfo
-import language_forest.generated.model.BaseUserStudyInfo
-import language_forest.generated.model.CreateUserRequestUserStudyInfo
-import language_forest.generated.model.VoiceTypeEnum
+import language_forest.generated.model.*
 import java.util.UUID
 
 //BaseUserStudyInfo
@@ -28,6 +25,7 @@ fun BaseUserStudyInfo.toUserInfoEntity(): UserStudyInfoEntity {
         sentenceAmount = this.sentenceAmount,
     )
 }
+
 
 
 fun UserStudyInfoEntity.toCreateUserRequestUserStudyInfo(): CreateUserRequestUserStudyInfo {

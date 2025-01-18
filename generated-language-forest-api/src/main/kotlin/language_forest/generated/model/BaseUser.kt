@@ -1,7 +1,10 @@
 package language_forest.generated.model
 
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.LanguageEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -24,7 +27,8 @@ data class BaseUser(
 
     @get:JsonProperty("nickname", required = true) val nickname: kotlin.String,
 
-    @get:JsonProperty("language", required = true) val language: kotlin.String
+    @field:Valid
+    @get:JsonProperty("language", required = true) val language: LanguageEnum
     ) {
 
 }

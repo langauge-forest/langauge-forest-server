@@ -6,7 +6,6 @@ import language_forest.generated.model.VoiceTypeEnum
 import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
-
 @Entity
 @Table(name = "user_study_info")
 class UserStudyInfoEntity(

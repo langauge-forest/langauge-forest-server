@@ -20,8 +20,8 @@ import jakarta.validation.Valid
  * 
  * @param id 
  * @param uid 
- * @param level 
- * @param voiceType 
+ * @param level 학습 난이도
+ * @param voiceType ai 목소리 타입
  * @param sentenceAmount 학습할 문장 수
  */
 data class BaseUserStudyInfo(

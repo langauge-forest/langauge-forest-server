@@ -19,7 +19,7 @@ import jakarta.validation.Valid
  * 
  * @param id 
  * @param uid 
- * @param level 
+ * @param level 학습 난이도
  * @param voiceType 
  * @param sentenceAmount 
  */
