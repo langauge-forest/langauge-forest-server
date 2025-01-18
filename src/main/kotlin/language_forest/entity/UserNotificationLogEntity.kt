@@ -9,22 +9,22 @@ import java.util.UUID
 @Entity
 @Table(name = "user_notification_log")
 class UserNotificationLogEntity(
-
     @Id
     @UuidGenerator
-    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @Column(name = "id")
     val id: UUID = UUID(0, 0),
 
-    @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
+    @UuidGenerator
+    @Column(name = "uid")
     val uid: UUID = UUID(0, 0),
 
-    @Column(name = "title", length = 255, nullable = false)
+    @Column(name = "title")
     var title: String,
 
-    @Column(name = "description", length = 255, nullable = false)
+    @Column(name = "description")
     var description: String,
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "ENUM('SUCCESS','FAIL','SCHEDULE','CANCEL')", nullable = false)
+    @Column(name = "status")
     var status: NotificationStatusEnum,
 ) : BaseTimestampEntity()

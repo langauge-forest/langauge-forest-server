@@ -9,12 +9,12 @@ import java.util.UUID
 class UserEntity(
     @Id
     @UuidGenerator
-    @Column(name = "uid", columnDefinition = "BINARY(16)")
+    @Column(name = "uid")
     val uid: UUID = UUID(0, 0),
 
-    @Column(name = "nickname", length = 50, nullable = false)
+    @Column(name = "nickname")
     var nickname: String = "",
 
-    @Column(name = "language", length = 5, nullable = false)
+    @Column(name = "language")
     var language: String = "",
 ) : BaseTimestampEntity()

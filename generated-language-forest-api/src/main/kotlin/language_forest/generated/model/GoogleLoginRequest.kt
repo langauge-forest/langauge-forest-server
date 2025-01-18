@@ -2,7 +2,6 @@ package language_forest.generated.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
-import language_forest.generated.model.GoogleLoginRequestUser
 import language_forest.generated.model.TokenDto
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -16,13 +15,12 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param user 
+ * @param language 디바이스의 언어를 가져옵니다.
  * @param token 
  */
 data class GoogleLoginRequest(
 
-    @field:Valid
-    @get:JsonProperty("user", required = true) val user: GoogleLoginRequestUser,
+    @get:JsonProperty("language", required = true) val language: kotlin.String,
 
     @field:Valid
     @get:JsonProperty("token", required = true) val token: TokenDto

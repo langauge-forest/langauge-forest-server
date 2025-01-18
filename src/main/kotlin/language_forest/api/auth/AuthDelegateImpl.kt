@@ -21,7 +21,7 @@ class AuthDelegateImpl(
         val googleToken = googleLoginRequest.token.accessToken
 
         val googleOAuth = authGoogleService.getUserInfo(googleToken)
-        val user = authService.googleLogin(googleOAuth, googleLoginRequest.user.language)
+        val user = authService.googleLogin(googleOAuth, googleLoginRequest.language)
 
         val accessToken = jwtUtil.generateToken(user)
         val refreshToken = jwtUtil.generateRefreshToken(user)

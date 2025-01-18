@@ -11,31 +11,31 @@ import java.util.UUID
 class UserInfoEntity(
     @Id
     @UuidGenerator
-    @Column(name = "uid", columnDefinition = "BINARY(16)")
+    @Column(name = "uid")
     val uid: UUID = UUID(0, 0),
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender", columnDefinition = "ENUM('MALE','FEMALE','OTHER')")
+    @Column(name = "gender")
     var gender: GenderEnum? = null,
 
     @Column(name = "year_of_birth")
     var yearOfBirth: Int? = null,
 
-    @Column(name = "occupation", length = 255)
+    @Column(name = "occupation")
     var occupation: String? = null,
 
-    @Column(name = "interest", length = 255)
+    @Column(name = "interest")
     var interest: String? = null,
 
-    @Column(name = "purpose", length = 255)
+    @Column(name = "purpose")
     var purpose: String? = null,
 
-    @Column(name = "language_second", length = 5)
+    @Column(name = "language_second")
     var languageSecond: String? = null,
 
-    @Column(name = "study_place", length = 10)
+    @Column(name = "study_place")
     var studyPlace: String? = null,
 
-    @Column(name = "mbti", length = 4)
+    @Column(name = "mbti")
     var mbti: String? = null,
 ) : BaseTimestampEntity()

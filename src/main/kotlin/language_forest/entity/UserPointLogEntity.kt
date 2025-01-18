@@ -9,20 +9,21 @@ import java.util.UUID
 
 @Entity
 @Table(name = "user_point_log")
-open class UserPointLogEntity(
+class UserPointLogEntity(
     @Id
     @UuidGenerator
-    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @Column(name = "id")
     val id: UUID = UUID(0, 0),
 
-    @Column(name = "uid", columnDefinition = "BINARY(16)", nullable = false)
+    @UuidGenerator
+    @Column(name = "uid")
     val uid: UUID = UUID(0, 0),
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "transaction_type", columnDefinition = "ENUM('DAILY_STUDY')", nullable = false)
+    @Column(name = "transaction_type")
     val transactionType: PointEnum,
 
-    @Column(name = "amount", nullable = false)
-    var amount: Int,
+    @Column(name = "amount")
+    val amount: Int,
 
 ) : BaseTimestampEntity()

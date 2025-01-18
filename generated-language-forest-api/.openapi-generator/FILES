@@ -21,7 +21,6 @@ src/main/kotlin/language_forest/generated/model/CreateUserRequestUserInfo.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequestUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/GenderEnum.kt
 src/main/kotlin/language_forest/generated/model/GoogleLoginRequest.kt
-src/main/kotlin/language_forest/generated/model/GoogleLoginRequestUser.kt
 src/main/kotlin/language_forest/generated/model/LevelEnum.kt
 src/main/kotlin/language_forest/generated/model/NotificationEnum.kt
 src/main/kotlin/language_forest/generated/model/NotificationStatusEnum.kt

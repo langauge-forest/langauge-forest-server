@@ -13,11 +13,11 @@ import java.time.LocalDateTime
 abstract class BaseTimestampEntity {
 
     @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at")
     lateinit var createdAt: LocalDateTime;
 
     @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     lateinit var updatedAt: LocalDateTime
 
     @Column(name = "deleted_at")

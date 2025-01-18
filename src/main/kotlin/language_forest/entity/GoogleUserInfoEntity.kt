@@ -9,7 +9,6 @@ import java.util.UUID
 @Entity
 @Table(name = "google_user_info")
 class GoogleUserInfoEntity(
-
     @Id
     @UuidGenerator
     @Column(name = "uid", columnDefinition = "BINARY(16)")

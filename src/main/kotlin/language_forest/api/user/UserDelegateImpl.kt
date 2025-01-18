@@ -49,5 +49,21 @@ class UserDelegateImpl(
         ))
     }
 
+    override fun getUserMe(): ResponseEntity<UserResponse> {
+        val uid = getUid()
+
+        val user = userService.getUser(uid)
+        val userInfo = userService.getUserInfo(uid)
+        val userStudyInfo = userService.getUserStudyInfo(uid)
+
+
+        return ResponseEntity.ok(
+            UserResponse(
+                user = user?.toBaseUser(),
+                userInfo = userInfo?.toBaseUserInfo(),
+                userStudyInfo = userStudyInfo?.toBaseUserStudyInfo()
+            )
+        )
+    }
 
 }
