@@ -1,12 +1,7 @@
 package language_forest.generated.model
 
 import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.annotation.JsonValue
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.CreateUserRequestUserOneOf
-import language_forest.generated.model.LanguageEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -21,18 +16,14 @@ import jakarta.validation.Valid
  * 
  * @param uid 
  * @param nickname 
- * @param language 대표 언어 (필수)
  */
-data class CreateUserRequestUser(
+data class CreateUserRequestUserOneOf(
 
     @field:Valid
-    @get:JsonProperty("uid", required = true) val uid: kotlin.Any?,
+    @get:JsonProperty("uid") val uid: kotlin.Any? = null,
 
     @field:Valid
-    @get:JsonProperty("nickname", required = true) val nickname: kotlin.Any?,
-
-    @field:Valid
-    @get:JsonProperty("language", required = true) val language: LanguageEnum
+    @get:JsonProperty("nickname") val nickname: kotlin.Any? = null
     ) {
 
 }

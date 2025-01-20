@@ -23,8 +23,8 @@ class AuthDelegateImpl(
         val googleOAuth = authGoogleService.getUserInfo(googleToken)
         val user = authService.googleLogin(googleOAuth, googleLoginRequest.language)
 
-        val accessToken = jwtUtil.generateToken(user)
-        val refreshToken = jwtUtil.generateRefreshToken(user)
+        val accessToken = jwtUtil.generateToken(user.uid)
+        val refreshToken = jwtUtil.generateRefreshToken(user.uid)
 
         return ResponseEntity.ok(TokenDto(accessToken, refreshToken))
     }
@@ -39,8 +39,8 @@ class AuthDelegateImpl(
         val uid = jwtUtil.getAuthUid(refreshToken)
 
         // 새 AccessToken 발급
-        val newAccessToken = jwtUtil.generateToken(UserEntity(uid))
-        val newRefreshToken = jwtUtil.generateRefreshToken(UserEntity(uid))
+        val newAccessToken = jwtUtil.generateToken(uid)
+        val newRefreshToken = jwtUtil.generateRefreshToken(uid)
 
         return ResponseEntity.ok(TokenDto(newAccessToken,newRefreshToken))
     }

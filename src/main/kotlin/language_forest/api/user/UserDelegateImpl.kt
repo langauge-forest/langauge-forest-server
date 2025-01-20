@@ -20,13 +20,7 @@ class UserDelegateImpl(
         val userInfoRequest = createUserRequest.userInfo
         val userStudyInfoRequest = createUserRequest.userStudyInfo
 
-        val user  = userRequest.let {
-            UserEntity(
-                uid = uid,
-                language = it.language,
-                nickname = it.nickname,
-            )
-        }
+        val user  = userRequest.toUserEntity(uid)
 
         val userInfo = userInfoRequest.toUserInfoEntity(uid)
 

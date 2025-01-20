@@ -4,6 +4,8 @@ import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.BaseUserStudyInfo
+import language_forest.generated.model.CreateUserRequestUserStudyInfoOneOf
 import language_forest.generated.model.LevelEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin

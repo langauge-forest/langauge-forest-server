@@ -3,6 +3,7 @@ package language_forest.api.auth
 import language_forest.api.auth.dto.GoogleOAuth
 import language_forest.entity.GoogleUserInfoEntity
 import language_forest.entity.UserEntity
+import language_forest.generated.model.LanguageEnum
 import language_forest.repository.GoogleUserInfoRepository
 import language_forest.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -16,7 +17,7 @@ class AuthService(
     private val googleUserInfoRepository: GoogleUserInfoRepository
 ) {
     @Transactional
-    fun googleLogin(googleOAuth: GoogleOAuth, language: String): UserEntity {
+    fun googleLogin(googleOAuth: GoogleOAuth, language: LanguageEnum): UserEntity {
         val googleId = googleOAuth.sub
         val googleUserInfo = googleUserInfoRepository.findByGoogleId(googleId)
         if (googleUserInfo == null) {

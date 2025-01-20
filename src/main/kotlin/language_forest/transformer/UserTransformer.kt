@@ -36,7 +36,7 @@ fun UserEntity.toCreateUserRequestUser(): CreateUserRequestUser {
 fun CreateUserRequestUser.toUserEntity(uid: UUID): UserEntity {
     return UserEntity(
         uid = uid,
-        nickname = this.nickname,
+        nickname = "",
         language = this.language,
     )
 }

@@ -23,9 +23,9 @@ class JwtUtil {
     /**
      * JWT 토큰 생성
      */
-    fun generateToken(user: UserEntity): String {
+    fun generateToken(uid: UUID): String {
         val claims: Claims = Jwts.claims()
-            .add("uid", user.uid.toString())
+            .add("uid", uid.toString())
             .build()
 
         val now = Instant.now()
@@ -42,9 +42,9 @@ class JwtUtil {
     /**
      * JWT 토큰 생성 - RefreshToken 추가
      */
-    fun generateRefreshToken(user: UserEntity): String {
+    fun generateRefreshToken(uid: UUID): String {
         val claims: Claims = Jwts.claims()
-            .add("uid", user.uid.toString())
+            .add("uid", uid.toString())
             .build()
 
         val now = Instant.now()

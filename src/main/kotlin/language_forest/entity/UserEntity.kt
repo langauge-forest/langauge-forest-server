@@ -9,6 +9,6 @@ import java.util.UUID
 @Table(name = "`user`")
 class UserEntity(
     @Id val uid: UUID,
-    var nickname: LanguageEnum = LanguageEnum.EN,
-    var language: String = "",
+    var nickname: String = "",
+    var language: LanguageEnum,
 ) : BaseTimestampEntity()
