@@ -15,11 +15,13 @@ import jakarta.validation.Valid
 /**
  * 
  * @param uid 
+ * @param amount 
  */
-data class CreateUserRequestUserOneOf(
+data class BaseUserPoint(
 
-    @field:Valid
-    @get:JsonProperty("uid") val uid: kotlin.Any? = null
+    @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
+
+    @get:JsonProperty("amount", required = true) val amount: kotlin.Int
     ) {
 
 }

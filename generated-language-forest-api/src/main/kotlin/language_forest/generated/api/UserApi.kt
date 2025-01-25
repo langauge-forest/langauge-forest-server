@@ -39,10 +39,9 @@ interface UserApi {
     @RequestMapping(
             method = [RequestMethod.POST],
             value = ["/user"],
-            produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun createUser( @Valid @RequestBody createUserRequest: CreateUserRequest): ResponseEntity<UserResponse> {
+    fun createUser( @Valid @RequestBody createUserRequest: CreateUserRequest): ResponseEntity<Unit> {
         return getDelegate().createUser(createUserRequest)
     }
 

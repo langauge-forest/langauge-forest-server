@@ -14,11 +14,14 @@ src/main/kotlin/language_forest/generated/invoker/Application.kt
 src/main/kotlin/language_forest/generated/model/AuthRefreshRequest.kt
 src/main/kotlin/language_forest/generated/model/BaseUser.kt
 src/main/kotlin/language_forest/generated/model/BaseUserInfo.kt
+src/main/kotlin/language_forest/generated/model/BaseUserNotification.kt
+src/main/kotlin/language_forest/generated/model/BaseUserPoint.kt
 src/main/kotlin/language_forest/generated/model/BaseUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequest.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequestUser.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequestUserInfo.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUserInfoOneOf.kt
+src/main/kotlin/language_forest/generated/model/CreateUserRequestUserNotification.kt
+src/main/kotlin/language_forest/generated/model/CreateUserRequestUserNotificationOneOf.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequestUserOneOf.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequestUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequestUserStudyInfoOneOf.kt

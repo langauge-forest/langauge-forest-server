@@ -7,6 +7,7 @@ import language_forest.generated.api.AuthApiDelegate
 import language_forest.generated.model.AuthRefreshRequest
 import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
+import language_forest.transformer.toLanguageEnum
 import language_forest.util.JwtUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
@@ -21,7 +22,7 @@ class AuthDelegateImpl(
         val googleToken = googleLoginRequest.token.accessToken
 
         val googleOAuth = authGoogleService.getUserInfo(googleToken)
-        val user = authService.googleLogin(googleOAuth, googleLoginRequest.language)
+        val user = authService.googleLogin(googleOAuth, googleLoginRequest.language.toLanguageEnum())
 
         val accessToken = jwtUtil.generateToken(user.uid)
         val refreshToken = jwtUtil.generateRefreshToken(user.uid)

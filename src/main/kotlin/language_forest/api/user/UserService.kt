@@ -47,4 +47,9 @@ class UserService(
     fun saveUserStudyInfo(newUserStudyInfo: UserStudyInfoEntity): UserStudyInfoEntity {
         return userStudyInfoRepository.save(newUserStudyInfo)
     }
+
+    @Transactional
+    fun saveUserNotification(newUserNotificationEntity: UserNotificationEntity): UserNotificationEntity {
+        return userNotificationRepository.save(newUserNotificationEntity)
+    }
 }

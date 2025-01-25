@@ -38,7 +38,7 @@ class AuthService(
                 googleUserInfoRepository.save(googleInfo)
 
                 return newUser
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 throw Exception(e)
             }
         } else {

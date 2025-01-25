@@ -4,6 +4,7 @@ import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import language_forest.generated.model.CreateUserRequestUser
 import language_forest.generated.model.CreateUserRequestUserInfo
+import language_forest.generated.model.CreateUserRequestUserNotification
 import language_forest.generated.model.CreateUserRequestUserStudyInfo
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -20,6 +21,7 @@ import jakarta.validation.Valid
  * @param user 
  * @param userInfo 
  * @param userStudyInfo 
+ * @param userNotification 
  */
 data class CreateUserRequest(
 
@@ -30,7 +32,10 @@ data class CreateUserRequest(
     @get:JsonProperty("userInfo", required = true) val userInfo: CreateUserRequestUserInfo,
 
     @field:Valid
-    @get:JsonProperty("userStudyInfo", required = true) val userStudyInfo: CreateUserRequestUserStudyInfo
+    @get:JsonProperty("userStudyInfo", required = true) val userStudyInfo: CreateUserRequestUserStudyInfo,
+
+    @field:Valid
+    @get:JsonProperty("userNotification", required = true) val userNotification: CreateUserRequestUserNotification
     ) {
 
 }

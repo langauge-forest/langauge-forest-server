@@ -6,6 +6,8 @@ import language_forest.generated.api.UserApiDelegate
 import language_forest.generated.model.*
 import language_forest.transformer.*
 import language_forest.util.getUid
+import org.aspectj.weaver.ast.Not
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -14,17 +16,11 @@ import java.util.UUID
 class UserDelegateImpl(
     private val userService: UserService,
 ) : UserApiDelegate {
-    override fun createUser(createUserRequest: CreateUserRequest): ResponseEntity<UserResponse> {
+    override fun createUser(createUserRequest: CreateUserRequest): ResponseEntity<Unit> {
         val uid = getUid()
-        val userRequest = createUserRequest.user
-        val userInfoRequest = createUserRequest.userInfo
-        val userStudyInfoRequest = createUserRequest.userStudyInfo
-
-        val user  = userRequest.toUserEntity(uid)
-
-        val userInfo = userInfoRequest.toUserInfoEntity(uid)
-
-        val userStudyInfo = userStudyInfoRequest.let {
+        val userRequest = createUserRequest.user.toUserEntity(uid)
+        val userInfoRequest = createUserRequest.userInfo.toUserInfoEntity(uid)
+        val userStudyInfoRequest = createUserRequest.userStudyInfo.let {
             UserStudyInfoEntity(
                 id = UUID.randomUUID(),
                 uid = uid,
@@ -33,16 +29,19 @@ class UserDelegateImpl(
                 sentenceAmount = 3,
             )
         }
+        val userNotificationRequest = createUserRequest
+            .userNotification
+            .toUserNotificationEntity(
+                uid = uid,
+                notificationPreference = NotificationEnum.DAILY_STUDY
+            )
 
-        val savedUser = userService.saveUser(user)
-        val savedUserInfo = userService.saveUserInfo(userInfo)
-        val savedUserStudyInfo = userService.saveUserStudyInfo(userStudyInfo)
+        userService.saveUser(userRequest)
+        userService.saveUserInfo(userInfoRequest)
+        userService.saveUserStudyInfo(userStudyInfoRequest)
+        userService.saveUserNotification(userNotificationRequest)
 
-        return ResponseEntity.ok(UserResponse(
-            user = savedUser.toBaseUser(),
-            userInfo = savedUserInfo.toBaseUserInfo(),
-            userStudyInfo = savedUserStudyInfo.toBaseUserStudyInfo()
-        ))
+        return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
     override fun getUserMe(): ResponseEntity<UserResponse> {

@@ -13,7 +13,7 @@ CREATE TABLE user (
 
 CREATE TABLE user_info (
    uid BINARY(16) NOT NULL,
-   gender ENUM('MALE', 'FEMALE', 'OTHER') DEFAULT NULL,
+   gender VARCHAR(10) DEFAULT NULL,
    year_of_birth SMALLINT NULL,
    occupation VARCHAR(255) NULL,
    interest VARCHAR(255) NULL,
@@ -62,7 +62,7 @@ CREATE TABLE user_point (
 CREATE TABLE user_point_log (
     id BINARY(16) NOT NULL,
     uid BINARY(16) NOT NULL,
-    transaction_type ENUM('DAILY_STUDY') NOT NULL,
+    transaction_type VARCHAR(20) NOT NULL,
     amount INT NOT NULL,
 
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -79,7 +79,7 @@ CREATE TABLE user_notification_log (
    uid BINARY(16) NOT NULL,
    title VARCHAR(255) NOT NULL,
    description VARCHAR(255) NOT NULL,
-   status ENUM('SUCCESS', 'FAIL', 'SCHEDULE', 'CANCEL') NOT NULL,
+   status VARCHAR(10) NOT NULL,
 
    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -107,8 +107,8 @@ CREATE TABLE user_study_info (
    id BINARY(16) NOT NULL,
    uid BINARY(16) NOT NULL,
 
-   voice_type ENUM('A', 'B', 'C') NOT NULL,
-   level ENUM('A', 'B', 'C', 'D', 'E') NOT NULL,
+   voice_type VARCHAR(5) NOT NULL,
+   level VARCHAR(5) NOT NULL,
    sentence_amount SMALLINT NOT NULL,
 
    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

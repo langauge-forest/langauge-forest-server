@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import language_forest.generated.model.BaseUserInfo
-import language_forest.generated.model.CreateUserRequestUserInfoOneOf
+import language_forest.generated.model.CreateUserRequestUserOneOf
 import language_forest.generated.model.GenderEnum
 import language_forest.generated.model.LanguageEnum
 import jakarta.validation.constraints.DecimalMax
