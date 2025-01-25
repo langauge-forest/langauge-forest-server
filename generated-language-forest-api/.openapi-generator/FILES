@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 build.gradle.kts
 pom.xml
@@ -15,16 +16,9 @@ src/main/kotlin/language_forest/generated/model/AuthRefreshRequest.kt
 src/main/kotlin/language_forest/generated/model/BaseUser.kt
 src/main/kotlin/language_forest/generated/model/BaseUserInfo.kt
 src/main/kotlin/language_forest/generated/model/BaseUserNotification.kt
-src/main/kotlin/language_forest/generated/model/BaseUserPoint.kt
 src/main/kotlin/language_forest/generated/model/BaseUserStudyInfo.kt
+src/main/kotlin/language_forest/generated/model/CreateUserNotification.kt
 src/main/kotlin/language_forest/generated/model/CreateUserRequest.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUser.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUserInfo.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUserNotification.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUserNotificationOneOf.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUserOneOf.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUserStudyInfo.kt
-src/main/kotlin/language_forest/generated/model/CreateUserRequestUserStudyInfoOneOf.kt
 src/main/kotlin/language_forest/generated/model/GenderEnum.kt
 src/main/kotlin/language_forest/generated/model/GoogleLoginRequest.kt
 src/main/kotlin/language_forest/generated/model/LanguageEnum.kt
@@ -34,6 +28,9 @@ src/main/kotlin/language_forest/generated/model/NotificationStatusEnum.kt
 src/main/kotlin/language_forest/generated/model/PointEnum.kt
 src/main/kotlin/language_forest/generated/model/Timestamped.kt
 src/main/kotlin/language_forest/generated/model/TokenDto.kt
+src/main/kotlin/language_forest/generated/model/UpdateUser.kt
+src/main/kotlin/language_forest/generated/model/UpdateUserInfo.kt
+src/main/kotlin/language_forest/generated/model/UpdateUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/UserResponse.kt
 src/main/kotlin/language_forest/generated/model/VoiceTypeEnum.kt
 src/main/resources/application.yaml

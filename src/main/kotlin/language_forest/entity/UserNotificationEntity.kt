@@ -11,6 +11,9 @@ import java.util.UUID
 @Table(name = "user_notification")
 class UserNotificationEntity(
     @Id val uid: UUID,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "notification_preference")
     val notificationPreference: NotificationEnum,
     var cron: String?,
 ) : BaseTimestampEntity()

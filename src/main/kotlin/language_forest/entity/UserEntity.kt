@@ -10,5 +10,8 @@ import java.util.UUID
 class UserEntity(
     @Id val uid: UUID,
     var nickname: String = "",
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "language")
     var language: LanguageEnum,
 ) : BaseTimestampEntity()

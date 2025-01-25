@@ -2,10 +2,10 @@ package language_forest.generated.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
-import language_forest.generated.model.CreateUserRequestUser
-import language_forest.generated.model.CreateUserRequestUserInfo
-import language_forest.generated.model.CreateUserRequestUserNotification
-import language_forest.generated.model.CreateUserRequestUserStudyInfo
+import language_forest.generated.model.CreateUserNotification
+import language_forest.generated.model.UpdateUser
+import language_forest.generated.model.UpdateUserInfo
+import language_forest.generated.model.UpdateUserStudyInfo
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -26,16 +26,16 @@ import jakarta.validation.Valid
 data class CreateUserRequest(
 
     @field:Valid
-    @get:JsonProperty("user", required = true) val user: CreateUserRequestUser,
+    @get:JsonProperty("user", required = true) val user: UpdateUser,
 
     @field:Valid
-    @get:JsonProperty("userInfo", required = true) val userInfo: CreateUserRequestUserInfo,
+    @get:JsonProperty("userInfo", required = true) val userInfo: UpdateUserInfo,
 
     @field:Valid
-    @get:JsonProperty("userStudyInfo", required = true) val userStudyInfo: CreateUserRequestUserStudyInfo,
+    @get:JsonProperty("userStudyInfo", required = true) val userStudyInfo: UpdateUserStudyInfo,
 
     @field:Valid
-    @get:JsonProperty("userNotification", required = true) val userNotification: CreateUserRequestUserNotification
+    @get:JsonProperty("userNotification", required = true) val userNotification: CreateUserNotification
     ) {
 
 }

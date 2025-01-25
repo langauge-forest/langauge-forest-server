@@ -9,15 +9,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener::class) // 리스너를 추가합니다.
+@EntityListeners(AuditingEntityListener::class)
 abstract class BaseTimestampEntity {
 
     @CreatedDate
-    @Column(name = "created_at")
-    lateinit var createdAt: LocalDateTime;
+    @Column(name = "created_at", updatable = false, insertable = false) // DB 기본값 사용
+    lateinit var createdAt: LocalDateTime
 
     @LastModifiedDate
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", insertable = false) // DB 기본값 사용
     lateinit var updatedAt: LocalDateTime
 
     @Column(name = "deleted_at")

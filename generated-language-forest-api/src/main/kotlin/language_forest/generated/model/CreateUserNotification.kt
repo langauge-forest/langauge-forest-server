@@ -1,7 +1,10 @@
 package language_forest.generated.model
 
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.NotificationEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -14,16 +17,15 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param uid 
  * @param notificationPreference 
+ * @param cron 
  */
-data class CreateUserRequestUserNotificationOneOf(
+data class CreateUserNotification(
 
     @field:Valid
-    @get:JsonProperty("uid") val uid: kotlin.Any? = null,
+    @get:JsonProperty("notificationPreference", required = true) val notificationPreference: NotificationEnum,
 
-    @field:Valid
-    @get:JsonProperty("notificationPreference") val notificationPreference: kotlin.Any? = null
+    @get:JsonProperty("cron", required = true) val cron: kotlin.String
     ) {
 
 }

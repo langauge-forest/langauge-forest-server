@@ -10,11 +10,12 @@ import java.util.UUID
 @Entity
 @Table(name = "user_point_log")
 class UserPointLogEntity(
-    @Id
-    @UuidGenerator
-    val id: UUID,
+    @Id val id: UUID,
 
     val uid: UUID,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transaction_type")
     val transactionType: PointEnum,
     val amount: Int,
 

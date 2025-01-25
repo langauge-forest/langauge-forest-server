@@ -2,9 +2,7 @@ package language_forest.transformer
 
 import language_forest.entity.UserEntity
 import language_forest.entity.UserInfoEntity
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.BaseUserInfo
-import language_forest.generated.model.CreateUserRequestUser
+import language_forest.generated.model.*
 import java.util.UUID
 
 //BaseUser
@@ -25,18 +23,17 @@ fun BaseUser.toUserEntity(): UserEntity {
 }
 
 //CreateUserRequestUser
-fun UserEntity.toCreateUserRequestUser(): CreateUserRequestUser {
-    return CreateUserRequestUser(
-        uid = this.uid,
+fun UserEntity.toCreateUserRequestUser(): UpdateUser {
+    return UpdateUser(
         nickname = this.nickname,
         language = this.language,
     )
 }
 
-fun CreateUserRequestUser.toUserEntity(uid: UUID): UserEntity {
+fun UpdateUser.toUserEntity(uid: UUID): UserEntity {
     return UserEntity(
         uid = uid,
-        nickname = "",
-        language = this.language,
+        nickname = this.nickname ?: "",
+        language = this.language ?: LanguageEnum.EN,
     )
 }

@@ -13,5 +13,9 @@ class UserNotificationLogEntity(
     val uid: UUID,
     var title: String,
     var description: String,
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     var status: NotificationStatusEnum,
 ) : BaseTimestampEntity()

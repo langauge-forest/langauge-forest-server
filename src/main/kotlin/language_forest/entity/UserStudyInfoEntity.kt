@@ -9,12 +9,16 @@ import java.util.*
 @Entity
 @Table(name = "user_study_info")
 class UserStudyInfoEntity(
-    @Id
-    @UuidGenerator
-    val id: UUID,
+    @Id val id: UUID,
 
     val uid: UUID,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "level")
     var level: LevelEnum,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "voice_type")
     var voiceType: VoiceTypeEnum,
     var sentenceAmount: Int,
 ) : BaseTimestampEntity()

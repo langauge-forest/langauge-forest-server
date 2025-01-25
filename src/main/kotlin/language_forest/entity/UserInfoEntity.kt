@@ -12,11 +12,16 @@ import java.util.UUID
 class UserInfoEntity(
     @Id val uid: UUID,
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
     var gender: GenderEnum?,
     var yearOfBirth: Int?,
     var occupation: String?,
     var interest: String?,
     var purpose: String?,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "language_second")
     var languageSecond: LanguageEnum?,
     var studyPlace: String?,
     var mbti: String?,

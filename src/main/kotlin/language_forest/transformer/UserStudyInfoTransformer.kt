@@ -28,22 +28,19 @@ fun BaseUserStudyInfo.toUserInfoEntity(): UserStudyInfoEntity {
 
 
 
-fun UserStudyInfoEntity.toCreateUserRequestUserStudyInfo(): CreateUserRequestUserStudyInfo {
-    return CreateUserRequestUserStudyInfo(
-        id = this.id,
-        uid = this.uid,
+fun UserStudyInfoEntity.toCreateUserRequestUserStudyInfo(): UpdateUserStudyInfo {
+    return UpdateUserStudyInfo(
         level = this.level,
         voiceType = this.voiceType,
         sentenceAmount = this.sentenceAmount,
     )
 }
 
-fun CreateUserRequestUserStudyInfo.toUserInfoEntity(id: UUID, uid: UUID): UserStudyInfoEntity {
+fun UpdateUserStudyInfo.toUserStudyInfoEntity(id: UUID, uid: UUID): UserStudyInfoEntity {
     return UserStudyInfoEntity(
         id = id,
         uid = uid,
-        level = this.level,
-        // 기본값을 넣어둡니다.
+        level = this.level ?: LevelEnum.A,
         voiceType = VoiceTypeEnum.A,
         sentenceAmount = 3,
     )

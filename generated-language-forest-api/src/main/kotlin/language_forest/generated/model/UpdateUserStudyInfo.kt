@@ -1,9 +1,11 @@
 package language_forest.generated.model
 
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import language_forest.generated.model.BaseUserNotification
-import language_forest.generated.model.CreateUserRequestUserNotificationOneOf
+import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.LevelEnum
+import language_forest.generated.model.VoiceTypeEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -16,19 +18,19 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param uid 
- * @param notificationPreference 
- * @param cron 
+ * @param level 학습 난이도
+ * @param voiceType ai 목소리 타입
+ * @param sentenceAmount 학습할 문장 수
  */
-data class CreateUserRequestUserNotification(
+data class UpdateUserStudyInfo(
 
     @field:Valid
-    @get:JsonProperty("uid", required = true) val uid: kotlin.Any?,
+    @get:JsonProperty("level") val level: LevelEnum? = null,
 
     @field:Valid
-    @get:JsonProperty("notificationPreference", required = true) val notificationPreference: kotlin.Any?,
+    @get:JsonProperty("voiceType") val voiceType: VoiceTypeEnum? = null,
 
-    @get:JsonProperty("cron", required = true) val cron: kotlin.String
+    @get:JsonProperty("sentenceAmount") val sentenceAmount: kotlin.Int? = null
     ) {
 
 }

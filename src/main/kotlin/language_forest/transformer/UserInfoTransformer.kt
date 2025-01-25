@@ -2,8 +2,7 @@ package language_forest.transformer
 
 import language_forest.entity.UserInfoEntity
 import language_forest.generated.model.BaseUserInfo
-import language_forest.generated.model.CreateUserRequestUser
-import language_forest.generated.model.CreateUserRequestUserInfo
+import language_forest.generated.model.UpdateUserInfo
 import java.util.*
 
 // BaseUserInfo
@@ -36,9 +35,8 @@ fun BaseUserInfo.toUserInfoEntity(): UserInfoEntity {
 
 
 //CreateUserRequestUserInfo
-fun UserInfoEntity.toCreateUserRequestUserInfo(): CreateUserRequestUserInfo {
-     return CreateUserRequestUserInfo(
-        uid = this.uid,
+fun UserInfoEntity.toCreateUserRequestUserInfo(): UpdateUserInfo {
+     return UpdateUserInfo(
         gender = this.gender,
         yearOfBirth = this.yearOfBirth,
         occupation = this.occupation,
@@ -49,7 +47,7 @@ fun UserInfoEntity.toCreateUserRequestUserInfo(): CreateUserRequestUserInfo {
         mbti = this.mbti
     )
 }
-fun CreateUserRequestUserInfo.toUserInfoEntity(uid: UUID): UserInfoEntity {
+fun UpdateUserInfo.toUserInfoEntity(uid: UUID): UserInfoEntity {
     return UserInfoEntity(
         uid = uid,
         gender = this.gender,

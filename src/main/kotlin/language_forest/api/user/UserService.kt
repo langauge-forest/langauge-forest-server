@@ -17,20 +17,17 @@ class UserService(
 ) {
     @Transactional(readOnly = true)
     fun getUser(uid: UUID): UserEntity? {
-        val user = userRepository.findByIdOrNull(uid)
-        return user
+        return userRepository.findByIdOrNull(uid)
     }
 
     @Transactional(readOnly = true)
     fun getUserInfo(uid: UUID): UserInfoEntity? {
-        val user = userInfoRepository.findByIdOrNull(uid)
-        return user
+        return userInfoRepository.findByIdOrNull(uid)
     }
 
     @Transactional(readOnly = true)
-    fun getUserStudyInfo(uid: UUID): UserStudyInfoEntity? {
-        val user = userStudyInfoRepository.findByIdOrNull(uid)
-        return user
+    fun getUserStudyInfoByUid(uid: UUID): UserStudyInfoEntity? {
+        return userStudyInfoRepository.findByUid(uid)
     }
 
     @Transactional
