@@ -14,20 +14,32 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig(
     private val jwtAuthenticationFilter: JwtAuthenticationFilter
 ) {
-
+    // /auth/** 경로 전용 필터 체인 (필터 제외)
     @Bean
-    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    fun authFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
+            .securityMatcher("/auth/**") // /auth/** 경로만 처리
             .authorizeHttpRequests { authz ->
-                authz
-                    .requestMatchers("/", "/auth/**").permitAll()
-                    .anyRequest().authenticated()
+                authz.anyRequest().permitAll() // 인증 불필요
             }
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .csrf { csrf -> csrf.disable() }
+            .build()
+    }
+
+    // 나머지 요청 전용 필터 체인
+    @Bean
+    fun apiFilterChain(http: HttpSecurity): SecurityFilterChain {
+        return http
+            .securityMatcher("/**") // 모든 경로
+            .authorizeHttpRequests { authz ->
+                authz.anyRequest().authenticated() // 인증 필요
+            }
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java) // 필터 추가
             .sessionManagement { sessionManagement ->
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .csrf { csrf -> csrf.disable() }
             .build()
     }
+
 }

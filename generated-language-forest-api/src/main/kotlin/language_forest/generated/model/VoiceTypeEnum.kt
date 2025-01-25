@@ -15,23 +15,19 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 일본어, 중국어, 프랑스어, 스페인어, 독일어, 영어, 한국어
-* Values: JA,ZH,FR,ES,DE,EN,KO
+* ai 목소리에 맵핑되는 enum입니다.
+* Values: A,B,C
 */
-enum class LanguageEnum(@get:JsonValue val value: kotlin.String) {
+enum class VoiceTypeEnum(@get:JsonValue val value: kotlin.String) {
 
-    JA("JA"),
-    ZH("ZH"),
-    FR("FR"),
-    ES("ES"),
-    DE("DE"),
-    EN("EN"),
-    KO("KO");
+    A("A"),
+    B("B"),
+    C("C");
 
     companion object {
         @JvmStatic
         @JsonCreator
-        fun forValue(value: kotlin.String): LanguageEnum {
+        fun forValue(value: kotlin.String): VoiceTypeEnum {
                 return values().first{it -> it.value == value}
         }
     }

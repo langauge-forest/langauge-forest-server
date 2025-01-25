@@ -3,8 +3,8 @@ CREATE TABLE user (
     nickname VARCHAR(50) NOT NULL,
     language VARCHAR(5) NOT NULL,
 
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
     deleted_at DATETIME NULL,
 
     CONSTRAINT pk_user PRIMARY KEY (uid),
@@ -13,7 +13,7 @@ CREATE TABLE user (
 
 CREATE TABLE user_info (
    uid BINARY(16) NOT NULL,
-   gender ENUM('MALE', 'FEMALE', 'OTHER') DEFAULT NULL,
+   gender varchar(10) DEFAULT NULL,
    year_of_birth SMALLINT NULL,
    occupation VARCHAR(255) NULL,
    interest VARCHAR(255) NULL,
@@ -22,8 +22,8 @@ CREATE TABLE user_info (
    study_place VARCHAR(10) NULL,
    mbti CHAR(4) NULL,
 
-   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   created_at DATETIME NOT NULL,
+   updated_at DATETIME NOT NULL,
    deleted_at DATETIME NULL,
 
    CONSTRAINT pk_user_info PRIMARY KEY (uid),
@@ -38,8 +38,8 @@ CREATE TABLE google_user_info (
     picture VARCHAR(100) NULL,
     locale VARCHAR(11) NULL,
 
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL
     deleted_at DATETIME NULL,
 
     CONSTRAINT pk_google_user_info PRIMARY KEY (uid),
@@ -51,8 +51,8 @@ CREATE TABLE user_point (
     uid BINARY(16) NOT NULL,
     amount INT NOT NULL DEFAULT 0,
 
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL
     deleted_at DATETIME NULL,
 
     CONSTRAINT pk_user_point PRIMARY KEY (uid),
@@ -62,11 +62,11 @@ CREATE TABLE user_point (
 CREATE TABLE user_point_log (
     id BINARY(16) NOT NULL,
     uid BINARY(16) NOT NULL,
-    transaction_type ENUM('DAILY_STUDY') NOT NULL,
+    transaction_type varchar(20) NOT NULL,
     amount INT NOT NULL,
 
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL
     deleted_at DATETIME NULL,
 
     CONSTRAINT pk_user_point_log PRIMARY KEY (id),
@@ -79,10 +79,10 @@ CREATE TABLE user_notification_log (
    uid BINARY(16) NOT NULL,
    title VARCHAR(255) NOT NULL,
    description VARCHAR(255) NOT NULL,
-   status ENUM('SUCCESS', 'FAIL', 'SCHEDULE', 'CANCEL') NOT NULL,
+   status varchar(10) NOT NULL,
 
-   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   created_at DATETIME NOT NULL,
+   updated_at DATETIME NOT NULL,
    deleted_at DATETIME NULL,
 
    CONSTRAINT pk_user_notification_log PRIMARY KEY (id),
@@ -92,11 +92,11 @@ CREATE TABLE user_notification_log (
 
 CREATE TABLE user_notification (
    uid BINARY(16) NOT NULL,
-   notification_preference ENUM('DAILY_STUDY') NOT NULL,
+   notification_preference varchar(20) NOT NULL,
    cron VARCHAR(50),
 
-   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   created_at DATETIME NOT NULL,
+   updated_at DATETIME NOT NULL,
    deleted_at DATETIME NULL,
 
    CONSTRAINT pk_user_notification PRIMARY KEY (uid),
@@ -107,12 +107,12 @@ CREATE TABLE user_study_info (
    id BINARY(16) NOT NULL,
    uid BINARY(16) NOT NULL,
 
-   voice_type ENUM('A', 'B', 'C') NOT NULL,
-   level ENUM('A', 'B', 'C', 'D', 'E') NOT NULL,
+   voice_type varchar(5) NOT NULL,
+   level varchar(5) NOT NULL,
    sentence_amount SMALLINT NOT NULL,
 
-   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   created_at DATETIME NOT NULL,
+   updated_at DATETIME NOT NULL,
    deleted_at DATETIME NULL,
 
    CONSTRAINT pk_user_study_info PRIMARY KEY (id),

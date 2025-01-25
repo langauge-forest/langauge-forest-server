@@ -1,13 +1,14 @@
 package language_forest.api.auth
 
 
-import language_forest.entity.User
+import language_forest.entity.UserEntity
 import language_forest.exception.UnauthorizedException
 import language_forest.generated.api.AuthApiDelegate
 import language_forest.generated.model.AuthRefreshRequest
+import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
+import language_forest.transformer.toLanguageEnum
 import language_forest.util.JwtUtil
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 
@@ -17,14 +18,14 @@ class AuthDelegateImpl(
     private val jwtUtil: JwtUtil,
     private val authService: AuthService
 ) : AuthApiDelegate {
-    override fun googleLogin(tokenDto: TokenDto): ResponseEntity<TokenDto> {
-        val googleToken = tokenDto.accessToken
+    override fun googleLogin(googleLoginRequest: GoogleLoginRequest): ResponseEntity<TokenDto> {
+        val googleToken = googleLoginRequest.token.accessToken
 
         val googleOAuth = authGoogleService.getUserInfo(googleToken)
-        val user = authService.googleLogin(googleOAuth)
+        val user = authService.googleLogin(googleOAuth, googleLoginRequest.language.toLanguageEnum())
 
-        val accessToken = jwtUtil.generateToken(user)
-        val refreshToken = jwtUtil.generateRefreshToken(user)
+        val accessToken = jwtUtil.generateToken(user.uid)
+        val refreshToken = jwtUtil.generateRefreshToken(user.uid)
 
         return ResponseEntity.ok(TokenDto(accessToken, refreshToken))
     }
@@ -39,8 +40,8 @@ class AuthDelegateImpl(
         val uid = jwtUtil.getAuthUid(refreshToken)
 
         // 새 AccessToken 발급
-        val newAccessToken = jwtUtil.generateToken(User(uid))
-        val newRefreshToken = jwtUtil.generateRefreshToken(User(uid))
+        val newAccessToken = jwtUtil.generateToken(uid)
+        val newRefreshToken = jwtUtil.generateRefreshToken(uid)
 
         return ResponseEntity.ok(TokenDto(newAccessToken,newRefreshToken))
     }

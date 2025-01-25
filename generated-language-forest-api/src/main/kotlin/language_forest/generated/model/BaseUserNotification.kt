@@ -1,9 +1,10 @@
 package language_forest.generated.model
 
 import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.NotificationEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -15,25 +16,20 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 일본어, 중국어, 프랑스어, 스페인어, 독일어, 영어, 한국어
-* Values: JA,ZH,FR,ES,DE,EN,KO
-*/
-enum class LanguageEnum(@get:JsonValue val value: kotlin.String) {
+ * 
+ * @param uid 
+ * @param notificationPreference 
+ * @param cron 
+ */
+data class BaseUserNotification(
 
-    JA("JA"),
-    ZH("ZH"),
-    FR("FR"),
-    ES("ES"),
-    DE("DE"),
-    EN("EN"),
-    KO("KO");
+    @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
 
-    companion object {
-        @JvmStatic
-        @JsonCreator
-        fun forValue(value: kotlin.String): LanguageEnum {
-                return values().first{it -> it.value == value}
-        }
-    }
+    @field:Valid
+    @get:JsonProperty("notificationPreference", required = true) val notificationPreference: NotificationEnum,
+
+    @get:JsonProperty("cron", required = true) val cron: kotlin.String
+    ) {
+
 }
 

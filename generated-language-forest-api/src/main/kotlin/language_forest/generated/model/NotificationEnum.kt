@@ -15,23 +15,17 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 일본어, 중국어, 프랑스어, 스페인어, 독일어, 영어, 한국어
-* Values: JA,ZH,FR,ES,DE,EN,KO
+* push 알림 타입입니다.
+* Values: DAILY_STUDY
 */
-enum class LanguageEnum(@get:JsonValue val value: kotlin.String) {
+enum class NotificationEnum(@get:JsonValue val value: kotlin.String) {
 
-    JA("JA"),
-    ZH("ZH"),
-    FR("FR"),
-    ES("ES"),
-    DE("DE"),
-    EN("EN"),
-    KO("KO");
+    DAILY_STUDY("DAILY_STUDY");
 
     companion object {
         @JvmStatic
         @JsonCreator
-        fun forValue(value: kotlin.String): LanguageEnum {
+        fun forValue(value: kotlin.String): NotificationEnum {
                 return values().first{it -> it.value == value}
         }
     }

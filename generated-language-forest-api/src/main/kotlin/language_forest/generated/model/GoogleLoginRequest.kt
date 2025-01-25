@@ -1,9 +1,8 @@
 package language_forest.generated.model
 
 import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonValue
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import language_forest.generated.model.TokenDto
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -15,23 +14,17 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 학습 수준 (A/B/C/D/E)
-* Values: A,B,C,D,E
-*/
-enum class LevelEnum(@get:JsonValue val value: kotlin.String) {
+ * 
+ * @param language 디바이스의 언어를 가져옵니다.
+ * @param token 
+ */
+data class GoogleLoginRequest(
 
-    A("A"),
-    B("B"),
-    C("C"),
-    D("D"),
-    E("E");
+    @get:JsonProperty("language", required = true) val language: kotlin.String,
 
-    companion object {
-        @JvmStatic
-        @JsonCreator
-        fun forValue(value: kotlin.String): LevelEnum {
-                return values().first{it -> it.value == value}
-        }
-    }
+    @field:Valid
+    @get:JsonProperty("token", required = true) val token: TokenDto
+    ) {
+
 }
 

@@ -1,8 +1,7 @@
 package language_forest.generated.api
 
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.BaseUserStudyLanguage
-import language_forest.generated.model.UpdateUserStudyLanguageRequest
+import language_forest.generated.model.CreateUserRequest
+import language_forest.generated.model.UserResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -21,31 +20,22 @@ interface UserApiDelegate {
     fun getRequest(): Optional<NativeWebRequest> = Optional.empty()
 
     /**
-     * @see UserApi#updateUser
+     * @see UserApi#createUser
      */
-    fun updateUser(baseUser: BaseUser): ResponseEntity<BaseUser> {
-        getRequest().ifPresent { request ->
-            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"birthday\" : \"2000-01-23\",  \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"deletedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"gender\" : \"MALE\",  \"language\" : \"EN\",  \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"email\" : \"email\",  \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"username\" : \"username\"}")
-                    break
-                }
-            }
-        }
+    fun createUser(createUserRequest: CreateUserRequest): ResponseEntity<Unit> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
 
     }
 
 
     /**
-     * @see UserApi#updateUserStudyLanguage
+     * @see UserApi#getUserMe
      */
-    fun updateUserStudyLanguage(userStudyLanguageId: java.util.UUID,
-        updateUserStudyLanguageRequest: UpdateUserStudyLanguageRequest): ResponseEntity<BaseUserStudyLanguage> {
+    fun getUserMe(): ResponseEntity<UserResponse> {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"createdAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"deletedAt\" : \"2000-01-23T04:56:07.000+00:00\",  \"level\" : \"EASY\",  \"purpose\" : \"purpose\",  \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"updatedAt\" : \"2000-01-23T04:56:07.000+00:00\"}")
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"userInfo\" : {    \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"occupation\" : \"occupation\",    \"studyPlace\" : \"studyPlace\",    \"gender\" : \"MALE\",    \"interest\" : \"interest\",    \"purpose\" : \"purpose\",    \"mbti\" : \"mbti\",    \"yearOfBirth\" : 0  },  \"userStudyInfo\" : {    \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"level\" : \"A\",    \"sentenceAmount\" : 6,    \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"voiceType\" : \"A\"  },  \"user\" : {    \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"nickname\" : \"nickname\",    \"language\" : \"JA\"  }}")
                     break
                 }
             }

@@ -5,9 +5,8 @@
 */
 package language_forest.generated.api
 
-import language_forest.generated.model.BaseUser
-import language_forest.generated.model.BaseUserStudyLanguage
-import language_forest.generated.model.UpdateUserStudyLanguageRequest
+import language_forest.generated.model.CreateUserRequest
+import language_forest.generated.model.UserResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -38,23 +37,21 @@ interface UserApi {
 
 
     @RequestMapping(
-            method = [RequestMethod.PATCH],
+            method = [RequestMethod.POST],
             value = ["/user"],
-            produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun updateUser( @Valid @RequestBody baseUser: BaseUser): ResponseEntity<BaseUser> {
-        return getDelegate().updateUser(baseUser)
+    fun createUser( @Valid @RequestBody createUserRequest: CreateUserRequest): ResponseEntity<Unit> {
+        return getDelegate().createUser(createUserRequest)
     }
 
 
     @RequestMapping(
-            method = [RequestMethod.PATCH],
-            value = ["/user/study-language/{userStudyLanguageId}"],
-            produces = ["application/json"],
-            consumes = ["application/json"]
+            method = [RequestMethod.GET],
+            value = ["/user/me"],
+            produces = ["application/json"]
     )
-    fun updateUserStudyLanguage( @PathVariable("userStudyLanguageId") userStudyLanguageId: java.util.UUID, @Valid @RequestBody updateUserStudyLanguageRequest: UpdateUserStudyLanguageRequest): ResponseEntity<BaseUserStudyLanguage> {
-        return getDelegate().updateUserStudyLanguage(userStudyLanguageId, updateUserStudyLanguageRequest)
+    fun getUserMe(): ResponseEntity<UserResponse> {
+        return getDelegate().getUserMe()
     }
 }

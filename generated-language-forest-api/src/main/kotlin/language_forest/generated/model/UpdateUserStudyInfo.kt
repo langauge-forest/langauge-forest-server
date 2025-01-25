@@ -1,9 +1,11 @@
 package language_forest.generated.model
 
 import java.util.Objects
-import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.LevelEnum
+import language_forest.generated.model.VoiceTypeEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -15,25 +17,21 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 일본어, 중국어, 프랑스어, 스페인어, 독일어, 영어, 한국어
-* Values: JA,ZH,FR,ES,DE,EN,KO
-*/
-enum class LanguageEnum(@get:JsonValue val value: kotlin.String) {
+ * 
+ * @param level 학습 난이도
+ * @param voiceType ai 목소리 타입
+ * @param sentenceAmount 학습할 문장 수
+ */
+data class UpdateUserStudyInfo(
 
-    JA("JA"),
-    ZH("ZH"),
-    FR("FR"),
-    ES("ES"),
-    DE("DE"),
-    EN("EN"),
-    KO("KO");
+    @field:Valid
+    @get:JsonProperty("level") val level: LevelEnum? = null,
 
-    companion object {
-        @JvmStatic
-        @JsonCreator
-        fun forValue(value: kotlin.String): LanguageEnum {
-                return values().first{it -> it.value == value}
-        }
-    }
+    @field:Valid
+    @get:JsonProperty("voiceType") val voiceType: VoiceTypeEnum? = null,
+
+    @get:JsonProperty("sentenceAmount") val sentenceAmount: kotlin.Int? = null
+    ) {
+
 }
 

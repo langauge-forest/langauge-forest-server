@@ -1,6 +1,7 @@
 package language_forest.generated.api
 
 import language_forest.generated.model.AuthRefreshRequest
+import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -39,7 +40,7 @@ interface AuthApiDelegate {
     /**
      * @see AuthApi#googleLogin
      */
-    fun googleLogin(tokenDto: TokenDto): ResponseEntity<TokenDto> {
+    fun googleLogin(googleLoginRequest: GoogleLoginRequest): ResponseEntity<TokenDto> {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

@@ -1,5 +1,7 @@
 package language_forest.resolver
 
+import language_forest.exception.BadRequestException
+import language_forest.exception.UnauthorizedException
 import org.springframework.core.MethodParameter
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.context.SecurityContextHolder
@@ -22,7 +24,16 @@ class UuidArgumentResolver : HandlerMethodArgumentResolver {
         binderFactory: org.springframework.web.bind.support.WebDataBinderFactory?
     ): Any? {
         val authentication = SecurityContextHolder.getContext().authentication
-        // 예: Authentication 객체에서 UID 추출
-        return UUID.fromString(authentication.name) // 사용자 이름을 UID로 가정
+
+        if (authentication == null || authentication.name.isNullOrBlank()) {
+            // SecurityContext가 비어 있는 경우 처리
+            throw UnauthorizedException("User is not authenticated")
+        }
+
+        return try {
+            UUID.fromString(authentication.name)
+        } catch (ex: IllegalArgumentException) {
+            throw BadRequestException("Invalid user identifier")
+        }
     }
 }

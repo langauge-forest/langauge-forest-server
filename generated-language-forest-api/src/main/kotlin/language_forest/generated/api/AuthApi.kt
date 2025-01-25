@@ -6,6 +6,7 @@
 package language_forest.generated.api
 
 import language_forest.generated.model.AuthRefreshRequest
+import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -53,7 +54,7 @@ interface AuthApi {
             produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun googleLogin( @Valid @RequestBody tokenDto: TokenDto): ResponseEntity<TokenDto> {
-        return getDelegate().googleLogin(tokenDto)
+    fun googleLogin( @Valid @RequestBody googleLoginRequest: GoogleLoginRequest): ResponseEntity<TokenDto> {
+        return getDelegate().googleLogin(googleLoginRequest)
     }
 }

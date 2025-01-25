@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size
 import jakarta.validation.Valid
 
 /**
-* 유저 성별
+* 유저 성별 (MALE/FEMALE/OTHER)
 * Values: MALE,FEMALE,OTHER
 */
 enum class GenderEnum(@get:JsonValue val value: kotlin.String) {
