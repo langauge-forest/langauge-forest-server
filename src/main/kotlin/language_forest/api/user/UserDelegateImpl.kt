@@ -23,7 +23,7 @@ class UserDelegateImpl(
         val user = UserEntity(
             uid = uid,
             nickname = "dummy",
-            language =LanguageEnum.EN
+            language = LanguageEnum.EN
         )
 
         val userInfo = UserInfoEntity(
