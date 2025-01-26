@@ -5,8 +5,8 @@
 */
 package language_forest.generated.api
 
-import language_forest.generated.model.CreateUserRequest
-import language_forest.generated.model.UserResponse
+import language_forest.generated.model.CreateStudyRequest
+import language_forest.generated.model.StudyResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -31,36 +31,18 @@ import kotlin.collections.Map
 
 @RestController
 @Validated
-interface UserApi {
+interface StudyApi {
 
-    fun getDelegate(): UserApiDelegate = object: UserApiDelegate {}
-
-
-    @RequestMapping(
-            method = [RequestMethod.POST],
-            value = ["/user/dummy"]
-    )
-    fun createDummy(): ResponseEntity<Unit> {
-        return getDelegate().createDummy()
-    }
+    fun getDelegate(): StudyApiDelegate = object: StudyApiDelegate {}
 
 
     @RequestMapping(
             method = [RequestMethod.POST],
-            value = ["/user"],
+            value = ["/study"],
+            produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun createUser( @Valid @RequestBody createUserRequest: CreateUserRequest): ResponseEntity<Unit> {
-        return getDelegate().createUser(createUserRequest)
-    }
-
-
-    @RequestMapping(
-            method = [RequestMethod.GET],
-            value = ["/user/me"],
-            produces = ["application/json"]
-    )
-    fun getUserMe(): ResponseEntity<UserResponse> {
-        return getDelegate().getUserMe()
+    fun createStudy( @Valid @RequestBody createStudyRequest: CreateStudyRequest): ResponseEntity<StudyResponse> {
+        return getDelegate().createStudy(createStudyRequest)
     }
 }
