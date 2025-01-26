@@ -46,4 +46,11 @@ class AuthService(
                 ?: throw IllegalStateException("User not found for UID: ${googleUserInfo.uid}")
         }
     }
+
+    @Transactional
+    fun dummyLogin(): UserEntity {
+        return userRepository.findByNickname("dummy")
+//            ?: throw IllegalStateException("User not found for nickname: dummy")
+    }
+
 }
