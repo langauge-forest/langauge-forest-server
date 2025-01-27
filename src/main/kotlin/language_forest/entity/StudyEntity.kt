@@ -21,12 +21,15 @@ class StudyEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "voice_type")
     var voiceType: VoiceTypeEnum?,
+
     var sentenceAmount: Int?,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "input_type")
     var inputType: InputTypeEnum?,
+
     var startQuestion: String?,
+
     var startQuestionVoicePath: String?,
 
 ) : BaseTimestampEntity()

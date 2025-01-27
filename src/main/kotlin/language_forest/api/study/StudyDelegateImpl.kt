@@ -23,13 +23,7 @@ class StudyDelegateImpl(
                 uid = uid,
                 id = id
             )
-
         studyService.saveStudy(studyRequest)
         return ResponseEntity.status(HttpStatus.CREATED).build()
-
-//        val savedStudy = studyService.saveStudy(studyRequest)
-//        return ResponseEntity.ok(StudyResponse(
-//            study = savedStudy.toBaseStudy()
-//        ))
     }
 }

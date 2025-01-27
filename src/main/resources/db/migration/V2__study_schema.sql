@@ -10,6 +10,8 @@ CREATE TABLE study (
                        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                        deleted_at DATETIME NULL,
-                       CONSTRAINT pk_user PRIMARY KEY (uid),
-                       INDEX idx_deleted_at (deleted_at)
+
+                       CONSTRAINT pk_study PRIMARY KEY (id),
+                       INDEX idx_deleted_at (deleted_at),
+                       INDEX idx_uid (uid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
