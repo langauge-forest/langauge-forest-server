@@ -13,6 +13,8 @@ fun UserStudyInfoEntity.toBaseUserStudyInfo(): BaseUserStudyInfo {
         level = this.level,
         voiceType = this.voiceType,
         sentenceAmount = this.sentenceAmount,
+        language = this.language,
+        streakDays = this.streakDays
     )
 }
 
@@ -23,25 +25,20 @@ fun BaseUserStudyInfo.toUserInfoEntity(): UserStudyInfoEntity {
         level = this.level,
         voiceType = this.voiceType,
         sentenceAmount = this.sentenceAmount,
+        language = this.language,
+        streakDays = this.streakDays
     )
 }
 
 
-
-fun UserStudyInfoEntity.toCreateUserRequestUserStudyInfo(): UpdateUserStudyInfo {
-    return UpdateUserStudyInfo(
-        level = this.level,
-        voiceType = this.voiceType,
-        sentenceAmount = this.sentenceAmount,
-    )
-}
-
-fun UpdateUserStudyInfo.toUserStudyInfoEntity(id: UUID, uid: UUID): UserStudyInfoEntity {
+fun CreateUserStudyInfo.toUserStudyInfoEntity(id: UUID, uid: UUID): UserStudyInfoEntity {
     return UserStudyInfoEntity(
         id = id,
         uid = uid,
-        level = this.level ?: LevelEnum.A,
+        level = this.level,
         voiceType = VoiceTypeEnum.A,
         sentenceAmount = 3,
+        language = this.language,
+        streakDays = 0,
     )
 }

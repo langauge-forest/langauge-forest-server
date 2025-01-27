@@ -85,6 +85,8 @@ dependencies {
 	// Jackson Nullable
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
 
+	implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
+
 	// Validation
 	implementation("jakarta.validation:jakarta.validation-api:3.0.2")
 	implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")

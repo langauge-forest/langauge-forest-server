@@ -11,5 +11,5 @@ import java.util.UUID
 class UserPointEntity(
     @Id val uid: UUID,
 
-    var amount: Int = 0,
+    var amount: Int,
 ) : BaseTimestampEntity()
