@@ -4,8 +4,8 @@ import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
+import language_forest.generated.model.LanguageEnum
 import language_forest.generated.model.LevelEnum
-import language_forest.generated.model.VoiceTypeEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -19,18 +19,15 @@ import jakarta.validation.Valid
 /**
  * 
  * @param level 학습 난이도
- * @param voiceType ai 목소리 타입
- * @param sentenceAmount 학습할 문장 수
+ * @param language 학습할 언어
  */
-data class UpdateUserStudyInfo(
+data class CreateUserStudyInfo(
 
     @field:Valid
-    @get:JsonProperty("level") val level: LevelEnum? = null,
+    @get:JsonProperty("level", required = true) val level: LevelEnum,
 
     @field:Valid
-    @get:JsonProperty("voiceType") val voiceType: VoiceTypeEnum? = null,
-
-    @get:JsonProperty("sentenceAmount") val sentenceAmount: kotlin.Int? = null
+    @get:JsonProperty("language", required = true) val language: LanguageEnum
     ) {
 
 }

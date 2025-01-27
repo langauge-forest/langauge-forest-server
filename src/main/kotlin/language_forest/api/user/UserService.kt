@@ -30,6 +30,26 @@ class UserService(
         return userStudyInfoRepository.findByUid(uid)
     }
 
+    @Transactional(readOnly = true)
+    fun getUserPoint(uid: UUID): UserPointEntity? {
+        return userPointRepository.findByIdOrNull(uid)
+    }
+
+    @Transactional
+    fun onboardingUser(
+        newUser: UserEntity,
+        newUserInfo: UserInfoEntity,
+        newUserStudyInfo: UserStudyInfoEntity,
+        newUserNotification: UserNotificationEntity,
+        newUserPoint: UserPointEntity
+    ) {
+        saveUser(newUser)
+        saveUserInfo(newUserInfo)
+        saveUserStudyInfo(newUserStudyInfo)
+        saveUserNotification(newUserNotification)
+        saveUserPoint(newUserPoint)
+    }
+
     @Transactional
     fun saveUser(newUser: UserEntity): UserEntity {
         return userRepository.save(newUser)
@@ -48,5 +68,10 @@ class UserService(
     @Transactional
     fun saveUserNotification(newUserNotificationEntity: UserNotificationEntity): UserNotificationEntity {
         return userNotificationRepository.save(newUserNotificationEntity)
+    }
+
+    @Transactional
+    fun saveUserPoint(newUserPoint: UserPointEntity): UserPointEntity {
+        return userPointRepository.save(newUserPoint)
     }
 }

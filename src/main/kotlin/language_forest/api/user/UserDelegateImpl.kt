@@ -1,5 +1,6 @@
 package language_forest.api.user
 
+import language_forest.entity.UserPointEntity
 import language_forest.generated.api.UserApiDelegate
 import language_forest.generated.model.*
 import language_forest.transformer.*
@@ -30,10 +31,15 @@ class UserDelegateImpl(
                 notificationPreference = NotificationEnum.DAILY_STUDY
             )
 
-        userService.saveUser(userRequest)
-        userService.saveUserInfo(userInfoRequest)
-        userService.saveUserStudyInfo(userStudyInfoRequest)
-        userService.saveUserNotification(userNotificationRequest)
+        val newUserPoint = UserPointEntity(uid = uid, amount = 0)
+
+        userService.onboardingUser(
+            newUser = userRequest,
+            newUserInfo = userInfoRequest,
+            newUserStudyInfo = userStudyInfoRequest,
+            newUserNotification =  userNotificationRequest,
+            newUserPoint = newUserPoint
+        )
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
@@ -44,13 +50,15 @@ class UserDelegateImpl(
         val user = userService.getUser(uid)
         val userInfo = userService.getUserInfo(uid)
         val userStudyInfo = userService.getUserStudyInfoByUid(uid)
+        val userPoint = userService.getUserPoint(uid)
 
 
         return ResponseEntity.ok(
             UserResponse(
                 user = user?.toBaseUser(),
                 userInfo = userInfo?.toBaseUserInfo(),
-                userStudyInfo = userStudyInfo?.toBaseUserStudyInfo()
+                userStudyInfo = userStudyInfo?.toBaseUserStudyInfo(),
+                userPoint = userPoint?.toBaseUserPoint()
             )
         )
     }

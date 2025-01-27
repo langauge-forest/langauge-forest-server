@@ -1,9 +1,11 @@
 package language_forest.entity
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType
 import jakarta.persistence.*
 import language_forest.generated.model.GenderEnum
 import language_forest.generated.model.LanguageEnum
 import language_forest.generated.model.LevelEnum
+import org.hibernate.annotations.Type
 import org.hibernate.annotations.UuidGenerator
 import java.util.UUID
 
@@ -17,7 +19,10 @@ class UserInfoEntity(
     var gender: GenderEnum?,
     var yearOfBirth: Int?,
     var occupation: String?,
-    var interest: String?,
+
+    @Type(value = JsonStringType::class)
+    var interest: List<String>?,
+
     var purpose: String?,
 
     @Enumerated(EnumType.STRING)
@@ -25,4 +30,4 @@ class UserInfoEntity(
     var languageSecond: LanguageEnum?,
     var studyPlace: String?,
     var mbti: String?,
-) : BaseTimestampEntity()
+) : BaseTimestampEntity() {}

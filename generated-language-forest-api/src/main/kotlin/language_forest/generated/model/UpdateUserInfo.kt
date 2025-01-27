@@ -36,7 +36,7 @@ data class UpdateUserInfo(
 
     @get:JsonProperty("occupation") val occupation: kotlin.String? = null,
 
-    @get:JsonProperty("interest") val interest: kotlin.String? = null,
+    @get:JsonProperty("interest") val interest: kotlin.collections.List<kotlin.String>? = null,
 
     @get:JsonProperty("purpose") val purpose: kotlin.String? = null,
 

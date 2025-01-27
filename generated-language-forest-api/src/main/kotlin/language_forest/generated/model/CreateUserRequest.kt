@@ -3,9 +3,9 @@ package language_forest.generated.model
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import language_forest.generated.model.CreateUserNotification
+import language_forest.generated.model.CreateUserStudyInfo
 import language_forest.generated.model.UpdateUser
 import language_forest.generated.model.UpdateUserInfo
-import language_forest.generated.model.UpdateUserStudyInfo
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -32,7 +32,7 @@ data class CreateUserRequest(
     @get:JsonProperty("userInfo", required = true) val userInfo: UpdateUserInfo,
 
     @field:Valid
-    @get:JsonProperty("userStudyInfo", required = true) val userStudyInfo: UpdateUserStudyInfo,
+    @get:JsonProperty("userStudyInfo", required = true) val userStudyInfo: CreateUserStudyInfo,
 
     @field:Valid
     @get:JsonProperty("userNotification", required = true) val userNotification: CreateUserNotification
