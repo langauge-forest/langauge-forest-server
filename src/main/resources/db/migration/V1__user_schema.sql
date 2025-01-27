@@ -109,7 +109,9 @@ CREATE TABLE user_study_info (
 
    voice_type varchar(5) NOT NULL,
    level varchar(5) NOT NULL,
-   sentence_amount SMALLINT NOT NULL,
+   language varchar(5) NOT NULL,
+   streak_days SMALLINT NOT NULL,
+   sentence_amount TINYINT NOT NULL,
 
    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
