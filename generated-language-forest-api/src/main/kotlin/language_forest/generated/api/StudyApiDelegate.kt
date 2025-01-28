@@ -1,7 +1,7 @@
 package language_forest.generated.api
 
 import language_forest.generated.model.CreateStudyRequest
-import language_forest.generated.model.StudyResponse
+import language_forest.generated.model.CreateStudyResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -22,7 +22,7 @@ interface StudyApiDelegate {
     /**
      * @see StudyApi#createStudy
      */
-    fun createStudy(createStudyRequest: CreateStudyRequest): ResponseEntity<StudyResponse> {
+    fun createStudy(createStudyRequest: CreateStudyRequest): ResponseEntity<CreateStudyResponse> {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

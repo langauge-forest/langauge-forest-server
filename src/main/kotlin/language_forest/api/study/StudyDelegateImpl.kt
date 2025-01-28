@@ -3,6 +3,7 @@ package language_forest.api.study
 import language_forest.api.user.UserService
 import language_forest.generated.api.StudyApiDelegate
 import language_forest.generated.model.CreateStudyRequest
+import language_forest.generated.model.CreateStudyResponse
 import language_forest.generated.model.StudyResponse
 import language_forest.transformer.toStudyEntity
 import language_forest.util.getUid
@@ -16,7 +17,7 @@ class StudyDelegateImpl(
     private val studyService: StudyService,
     private val userService: UserService,
 ) : StudyApiDelegate {
-    override fun createStudy(createStudyRequest: CreateStudyRequest): ResponseEntity<StudyResponse> {
+    override fun createStudy(createStudyRequest: CreateStudyRequest): ResponseEntity<CreateStudyResponse> {
         val uid = getUid()
         val id = UUID.randomUUID()
         val userStudyInfo = userService.getUserStudyInfoById(createStudyRequest.study.userStudyInfoId) ?: throw IllegalArgumentException("UserStudyInfoEntity not found for id: ${createStudyRequest.study.userStudyInfoId}")
@@ -32,7 +33,7 @@ class StudyDelegateImpl(
         studyService.saveStudy(newStudy)
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
-            StudyResponse(
+            CreateStudyResponse(
                 studyId = id
             )
         )
