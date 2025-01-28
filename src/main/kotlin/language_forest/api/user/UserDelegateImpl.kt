@@ -63,4 +63,19 @@ class UserDelegateImpl(
         )
     }
 
+
+    override fun updateUser(updateUserRequest: UpdateUserRequest): ResponseEntity<Unit> {
+        val uid = getUid()
+
+        userService.updateUsers(
+            uid = uid,
+            user = updateUserRequest.user,
+            userInfo = updateUserRequest.userInfo,
+            userStudyInfo = updateUserRequest.userStudyInfo,
+        )
+
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+
+    }
+
 }

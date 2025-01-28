@@ -6,6 +6,7 @@
 package language_forest.generated.api
 
 import language_forest.generated.model.CreateUserRequest
+import language_forest.generated.model.UpdateUserRequest
 import language_forest.generated.model.UserResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -53,5 +54,15 @@ interface UserApi {
     )
     fun getUserMe(): ResponseEntity<UserResponse> {
         return getDelegate().getUserMe()
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.PUT],
+            value = ["/user/me"],
+            consumes = ["application/json"]
+    )
+    fun updateUser( @Valid @RequestBody updateUserRequest: UpdateUserRequest): ResponseEntity<Unit> {
+        return getDelegate().updateUser(updateUserRequest)
     }
 }

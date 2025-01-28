@@ -1,6 +1,7 @@
 package language_forest.generated.api
 
 import language_forest.generated.model.CreateUserRequest
+import language_forest.generated.model.UpdateUserRequest
 import language_forest.generated.model.UserResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -40,6 +41,15 @@ interface UserApiDelegate {
                 }
             }
         }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
+     * @see UserApi#updateUser
+     */
+    fun updateUser(updateUserRequest: UpdateUserRequest): ResponseEntity<Unit> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
 
     }

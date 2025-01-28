@@ -11,6 +11,8 @@ class UserEntity(
     @Id val uid: UUID,
     var nickname: String = "",
 
+    var profileImage: String?,
+
     @Enumerated(EnumType.STRING)
     @Column(name = "language")
     var language: LanguageEnum,

@@ -31,15 +31,10 @@ data class UpdateUserInfo(
 
     @field:Valid
     @get:JsonProperty("gender") val gender: GenderEnum? = null,
-
     @get:JsonProperty("yearOfBirth") val yearOfBirth: kotlin.Int? = null,
-
     @get:JsonProperty("occupation") val occupation: kotlin.String? = null,
-
     @get:JsonProperty("interest") val interest: kotlin.collections.List<kotlin.String>? = null,
-
     @get:JsonProperty("purpose") val purpose: kotlin.String? = null,
-
     @field:Valid
     @get:JsonProperty("languageSecond") val languageSecond: LanguageEnum? = null,
 

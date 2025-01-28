@@ -2,6 +2,7 @@ CREATE TABLE user (
     uid BINARY(16) NOT NULL,
     nickname VARCHAR(50) NOT NULL,
     language VARCHAR(5) NOT NULL,
+    profile_image VARCHAR(100) NULL;
 
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -35,7 +36,7 @@ CREATE TABLE google_user_info (
     google_id VARCHAR(50) NOT NULL,
     email VARCHAR(100) NULL,
     name VARCHAR(50) NULL,
-    picture VARCHAR(100) NULL,
+    picture VARCHAR(255) NULL,
     locale VARCHAR(11) NULL,
 
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
