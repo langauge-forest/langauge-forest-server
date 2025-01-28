@@ -74,4 +74,9 @@ class UserService(
     fun saveUserPoint(newUserPoint: UserPointEntity): UserPointEntity {
         return userPointRepository.save(newUserPoint)
     }
+
+    @Transactional(readOnly = true)
+    fun getUserStudyInfoById(id: UUID): UserStudyInfoEntity? {
+        return userStudyInfoRepository.findByIdOrNull(id)
+    }
 }
