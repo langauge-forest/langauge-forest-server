@@ -1,6 +1,6 @@
 package language_forest.api.user
 
-import language_forest.entity.UserPointEntity
+import language_forest.entity.*
 import language_forest.generated.api.UserApiDelegate
 import language_forest.generated.model.*
 import language_forest.transformer.*
@@ -44,6 +44,50 @@ class UserDelegateImpl(
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
+    override fun createDummy() : ResponseEntity<Unit> {
+        val uid = UUID.randomUUID()
+
+        val user = UserEntity(
+            uid = uid,
+            nickname = "dummy",
+            language = LanguageEnum.KO
+        )
+
+        val userInfo = UserInfoEntity(
+            uid = uid,
+            gender = GenderEnum.OTHER,
+            yearOfBirth = 2000,
+            occupation = "engineer",
+            interest = listOf("nothing"),
+            purpose = "just because",
+            languageSecond = LanguageEnum.JA,
+            studyPlace = "home",
+            mbti = "esfj"
+        )
+
+        val userStudyInfo = UserStudyInfoEntity(
+            id = UUID.randomUUID(),
+            uid = uid,
+            level = LevelEnum.A,
+            voiceType = VoiceTypeEnum.A,
+            language = LanguageEnum.EN,
+            streakDays = 0,
+            sentenceAmount = 3
+        )
+
+        val userNotification = UserNotificationEntity(
+            uid = uid,
+            notificationPreference = NotificationEnum.DAILY_STUDY,
+            cron = "0 0 12 * * ?"
+        )
+
+        userService.saveUser(user)
+        userService.saveUserInfo(userInfo)
+        userService.saveUserStudyInfo(userStudyInfo)
+        userService.saveUserNotification(userNotification)
+
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
     override fun getUserMe(): ResponseEntity<UserResponse> {
         val uid = getUid()
 

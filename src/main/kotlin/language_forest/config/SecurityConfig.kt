@@ -18,7 +18,7 @@ class SecurityConfig(
     @Bean
     fun authFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
-            .securityMatcher("/auth/**") // /auth/** 경로만 처리
+            .securityMatcher("/auth/**", "/user/dummy") // /auth/** 경로만 처리
             .authorizeHttpRequests { authz ->
                 authz.anyRequest().permitAll() // 인증 불필요
             }
