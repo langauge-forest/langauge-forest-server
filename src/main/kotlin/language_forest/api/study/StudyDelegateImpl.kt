@@ -80,8 +80,9 @@ class StudyDelegateImpl(
         createStudyPracticeRequest: CreateStudyPracticeRequest
     ): ResponseEntity<CreateStudyPracticeResponse> {
         val selectedTag = createStudyPracticeRequest.selectedTag
-        var studySummary = studyService.getStudySummaryById(createStudyPracticeRequest.studySummaryId)
-//        studySummary.selectedTag = selectedTag
+        var studySummary = studyService.getStudySummaryById(createStudyPracticeRequest.studySummaryId)?: throw IllegalArgumentException("study summary not found")
+        studySummary.selectedTag = selectedTag
+        studyService.saveStudySummary(studySummary)
 
         val study = studyService.getStudyById(studyId) ?: throw IllegalArgumentException("StudyEntity not found for id: ${studyId}")
         val userLanguageString = userService.getUser(getUid())?.language?.toLanguageString() ?: throw IllegalArgumentException("user language not found")

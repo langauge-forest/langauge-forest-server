@@ -20,6 +20,6 @@ class StudySummaryEntity(
 
     val tags: String,
 
-    val selectedTag: String?
+    var selectedTag: String?
 
 ) : BaseTimestampEntity()
