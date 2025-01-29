@@ -1,5 +1,6 @@
 package language_forest.generated.api
 
+import language_forest.generated.model.AppleLoginRequest
 import language_forest.generated.model.AuthRefreshRequest
 import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
@@ -19,6 +20,23 @@ import java.util.Optional
 interface AuthApiDelegate {
 
     fun getRequest(): Optional<NativeWebRequest> = Optional.empty()
+
+    /**
+     * @see AuthApi#appleLogin
+     */
+    fun appleLogin(appleLoginRequest: AppleLoginRequest): ResponseEntity<TokenDto> {
+        getRequest().ifPresent { request ->
+            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"accessToken\" : \"accessToken\",  \"refreshToken\" : \"refreshToken\"}")
+                    break
+                }
+            }
+        }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
 
     /**
      * @see AuthApi#authRefresh

@@ -5,9 +5,14 @@
 */
 package language_forest.generated.api
 
+import language_forest.generated.model.BaseUserNotification
 import language_forest.generated.model.CreateUserRequest
+import language_forest.generated.model.ErrorResponse
+import language_forest.generated.model.NotificationEnum
+import language_forest.generated.model.UpdateUserNotificationActiveRequest
 import language_forest.generated.model.UpdateUserRequest
 import language_forest.generated.model.UserResponse
+import language_forest.generated.model.UserSocialResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -58,11 +63,51 @@ interface UserApi {
 
 
     @RequestMapping(
-            method = [RequestMethod.PUT],
+            method = [RequestMethod.GET],
+            value = ["/user/me/notification/{notification}"],
+            produces = ["application/json"]
+    )
+    fun getUserMeNotification( @PathVariable("notification") notification: NotificationEnum): ResponseEntity<BaseUserNotification> {
+        return getDelegate().getUserMeNotification(notification)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.GET],
+            value = ["/user/me/social"],
+            produces = ["application/json"]
+    )
+    fun getUserMeSocial(): ResponseEntity<UserSocialResponse> {
+        return getDelegate().getUserMeSocial()
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.PATCH],
             value = ["/user/me"],
             consumes = ["application/json"]
     )
     fun updateUser( @Valid @RequestBody updateUserRequest: UpdateUserRequest): ResponseEntity<Unit> {
         return getDelegate().updateUser(updateUserRequest)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.PATCH],
+            value = ["/user/me/notification/{notification}/active"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun updateUserNotificationActive( @PathVariable("notification") notification: NotificationEnum, @Valid @RequestBody updateUserNotificationActiveRequest: UpdateUserNotificationActiveRequest): ResponseEntity<Unit> {
+        return getDelegate().updateUserNotificationActive(notification, updateUserNotificationActiveRequest)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.POST],
+            value = ["/user/me/delete"]
+    )
+    fun userMeDelete(): ResponseEntity<Unit> {
+        return getDelegate().userMeDelete()
     }
 }

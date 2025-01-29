@@ -1,6 +1,10 @@
 package language_forest.api.user
 
 import jakarta.persistence.EntityNotFoundException
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import language_forest.dto.SocialInfoDto
 import language_forest.entity.*
 import language_forest.generated.model.UpdateUser
 import language_forest.generated.model.UpdateUserInfo
@@ -11,13 +15,16 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
+
 @Service
 class UserService(
     private val userRepository: UserRepository,
     private val userInfoRepository: UserInfoRepository,
     private val userStudyInfoRepository: UserStudyInfoRepository,
     private val userPointRepository: UserPointRepository,
-    private val userNotificationRepository: UserNotificationRepository
+    private val userNotificationRepository: UserNotificationRepository,
+    private val googleUserInfoRepository: GoogleUserInfoRepository,
+    private val appleUserInfoRepository: AppleUserInfoRepository
 ) {
     @Transactional(readOnly = true)
     fun getUser(uid: UUID): UserEntity? {
@@ -41,14 +48,15 @@ class UserService(
 
     @Transactional
     fun onboardingUser(
-        newUser: UserEntity,
-        newUserInfo: UserInfoEntity,
+        uid: UUID,
+        user: UpdateUser,
+        userInfo: UserInfoEntity,
         newUserStudyInfo: UserStudyInfoEntity,
         newUserNotification: UserNotificationEntity,
         newUserPoint: UserPointEntity
     ) {
-        saveUser(newUser)
-        saveUserInfo(newUserInfo)
+        updateUser(uid, user)
+        saveUserInfo(userInfo)
         saveUserStudyInfo(newUserStudyInfo)
         saveUserNotification(newUserNotification)
         saveUserPoint(newUserPoint)
@@ -135,5 +143,34 @@ class UserService(
         return userStudyInfoRepository.save(userStudyInfo)
     }
 
+    @Transactional
+    fun getUserSocialInfo(uid: UUID): SocialInfoDto {
+        val googleUserInfo = googleUserInfoRepository.findByIdOrNull(uid)
+        val appleUserInfo = appleUserInfoRepository.findByIdOrNull(uid)
 
+        return  SocialInfoDto(
+            googleUserInfo = googleUserInfo,
+            appleUserInfo = appleUserInfo
+        )
+    }
+
+    @Transactional
+    suspend fun deleteUser(uid: UUID): Boolean = coroutineScope {
+        try {
+            val deferredResults = listOf(
+                async { googleUserInfoRepository.deleteById(uid)},
+                async { appleUserInfoRepository.deleteById(uid)},
+                async { userNotificationRepository.deleteById(uid)},
+
+                async { userRepository.softDeleteByUid(uid)},
+                async { userInfoRepository.softDeleteByUid(uid)},
+                async { userStudyInfoRepository.softDeleteByUid(uid)},
+            )
+
+            deferredResults.awaitAll()
+            return@coroutineScope true
+        } catch (e: Exception) {
+            return@coroutineScope false
+        }
+    }
 }

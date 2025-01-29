@@ -5,6 +5,7 @@
 */
 package language_forest.generated.api
 
+import language_forest.generated.model.AppleLoginRequest
 import language_forest.generated.model.AuthRefreshRequest
 import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
@@ -35,6 +36,17 @@ import kotlin.collections.Map
 interface AuthApi {
 
     fun getDelegate(): AuthApiDelegate = object: AuthApiDelegate {}
+
+
+    @RequestMapping(
+            method = [RequestMethod.POST],
+            value = ["/auth/apple"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun appleLogin( @Valid @RequestBody appleLoginRequest: AppleLoginRequest): ResponseEntity<TokenDto> {
+        return getDelegate().appleLogin(appleLoginRequest)
+    }
 
 
     @RequestMapping(
