@@ -91,7 +91,10 @@ class StudyDelegateImpl(
         val sentenceAmount = study.sentenceAmount
 
         val problems = openAiUtil.generateProblems(study.story, sentenceAmount.toString(), userLanguageString, studyLanguageString, studyLevelString)
-        val problemList: List<String> = problems.split(",").map { it.trim() }
+        val problemList: List<String> = problems.split(".")
+            .map { it.trim() }
+            .filter { it.isNotBlank() }
+
         val createStudyPracticeResponseStudyPractices: MutableList<CreateStudyPracticeResponseStudyPracticesInner> = mutableListOf()
         problemList.forEachIndexed() { index, problem ->
 //            val correctAnswer = openAiUtil.generateAnswer(problem, studyLanguageString)

@@ -38,10 +38,10 @@ fun LanguageEnum.toLanguageString(): String {
 fun LevelEnum.toLevelString(): String {
     val levelMapping = mapOf(
         LevelEnum.A to "3단어",
-        LevelEnum.B to "5단어",
-        LevelEnum.C to "8단어",
-        LevelEnum.D to "10단어",
-        LevelEnum.E to "12단어"
+        LevelEnum.B to "6단어",
+        LevelEnum.C to "9단어",
+        LevelEnum.D to "12단어",
+        LevelEnum.E to "15단어"
     )
 
     return requireNotNull(levelMapping[this]) { "Level not found for key: $this" }
