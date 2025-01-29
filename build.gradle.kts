@@ -7,6 +7,7 @@ plugins {
 	id("org.openapi.generator") version "7.10.0"
 	id("com.google.cloud.tools.jib") version "3.4.4"
 	id("org.flywaydb.flyway") version "11.1.0"
+	kotlin("plugin.serialization") version "1.9.0"
 }
 
 group = "language-forest"
@@ -97,6 +98,9 @@ dependencies {
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+	// Kotlin Serailization
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }
 
 buildscript {

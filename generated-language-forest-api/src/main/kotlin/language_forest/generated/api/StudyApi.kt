@@ -7,6 +7,7 @@ package language_forest.generated.api
 
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
+import language_forest.generated.model.CreateStudySummaryResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -44,5 +45,15 @@ interface StudyApi {
     )
     fun createStudy( @Valid @RequestBody createStudyRequest: CreateStudyRequest): ResponseEntity<CreateStudyResponse> {
         return getDelegate().createStudy(createStudyRequest)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.POST],
+            value = ["/study/{studyId}/summary"],
+            produces = ["application/json"]
+    )
+    fun createStudySummary( @PathVariable("studyId") studyId: java.util.UUID): ResponseEntity<CreateStudySummaryResponse> {
+        return getDelegate().createStudySummary(studyId)
     }
 }
