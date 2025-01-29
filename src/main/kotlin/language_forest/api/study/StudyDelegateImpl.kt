@@ -1,6 +1,7 @@
 package language_forest.api.study
 
 import language_forest.api.user.UserService
+import language_forest.entity.StudySummaryEntity
 import language_forest.generated.api.StudyApiDelegate
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
@@ -32,7 +33,6 @@ class StudyDelegateImpl(
                 id = id,
                 userStudyInfo = userStudyInfo
             )
-
         studyService.saveStudy(newStudy)
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -50,6 +50,18 @@ class StudyDelegateImpl(
         val message = openAiUtil.generateMessage(story)
         val emoji = openAiUtil.generateEmoji(story)
         val tags = openAiUtil.generateKeywords(story)
+
+        val id = UUID.randomUUID()
+        val newStudySummary = StudySummaryEntity(
+            id = id,
+            studyId = studyId,
+            summary = summary,
+            message = message,
+            emoji = emoji,
+            tags = tags,
+            selectedTag = null
+        )
+        studyService.saveStudySummary(newStudySummary)
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
             CreateStudySummaryResponse(

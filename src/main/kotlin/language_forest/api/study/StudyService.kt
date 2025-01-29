@@ -1,7 +1,9 @@
 package language_forest.api.study
 
 import language_forest.entity.StudyEntity
+import language_forest.entity.StudySummaryEntity
 import language_forest.repository.StudyRepository
+import language_forest.repository.StudySummaryRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -9,7 +11,8 @@ import java.util.*
 
 @Service
 class StudyService(
-    private val studyRepository: StudyRepository
+    private val studyRepository: StudyRepository,
+    private val studySummaryRepository: StudySummaryRepository
 ) {
     @Transactional
     fun saveStudy(newStudy: StudyEntity): StudyEntity {
@@ -19,5 +22,10 @@ class StudyService(
     @Transactional(readOnly = true)
     fun getStudyById(id: UUID): StudyEntity? {
         return studyRepository.findByIdOrNull(id)
+    }
+
+    @Transactional
+    fun saveStudySummary(newStudySummary: StudySummaryEntity): StudySummaryEntity {
+        return studySummaryRepository.save(newStudySummary)
     }
 }
