@@ -1,8 +1,10 @@
 package language_forest.transformer
 
 import language_forest.entity.StudyEntity
+import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.UserStudyInfoEntity
 import language_forest.generated.model.CreateStudy
+import language_forest.generated.model.CreateStudyPracticeResponseStudyPracticesInner
 import java.util.*
 
 fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoEntity): StudyEntity {
@@ -19,5 +21,13 @@ fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoE
         story = this.story,
         storyVoicePath = this.storyVoicePath,
         averageScore = 0
+    )
+}
+
+fun StudyPracticeEntity.toCreateStudyPracticeResponseStudyPracticesInner(): CreateStudyPracticeResponseStudyPracticesInner {
+    return CreateStudyPracticeResponseStudyPracticesInner(
+        studyPracticeId = this.id,
+        problemNumber = this.problemNumber,
+        problem = this.problem
     )
 }

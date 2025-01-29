@@ -5,6 +5,8 @@
 */
 package language_forest.generated.api
 
+import language_forest.generated.model.CreateStudyPracticeRequest
+import language_forest.generated.model.CreateStudyPracticeResponse
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
 import language_forest.generated.model.CreateStudySummaryResponse
@@ -45,6 +47,17 @@ interface StudyApi {
     )
     fun createStudy( @Valid @RequestBody createStudyRequest: CreateStudyRequest): ResponseEntity<CreateStudyResponse> {
         return getDelegate().createStudy(createStudyRequest)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.POST],
+            value = ["/study/{studyId}/practice"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun createStudyPractice( @PathVariable("studyId") studyId: java.util.UUID, @Valid @RequestBody createStudyPracticeRequest: CreateStudyPracticeRequest): ResponseEntity<CreateStudyPracticeResponse> {
+        return getDelegate().createStudyPractice(studyId, createStudyPracticeRequest)
     }
 
 

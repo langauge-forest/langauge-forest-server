@@ -43,4 +43,4 @@ class StudyEntity(
 
     var averageScore: Int?
 
-    ) : BaseTimestampEntity()
+) : BaseTimestampEntity()

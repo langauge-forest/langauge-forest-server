@@ -14,12 +14,15 @@ import jakarta.validation.Valid
 
 /**
  * 
+ * @param studySummaryId 
  * @param summary 하루 일지 한 문장 요약
  * @param message 하루 일지 150자 이내 요약
  * @param emoji 하루 일지 기반 이모티콘
  * @param tags 하루 일지 기반 4가지 키워드
  */
 data class CreateStudySummaryResponse(
+
+    @get:JsonProperty("studySummaryId") val studySummaryId: java.util.UUID? = null,
 
     @get:JsonProperty("summary") val summary: kotlin.String? = null,
 

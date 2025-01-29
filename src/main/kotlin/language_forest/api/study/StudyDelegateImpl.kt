@@ -1,12 +1,13 @@
 package language_forest.api.study
 
 import language_forest.api.user.UserService
+import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.StudySummaryEntity
 import language_forest.generated.api.StudyApiDelegate
-import language_forest.generated.model.CreateStudyRequest
-import language_forest.generated.model.CreateStudyResponse
-import language_forest.generated.model.CreateStudySummaryResponse
-import language_forest.generated.model.StudyResponse
+import language_forest.generated.model.*
+import language_forest.transformer.toCreateStudyPracticeResponseStudyPracticesInner
+import language_forest.transformer.toLanguageString
+import language_forest.transformer.toLevelString
 import language_forest.transformer.toStudyEntity
 import language_forest.util.OpenAiUtil
 import language_forest.util.getUid
@@ -65,10 +66,52 @@ class StudyDelegateImpl(
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
             CreateStudySummaryResponse(
+                studySummaryId = id,
                 summary = summary,
                 message = message,
                 emoji = emoji,
                 tags = tags
+            )
+        )
+    }
+
+    override fun createStudyPractice(
+        studyId: UUID,
+        createStudyPracticeRequest: CreateStudyPracticeRequest
+    ): ResponseEntity<CreateStudyPracticeResponse> {
+        val selectedTag = createStudyPracticeRequest.selectedTag
+        var studySummary = studyService.getStudySummaryById(createStudyPracticeRequest.studySummaryId)
+//        studySummary.selectedTag = selectedTag
+
+        val study = studyService.getStudyById(studyId) ?: throw IllegalArgumentException("StudyEntity not found for id: ${studyId}")
+        val userLanguageString = userService.getUser(getUid())?.language?.toLanguageString() ?: throw IllegalArgumentException("user language not found")
+        val studyLanguageString = study.language.toLanguageString()
+        val studyLevelString = study.level.toLevelString()
+        val sentenceAmount = study.sentenceAmount
+
+        val problems = openAiUtil.generateProblems(study.story, sentenceAmount.toString(), userLanguageString, studyLanguageString, studyLevelString)
+        val problemList: List<String> = problems.split(",").map { it.trim() }
+        val createStudyPracticeResponseStudyPractices: MutableList<CreateStudyPracticeResponseStudyPracticesInner> = mutableListOf()
+        problemList.forEachIndexed() { index, problem ->
+            val correctAnswer = openAiUtil.generateAnswer(problem, studyLanguageString)
+            val id = UUID.randomUUID()
+            val newStudyPracticeEntity = StudyPracticeEntity(
+                id = id,
+                studyId = studyId,
+                problemNumber = index+1,
+                problem = problem,
+                correctAnswer = correctAnswer,
+                myAnswer = null, myAnswerVoicePath = null, tip = null, score = 0
+            )
+
+            studyService.saveStudyPractice(newStudyPracticeEntity)
+
+            createStudyPracticeResponseStudyPractices.add(newStudyPracticeEntity.toCreateStudyPracticeResponseStudyPracticesInner())
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+            CreateStudyPracticeResponse(
+                studyPractices = createStudyPracticeResponseStudyPractices.toList()
             )
         )
     }

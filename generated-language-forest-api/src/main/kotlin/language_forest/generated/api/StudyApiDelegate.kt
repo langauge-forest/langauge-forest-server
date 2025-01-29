@@ -1,5 +1,7 @@
 package language_forest.generated.api
 
+import language_forest.generated.model.CreateStudyPracticeRequest
+import language_forest.generated.model.CreateStudyPracticeResponse
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
 import language_forest.generated.model.CreateStudySummaryResponse
@@ -38,13 +40,31 @@ interface StudyApiDelegate {
 
 
     /**
+     * @see StudyApi#createStudyPractice
+     */
+    fun createStudyPractice(studyId: java.util.UUID,
+        createStudyPracticeRequest: CreateStudyPracticeRequest): ResponseEntity<CreateStudyPracticeResponse> {
+        getRequest().ifPresent { request ->
+            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"studyPractices\" : [ {    \"studyPracticeId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"problem\" : \"problem\",    \"problemNumber\" : 0  }, {    \"studyPracticeId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"problem\" : \"problem\",    \"problemNumber\" : 0  } ]}")
+                    break
+                }
+            }
+        }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
      * @see StudyApi#createStudySummary
      */
     fun createStudySummary(studyId: java.util.UUID): ResponseEntity<CreateStudySummaryResponse> {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"summary\" : \"summary\",  \"emoji\" : \"emoji\",  \"message\" : \"message\",  \"tags\" : \"tags\"}")
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"summary\" : \"summary\",  \"studySummaryId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"emoji\" : \"emoji\",  \"message\" : \"message\",  \"tags\" : \"tags\"}")
                     break
                 }
             }
