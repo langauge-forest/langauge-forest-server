@@ -16,7 +16,7 @@ class StudyPracticeEntity(
 
     val problem: String,
 
-    val correctAnswer: String,
+    var correctAnswer: String?,
 
     var myAnswer: String?,
 

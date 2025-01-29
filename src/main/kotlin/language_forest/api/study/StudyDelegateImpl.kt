@@ -94,15 +94,14 @@ class StudyDelegateImpl(
         val problemList: List<String> = problems.split(",").map { it.trim() }
         val createStudyPracticeResponseStudyPractices: MutableList<CreateStudyPracticeResponseStudyPracticesInner> = mutableListOf()
         problemList.forEachIndexed() { index, problem ->
-            val correctAnswer = openAiUtil.generateAnswer(problem, studyLanguageString)
+//            val correctAnswer = openAiUtil.generateAnswer(problem, studyLanguageString)
             val id = UUID.randomUUID()
             val newStudyPracticeEntity = StudyPracticeEntity(
                 id = id,
                 studyId = studyId,
                 problemNumber = index+1,
                 problem = problem,
-                correctAnswer = correctAnswer,
-                myAnswer = null, myAnswerVoicePath = null, tip = null, score = 0
+                correctAnswer = null, myAnswer = null, myAnswerVoicePath = null, tip = null, score = 0
             )
 
             studyService.saveStudyPractice(newStudyPracticeEntity)
