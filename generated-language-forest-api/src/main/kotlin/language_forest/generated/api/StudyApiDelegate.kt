@@ -25,6 +25,15 @@ interface StudyApiDelegate {
     fun getRequest(): Optional<NativeWebRequest> = Optional.empty()
 
     /**
+     * @see StudyApi#completeStudyPractice
+     */
+    fun completeStudyPractice(studyId: java.util.UUID): ResponseEntity<Unit> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
      * @see StudyApi#createStudy
      */
     fun createStudy(createStudyRequest: CreateStudyRequest): ResponseEntity<CreateStudyResponse> {

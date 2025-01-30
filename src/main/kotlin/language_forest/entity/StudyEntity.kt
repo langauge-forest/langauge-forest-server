@@ -38,7 +38,7 @@ class StudyEntity(
 
     var storyVoicePath: String?,
 
-    var averageScore: Int?,
+    var averageScore: Double?,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "study_status")

@@ -12,7 +12,7 @@ CREATE TABLE study (
 
     story TEXT NULL,
     story_voice_path VARCHAR(2048) NULL,
-    average_score TINYINT NOT NULL DEFAULT 0,
+    average_score DOUBLE PRECISION NOT NULL DEFAULT 0,
     study_status VARCHAR(20) NOT NULL,
 
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

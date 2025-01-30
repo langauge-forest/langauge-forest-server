@@ -42,6 +42,15 @@ interface StudyApi {
 
 
     @RequestMapping(
+            method = [RequestMethod.PUT],
+            value = ["/study/{studyId}/practice"]
+    )
+    fun completeStudyPractice( @PathVariable("studyId") studyId: java.util.UUID): ResponseEntity<Unit> {
+        return getDelegate().completeStudyPractice(studyId)
+    }
+
+
+    @RequestMapping(
             method = [RequestMethod.POST],
             value = ["/study"],
             produces = ["application/json"],

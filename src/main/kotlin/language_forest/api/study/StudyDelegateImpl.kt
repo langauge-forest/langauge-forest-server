@@ -177,4 +177,15 @@ class StudyDelegateImpl(
             )
         )
     }
+
+    override fun completeStudyPractice(studyId: UUID): ResponseEntity<Unit> {
+        val study = studyService.getStudyById(studyId)?: throw IllegalArgumentException("study not found")
+        val averageScore = studyService.getAverageScoreByStudyId(studyId)
+
+        study.averageScore = averageScore
+        study.studyStatusEnum = StudyStatusEnum.COMPLETED
+        studyService.saveStudy(study)
+
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
 }

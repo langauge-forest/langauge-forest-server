@@ -22,7 +22,7 @@ fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoE
         inputType = this.inputType,
         story = this.story,
         storyVoicePath = this.storyVoicePath,
-        averageScore = 0,
+        averageScore = 0.0,
         studyStatusEnum = StudyStatusEnum.PENDING
     )
 }
