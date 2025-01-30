@@ -9,7 +9,7 @@ import language_forest.generated.model.BaseUserNotification
 import language_forest.generated.model.CreateUserRequest
 import language_forest.generated.model.ErrorResponse
 import language_forest.generated.model.NotificationEnum
-import language_forest.generated.model.UpdateUserNotificationActiveRequest
+import language_forest.generated.model.UpdateUserNotificationRequest
 import language_forest.generated.model.UpdateUserRequest
 import language_forest.generated.model.UserResponse
 import language_forest.generated.model.UserSocialResponse
@@ -94,12 +94,12 @@ interface UserApi {
 
     @RequestMapping(
             method = [RequestMethod.PATCH],
-            value = ["/user/me/notification/{notification}/active"],
+            value = ["/user/me/notification/{notification}"],
             produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun updateUserNotificationActive( @PathVariable("notification") notification: NotificationEnum, @Valid @RequestBody updateUserNotificationActiveRequest: UpdateUserNotificationActiveRequest): ResponseEntity<Unit> {
-        return getDelegate().updateUserNotificationActive(notification, updateUserNotificationActiveRequest)
+    fun updateUserNotification( @PathVariable("notification") notification: NotificationEnum, @Valid @RequestBody updateUserNotificationRequest: UpdateUserNotificationRequest): ResponseEntity<BaseUserNotification> {
+        return getDelegate().updateUserNotification(notification, updateUserNotificationRequest)
     }
 
 

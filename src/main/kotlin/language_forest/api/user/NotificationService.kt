@@ -3,7 +3,9 @@ package language_forest.api.user
 import language_forest.entity.UserNotificationEntity
 import language_forest.exception.BadRequestException
 import language_forest.exception.NotFoundException
+import language_forest.exception.UpdateFailedException
 import language_forest.generated.model.NotificationEnum
+import language_forest.generated.model.UpdateUserNotificationRequest
 import language_forest.repository.UserNotificationRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,7 +21,13 @@ class NotificationService(
     }
 
     @Transactional
-    fun updateNotificationActiveStatus(uid: UUID, notificationPreference: NotificationEnum, isActive: Boolean): Boolean {
-        return userNotificationRepository.updateIsActiveByUidAndNotificationPreference(uid, notificationPreference, isActive) > 0
+    fun updateNotification(uid: UUID, notificationPreference: NotificationEnum, updateUserNotification: UpdateUserNotificationRequest): UserNotificationEntity {
+        val userNotification = userNotificationRepository.findByUidAndNotificationPreference(uid, notificationPreference)
+            ?: throw NotFoundException("$uid 의 $notificationPreference 을 찾을 수 없습니다.")
+
+        updateUserNotification.isActive?.let {userNotification.isActive = it}
+        updateUserNotification.cron?.let {userNotification.cron = it}
+
+        return userNotificationRepository.save(userNotification)
     }
 }

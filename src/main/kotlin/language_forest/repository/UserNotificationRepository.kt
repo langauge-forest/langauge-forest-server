@@ -12,10 +12,5 @@ import java.util.*
 
 @Repository
 interface UserNotificationRepository : JpaRepositoryWithSoftDelete<UserNotificationEntity, UUID> {
-
     fun findByUidAndNotificationPreference(uid: UUID, notificationPreference: NotificationEnum): UserNotificationEntity?
-
-    @Modifying
-    @Query("UPDATE UserNotificationEntity u SET u.isActive = :isActive WHERE u.uid = :uid AND u.notificationPreference = :notificationPreference")
-    fun updateIsActiveByUidAndNotificationPreference(uid: UUID, notificationPreference: NotificationEnum, isActive: Boolean): Int
 }

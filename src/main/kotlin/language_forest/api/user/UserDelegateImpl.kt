@@ -3,16 +3,13 @@ package language_forest.api.user
 import kotlinx.coroutines.runBlocking
 import language_forest.entity.UserPointEntity
 import language_forest.exception.NotFoundException
-import language_forest.exception.UpdateFailedException
 import language_forest.generated.api.UserApiDelegate
 import language_forest.generated.model.*
 import language_forest.transformer.*
 import language_forest.util.getUid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
-import org.springframework.web.server.ResponseStatusException
 import java.util.*
 
 @Component
@@ -99,19 +96,14 @@ class UserDelegateImpl(
         return ResponseEntity.ok(userNotification.toBaseUserNotification())
     }
 
-    override fun updateUserNotificationActive(
+    override fun updateUserNotification(
         notification: NotificationEnum,
-        updateUserNotificationActiveRequest: UpdateUserNotificationActiveRequest
-    ): ResponseEntity<Unit> {
-
+        updateUserNotificationRequest: UpdateUserNotificationRequest
+    ): ResponseEntity<BaseUserNotification> {
         val uid = getUid()
-        val update = notificationService.updateNotificationActiveStatus(uid, notification, updateUserNotificationActiveRequest.isActive)
+        val update = notificationService.updateNotification(uid, notification, updateUserNotificationRequest)
 
-        if (!update){
-            throw UpdateFailedException("$uid 의 $notification 을 ${updateUserNotificationActiveRequest.isActive} 으로 업데이트할 떄 실패했습니다.")
-        }
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build()
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(update.toBaseUserNotification())
     }
 
     override fun userMeDelete(): ResponseEntity<Unit> {

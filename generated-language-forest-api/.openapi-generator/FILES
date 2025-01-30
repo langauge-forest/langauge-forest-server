@@ -33,7 +33,7 @@ src/main/kotlin/language_forest/generated/model/Timestamped.kt
 src/main/kotlin/language_forest/generated/model/TokenDto.kt
 src/main/kotlin/language_forest/generated/model/UpdateUser.kt
 src/main/kotlin/language_forest/generated/model/UpdateUserInfo.kt
-src/main/kotlin/language_forest/generated/model/UpdateUserNotificationActiveRequest.kt
+src/main/kotlin/language_forest/generated/model/UpdateUserNotificationRequest.kt
 src/main/kotlin/language_forest/generated/model/UpdateUserRequest.kt
 src/main/kotlin/language_forest/generated/model/UpdateUserStudyInfo.kt
 src/main/kotlin/language_forest/generated/model/UserResponse.kt

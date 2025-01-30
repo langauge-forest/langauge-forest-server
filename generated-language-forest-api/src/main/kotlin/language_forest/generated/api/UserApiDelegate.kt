@@ -4,7 +4,7 @@ import language_forest.generated.model.BaseUserNotification
 import language_forest.generated.model.CreateUserRequest
 import language_forest.generated.model.ErrorResponse
 import language_forest.generated.model.NotificationEnum
-import language_forest.generated.model.UpdateUserNotificationActiveRequest
+import language_forest.generated.model.UpdateUserNotificationRequest
 import language_forest.generated.model.UpdateUserRequest
 import language_forest.generated.model.UserResponse
 import language_forest.generated.model.UserSocialResponse
@@ -99,12 +99,16 @@ interface UserApiDelegate {
 
 
     /**
-     * @see UserApi#updateUserNotificationActive
+     * @see UserApi#updateUserNotification
      */
-    fun updateUserNotificationActive(notification: NotificationEnum,
-        updateUserNotificationActiveRequest: UpdateUserNotificationActiveRequest): ResponseEntity<Unit> {
+    fun updateUserNotification(notification: NotificationEnum,
+        updateUserNotificationRequest: UpdateUserNotificationRequest): ResponseEntity<BaseUserNotification> {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"cron\" : \"cron\",  \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"notificationPreference\" : \"DAILY_STUDY\",  \"isActive\" : true}")
+                    break
+                }
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"message\" : \"message\",  \"status\" : 0}")
                     break
