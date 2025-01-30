@@ -4,11 +4,13 @@ import jakarta.persistence.*
 import language_forest.generated.model.LanguageEnum
 import language_forest.generated.model.LevelEnum
 import language_forest.generated.model.VoiceTypeEnum
+import org.hibernate.annotations.Filter
 import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity
 @Table(name = "user_study_info")
+@Filter(name = "softDeleteFilter", condition = "deleted_at IS NULL")
 class UserStudyInfoEntity(
     @Id val id: UUID,
 

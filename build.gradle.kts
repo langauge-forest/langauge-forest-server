@@ -82,6 +82,9 @@ dependencies {
 	implementation("org.flywaydb:flyway-mysql:11.1.0")
 	implementation("com.mysql:mysql-connector-j:8.2.0")
 
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.9.0")
+
 	// Jackson Nullable
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
 
