@@ -147,4 +147,34 @@ class StudyDelegateImpl(
             )
         )
     }
+
+    override fun updateStudyPracticeRetry(
+        studyId: UUID,
+        studyPracticeId: UUID,
+        updateStudyPracticeRequest: UpdateStudyPracticeRequest
+    ): ResponseEntity<UpdateStudyPracticeResponse> {
+        val study = studyService.getStudyById(studyId)?: throw IllegalArgumentException("study not found")
+        val userLanguageString = userService.getUser(getUid())?.language?.toLanguageString() ?: throw IllegalArgumentException("user language not found")
+        val studyLanguageString = study.language.toLanguageString()
+
+        val studyPractice = studyService.getStudyPracticeById(studyPracticeId)?: throw IllegalArgumentException("study practice not found")
+        val myAnswer = updateStudyPracticeRequest.studyPractice.myAnswer
+        val myAnswerVoicePath = updateStudyPracticeRequest.studyPractice.myAnswerVoicePath?: ""
+
+        val correctAnswer = studyPractice.correctAnswer?: throw IllegalArgumentException("correct answer not found")
+        val score = openAiUtil.generateScore(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
+        val tip = openAiUtil.generateTip(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
+
+        studyPractice.myAnswer = myAnswer
+        studyPractice.myAnswerVoicePath = myAnswerVoicePath
+        studyPractice.score = score.toInt()
+        studyPractice.tip = tip
+        studyService.saveStudyPractice(studyPractice)
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+            UpdateStudyPracticeResponse(
+                studyPractice = studyPractice.toUpdateStudyPracticeResponseStudyPractice()
+            )
+        )
+    }
 }

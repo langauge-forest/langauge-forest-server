@@ -82,4 +82,15 @@ interface StudyApi {
     fun updateStudyPractice( @PathVariable("studyId") studyId: java.util.UUID, @PathVariable("studyPracticeId") studyPracticeId: java.util.UUID, @Valid @RequestBody updateStudyPracticeRequest: UpdateStudyPracticeRequest): ResponseEntity<UpdateStudyPracticeResponse> {
         return getDelegate().updateStudyPractice(studyId, studyPracticeId, updateStudyPracticeRequest)
     }
+
+
+    @RequestMapping(
+            method = [RequestMethod.PUT],
+            value = ["/study/{studyId}/practice/{studyPracticeId}/retry"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun updateStudyPracticeRetry( @PathVariable("studyId") studyId: java.util.UUID, @PathVariable("studyPracticeId") studyPracticeId: java.util.UUID, @Valid @RequestBody updateStudyPracticeRequest: UpdateStudyPracticeRequest): ResponseEntity<UpdateStudyPracticeResponse> {
+        return getDelegate().updateStudyPracticeRetry(studyId, studyPracticeId, updateStudyPracticeRequest)
+    }
 }

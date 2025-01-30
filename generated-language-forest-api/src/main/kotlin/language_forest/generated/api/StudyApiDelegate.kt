@@ -94,4 +94,23 @@ interface StudyApiDelegate {
 
     }
 
+
+    /**
+     * @see StudyApi#updateStudyPracticeRetry
+     */
+    fun updateStudyPracticeRetry(studyId: java.util.UUID,
+        studyPracticeId: java.util.UUID,
+        updateStudyPracticeRequest: UpdateStudyPracticeRequest): ResponseEntity<UpdateStudyPracticeResponse> {
+        getRequest().ifPresent { request ->
+            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"studyPractice\" : {    \"score\" : 6,    \"problem\" : \"problem\",    \"myAnswerVoicePath\" : \"myAnswerVoicePath\",    \"problemNumber\" : 0,    \"tip\" : \"tip\",    \"myAnswer\" : \"myAnswer\",    \"correctAnswer\" : \"correctAnswer\"  }}")
+                    break
+                }
+            }
+        }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
 }
