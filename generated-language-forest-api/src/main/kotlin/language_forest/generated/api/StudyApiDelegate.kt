@@ -5,6 +5,7 @@ import language_forest.generated.model.CreateStudyPracticeResponse
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
 import language_forest.generated.model.CreateStudySummaryResponse
+import language_forest.generated.model.StudyResponse
 import language_forest.generated.model.UpdateStudyPracticeRequest
 import language_forest.generated.model.UpdateStudyPracticeResponse
 import org.springframework.http.HttpStatus
@@ -76,6 +77,23 @@ interface StudyApiDelegate {
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"summary\" : \"summary\",  \"studySummaryId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"emoji\" : \"emoji\",  \"message\" : \"message\",  \"tags\" : \"tags\"}")
+                    break
+                }
+            }
+        }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
+     * @see StudyApi#getStudy
+     */
+    fun getStudy(studyId: java.util.UUID): ResponseEntity<StudyResponse> {
+        getRequest().ifPresent { request ->
+            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"study\" : {    \"level\" : \"A\",    \"userStudyInfoId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"sentenceAmount\" : 0,    \"language\" : \"JA\",    \"storyVoicePath\" : \"storyVoicePath\",    \"voiceType\" : \"A\",    \"averageScore\" : 6.027456183070403,    \"uid\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"inputType\" : \"SPEAKING\",    \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"startQuestion\" : \"startQuestion\",    \"story\" : \"story\",    \"studyStatus\" : \"PENDING\"  },  \"studyPractices\" : [ {    \"score\" : 5,    \"problem\" : \"problem\",    \"myAnswerVoicePath\" : \"myAnswerVoicePath\",    \"problemNumber\" : 1,    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"tip\" : \"tip\",    \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"myAnswer\" : \"myAnswer\",    \"correctAnswer\" : \"correctAnswer\"  }, {    \"score\" : 5,    \"problem\" : \"problem\",    \"myAnswerVoicePath\" : \"myAnswerVoicePath\",    \"problemNumber\" : 1,    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"tip\" : \"tip\",    \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"myAnswer\" : \"myAnswer\",    \"correctAnswer\" : \"correctAnswer\"  } ],  \"studySummary\" : {    \"summary\" : \"summary\",    \"emoji\" : \"emoji\",    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"selectedTag\" : \"selectedTag\",    \"message\" : \"message\",    \"tags\" : \"tags\"  }}")
                     break
                 }
             }

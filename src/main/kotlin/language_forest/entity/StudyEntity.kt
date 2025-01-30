@@ -42,6 +42,6 @@ class StudyEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "study_status")
-    var studyStatusEnum: StudyStatusEnum
+    var studyStatus: StudyStatusEnum
 
 ) : BaseTimestampEntity()

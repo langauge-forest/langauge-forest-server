@@ -10,6 +10,7 @@ import language_forest.generated.model.CreateStudyPracticeResponse
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
 import language_forest.generated.model.CreateStudySummaryResponse
+import language_forest.generated.model.StudyResponse
 import language_forest.generated.model.UpdateStudyPracticeRequest
 import language_forest.generated.model.UpdateStudyPracticeResponse
 import org.springframework.http.HttpStatus
@@ -79,6 +80,16 @@ interface StudyApi {
     )
     fun createStudySummary( @PathVariable("studyId") studyId: java.util.UUID): ResponseEntity<CreateStudySummaryResponse> {
         return getDelegate().createStudySummary(studyId)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.GET],
+            value = ["/study/{studyId}"],
+            produces = ["application/json"]
+    )
+    fun getStudy( @PathVariable("studyId") studyId: java.util.UUID): ResponseEntity<StudyResponse> {
+        return getDelegate().getStudy(studyId)
     }
 
 

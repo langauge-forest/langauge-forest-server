@@ -2,11 +2,9 @@ package language_forest.transformer
 
 import language_forest.entity.StudyEntity
 import language_forest.entity.StudyPracticeEntity
+import language_forest.entity.StudySummaryEntity
 import language_forest.entity.UserStudyInfoEntity
-import language_forest.generated.model.CreateStudy
-import language_forest.generated.model.CreateStudyPracticeResponseStudyPracticesInner
-import language_forest.generated.model.StudyStatusEnum
-import language_forest.generated.model.UpdateStudyPracticeResponseStudyPractice
+import language_forest.generated.model.*
 import java.util.*
 
 fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoEntity): StudyEntity {
@@ -23,7 +21,7 @@ fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoE
         story = this.story,
         storyVoicePath = this.storyVoicePath,
         averageScore = 0.0,
-        studyStatusEnum = StudyStatusEnum.PENDING
+        studyStatus = StudyStatusEnum.PENDING
     )
 }
 
@@ -44,5 +42,49 @@ fun StudyPracticeEntity.toUpdateStudyPracticeResponseStudyPractice(): UpdateStud
         correctAnswer = this.correctAnswer,
         score = this.score,
         tip = this.tip
+    )
+}
+
+fun StudyEntity.toBaseStudy(): BaseStudy {
+    return BaseStudy(
+        id = this.id,
+        uid = this.uid,
+        userStudyInfoId = this.userStudyInfoId,
+        voiceType = this.voiceType,
+        level = this.level,
+        sentenceAmount = this.sentenceAmount,
+        language = this.language,
+        startQuestion = startQuestion,
+        inputType = this.inputType,
+        story = this.story,
+        storyVoicePath = this.storyVoicePath,
+        averageScore = this.averageScore,
+        studyStatus = this.studyStatus
+    )
+}
+
+fun StudySummaryEntity.toBaseStudySummary(): BaseStudySummary {
+    return BaseStudySummary(
+        id = this.id,
+        studyId = this.studyId,
+        summary = this.summary,
+        message = this.message,
+        emoji = this.emoji,
+        tags = this.tags,
+        selectedTag = this.selectedTag
+    )
+}
+
+fun StudyPracticeEntity.toBaseStudyPractice(): BaseStudyPractice {
+    return BaseStudyPractice(
+        id = this.id,
+        studyId = this.studyId,
+        problemNumber = this.problemNumber,
+        problem = this.problem,
+        correctAnswer = this.correctAnswer,
+        myAnswer = this.myAnswer,
+        myAnswerVoicePath = this.myAnswerVoicePath,
+        tip = this.tip,
+        score = this.score,
     )
 }

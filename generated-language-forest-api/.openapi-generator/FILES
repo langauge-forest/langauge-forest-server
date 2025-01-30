@@ -16,6 +16,8 @@ src/main/kotlin/language_forest/generated/api/UserApiDelegate.kt
 src/main/kotlin/language_forest/generated/invoker/Application.kt
 src/main/kotlin/language_forest/generated/model/AuthRefreshRequest.kt
 src/main/kotlin/language_forest/generated/model/BaseStudy.kt
+src/main/kotlin/language_forest/generated/model/BaseStudyPractice.kt
+src/main/kotlin/language_forest/generated/model/BaseStudySummary.kt
 src/main/kotlin/language_forest/generated/model/BaseUser.kt
 src/main/kotlin/language_forest/generated/model/BaseUserInfo.kt
 src/main/kotlin/language_forest/generated/model/BaseUserNotification.kt
@@ -39,6 +41,7 @@ src/main/kotlin/language_forest/generated/model/LevelEnum.kt
 src/main/kotlin/language_forest/generated/model/NotificationEnum.kt
 src/main/kotlin/language_forest/generated/model/NotificationStatusEnum.kt
 src/main/kotlin/language_forest/generated/model/PointEnum.kt
+src/main/kotlin/language_forest/generated/model/StudyResponse.kt
 src/main/kotlin/language_forest/generated/model/StudyStatusEnum.kt
 src/main/kotlin/language_forest/generated/model/Timestamped.kt
 src/main/kotlin/language_forest/generated/model/TokenDto.kt

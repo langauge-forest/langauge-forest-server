@@ -183,9 +183,31 @@ class StudyDelegateImpl(
         val averageScore = studyService.getAverageScoreByStudyId(studyId)
 
         study.averageScore = averageScore
-        study.studyStatusEnum = StudyStatusEnum.COMPLETED
+        study.studyStatus = StudyStatusEnum.COMPLETED
         studyService.saveStudy(study)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+
+    override fun getStudy(studyId: UUID): ResponseEntity<StudyResponse> {
+        val study = studyService.getStudyById(studyId)?: throw IllegalArgumentException("study not found")
+        val baseStudy = study.toBaseStudy()
+
+        val studySummary = studyService.getStudySummaryByStudyId(studyId)?: throw IllegalArgumentException("study summary not found")
+        val baseStudySummary = studySummary.toBaseStudySummary()
+
+        val studyPracticeList = studyService.getStudyPracticeListByStudyId(studyId)?: throw IllegalArgumentException("study practice list not found")
+        val studyPractices: MutableList<BaseStudyPractice> = mutableListOf()
+        studyPracticeList.forEach { studyPractice ->
+            studyPractices.add(studyPractice.toBaseStudyPractice())
+        }
+
+        return ResponseEntity.ok(
+            StudyResponse(
+                study = baseStudy,
+                studySummary = baseStudySummary,
+                studyPractices = studyPractices.toList()
+            )
+        )
     }
 }

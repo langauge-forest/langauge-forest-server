@@ -51,4 +51,14 @@ class StudyService(
     fun getAverageScoreByStudyId(studyId: UUID): Double {
         return studyPracticeRepository.getAverageScoreByStudyId(studyId)
     }
+
+    @Transactional(readOnly = true)
+    fun getStudySummaryByStudyId(studyId: UUID): StudySummaryEntity? {
+        return studySummaryRepository.findByStudyId(studyId)
+    }
+
+    @Transactional(readOnly = true)
+    fun getStudyPracticeListByStudyId(studyId: UUID): List<StudyPracticeEntity>? {
+        return studyPracticeRepository.findByStudyId(studyId)
+    }
 }

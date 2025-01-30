@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue
 import language_forest.generated.model.InputTypeEnum
 import language_forest.generated.model.LanguageEnum
 import language_forest.generated.model.LevelEnum
+import language_forest.generated.model.StudyStatusEnum
 import language_forest.generated.model.VoiceTypeEnum
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
@@ -32,6 +33,7 @@ import jakarta.validation.Valid
  * @param story 유저의 하루 일기
  * @param storyVoicePath 유저의 하루 일기 음성 파일 경로
  * @param averageScore 전체 점수 평균
+ * @param studyStatus 학습 상태
  */
 data class BaseStudy(
 
@@ -61,7 +63,10 @@ data class BaseStudy(
 
     @get:JsonProperty("storyVoicePath") val storyVoicePath: kotlin.String? = null,
 
-    @get:JsonProperty("averageScore") val averageScore: kotlin.Int? = null
+    @get:JsonProperty("averageScore") val averageScore: kotlin.Double? = null,
+
+    @field:Valid
+    @get:JsonProperty("studyStatus") val studyStatus: StudyStatusEnum? = null
     ) {
 
 }
