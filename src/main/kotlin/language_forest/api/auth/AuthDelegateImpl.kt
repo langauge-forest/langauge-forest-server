@@ -1,6 +1,7 @@
 package language_forest.api.auth
 
 
+import language_forest.api.user.UserService
 import language_forest.entity.UserEntity
 import language_forest.exception.UnauthorizedException
 import language_forest.generated.api.AuthApiDelegate
@@ -9,6 +10,7 @@ import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
 import language_forest.transformer.toLanguageEnum
 import language_forest.util.JwtUtil
+import language_forest.util.getUid
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 
@@ -16,7 +18,8 @@ import org.springframework.stereotype.Component
 class AuthDelegateImpl(
     private val authGoogleService: AuthGoogleService,
     private val jwtUtil: JwtUtil,
-    private val authService: AuthService
+    private val authService: AuthService,
+    private val userService: UserService
 ) : AuthApiDelegate {
     override fun googleLogin(googleLoginRequest: GoogleLoginRequest): ResponseEntity<TokenDto> {
         val googleToken = googleLoginRequest.token.accessToken
@@ -35,6 +38,9 @@ class AuthDelegateImpl(
 
         val accessToken = jwtUtil.generateToken(user.uid)
         val refreshToken = jwtUtil.generateRefreshToken(user.uid)
+
+        val userStudyInfoId = userService.getUserStudyInfoByUid(user.uid)?.id
+        println(userStudyInfoId)
 
         return ResponseEntity.ok(TokenDto(accessToken, refreshToken))
     }

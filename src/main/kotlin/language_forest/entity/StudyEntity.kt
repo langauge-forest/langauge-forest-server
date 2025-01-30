@@ -1,10 +1,7 @@
 package language_forest.entity
 
 import jakarta.persistence.*
-import language_forest.generated.model.InputTypeEnum
-import language_forest.generated.model.LanguageEnum
-import language_forest.generated.model.LevelEnum
-import language_forest.generated.model.VoiceTypeEnum
+import language_forest.generated.model.*
 import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
@@ -41,6 +38,10 @@ class StudyEntity(
 
     var storyVoicePath: String?,
 
-    var averageScore: Int?
+    var averageScore: Int?,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "study_status")
+    var studyStatusEnum: StudyStatusEnum
 
 ) : BaseTimestampEntity()

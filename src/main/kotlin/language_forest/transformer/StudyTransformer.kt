@@ -5,6 +5,7 @@ import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.UserStudyInfoEntity
 import language_forest.generated.model.CreateStudy
 import language_forest.generated.model.CreateStudyPracticeResponseStudyPracticesInner
+import language_forest.generated.model.StudyStatusEnum
 import language_forest.generated.model.UpdateStudyPracticeResponseStudyPractice
 import java.util.*
 
@@ -21,7 +22,8 @@ fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoE
         inputType = this.inputType,
         story = this.story,
         storyVoicePath = this.storyVoicePath,
-        averageScore = 0
+        averageScore = 0,
+        studyStatusEnum = StudyStatusEnum.PENDING
     )
 }
 

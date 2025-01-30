@@ -68,7 +68,7 @@ class UserDelegateImpl(
         val userStudyInfo = UserStudyInfoEntity(
             id = UUID.randomUUID(),
             uid = uid,
-            level = LevelEnum.A,
+            level = LevelEnum.B,
             voiceType = VoiceTypeEnum.A,
             language = LanguageEnum.EN,
             streakDays = 0,
