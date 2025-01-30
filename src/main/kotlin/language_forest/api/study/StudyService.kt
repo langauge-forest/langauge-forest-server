@@ -41,4 +41,9 @@ class StudyService(
     fun getStudySummaryById(id: UUID): StudySummaryEntity? {
         return studySummaryRepository.findByIdOrNull(id)
     }
+
+    @Transactional(readOnly = true)
+    fun getStudyPracticeById(id: UUID): StudyPracticeEntity? {
+        return studyPracticeRepository.findByIdOrNull(id)
+    }
 }

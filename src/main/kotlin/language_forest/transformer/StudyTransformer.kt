@@ -5,6 +5,7 @@ import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.UserStudyInfoEntity
 import language_forest.generated.model.CreateStudy
 import language_forest.generated.model.CreateStudyPracticeResponseStudyPracticesInner
+import language_forest.generated.model.UpdateStudyPracticeResponseStudyPractice
 import java.util.*
 
 fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoEntity): StudyEntity {
@@ -29,5 +30,17 @@ fun StudyPracticeEntity.toCreateStudyPracticeResponseStudyPracticesInner(): Crea
         studyPracticeId = this.id,
         problemNumber = this.problemNumber,
         problem = this.problem
+    )
+}
+
+fun StudyPracticeEntity.toUpdateStudyPracticeResponseStudyPractice(): UpdateStudyPracticeResponseStudyPractice {
+    return UpdateStudyPracticeResponseStudyPractice(
+        problemNumber = this.problemNumber,
+        problem = this.problem,
+        myAnswer = this.myAnswer,
+        myAnswerVoicePath = myAnswerVoicePath,
+        correctAnswer = this.correctAnswer,
+        score = this.score,
+        tip = this.tip
     )
 }

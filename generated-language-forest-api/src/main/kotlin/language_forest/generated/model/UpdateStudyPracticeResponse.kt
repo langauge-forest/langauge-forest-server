@@ -2,6 +2,7 @@ package language_forest.generated.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
+import language_forest.generated.model.UpdateStudyPracticeResponseStudyPractice
 import jakarta.validation.constraints.DecimalMax
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -14,17 +15,12 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param studyPracticeId 
- * @param problemNumber 문제 번호
- * @param problem 문제
+ * @param studyPractice 
  */
-data class CreateStudyPracticeResponseStudyPracticesInner(
+data class UpdateStudyPracticeResponse(
 
-    @get:JsonProperty("studyPracticeId") val studyPracticeId: java.util.UUID? = null,
-
-    @get:JsonProperty("problemNumber") val problemNumber: kotlin.Int? = null,
-
-    @get:JsonProperty("problem") val problem: kotlin.String? = null
+    @field:Valid
+    @get:JsonProperty("studyPractice") val studyPractice: UpdateStudyPracticeResponseStudyPractice? = null
     ) {
 
 }

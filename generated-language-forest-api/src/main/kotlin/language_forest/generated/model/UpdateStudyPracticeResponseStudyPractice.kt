@@ -14,17 +14,29 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param studyPracticeId 
  * @param problemNumber 문제 번호
  * @param problem 문제
+ * @param myAnswer 유저 답변
+ * @param myAnswerVoicePath 유저 답변 링크
+ * @param correctAnswer 정답
+ * @param score 점수
+ * @param tip 팁(피드백)
  */
-data class CreateStudyPracticeResponseStudyPracticesInner(
-
-    @get:JsonProperty("studyPracticeId") val studyPracticeId: java.util.UUID? = null,
+data class UpdateStudyPracticeResponseStudyPractice(
 
     @get:JsonProperty("problemNumber") val problemNumber: kotlin.Int? = null,
 
-    @get:JsonProperty("problem") val problem: kotlin.String? = null
+    @get:JsonProperty("problem") val problem: kotlin.String? = null,
+
+    @get:JsonProperty("myAnswer") val myAnswer: kotlin.String? = null,
+
+    @get:JsonProperty("myAnswerVoicePath") val myAnswerVoicePath: kotlin.String? = null,
+
+    @get:JsonProperty("correctAnswer") val correctAnswer: kotlin.String? = null,
+
+    @get:JsonProperty("score") val score: kotlin.Int? = null,
+
+    @get:JsonProperty("tip") val tip: kotlin.String? = null
     ) {
 
 }

@@ -14,17 +14,14 @@ import jakarta.validation.Valid
 
 /**
  * 
- * @param studyPracticeId 
- * @param problemNumber 문제 번호
- * @param problem 문제
+ * @param myAnswer 유저의 답변
+ * @param myAnswerVoicePath 유저의 답변 음성 파일 경로
  */
-data class CreateStudyPracticeResponseStudyPracticesInner(
+data class UpdateStudyPractice(
 
-    @get:JsonProperty("studyPracticeId") val studyPracticeId: java.util.UUID? = null,
+    @get:JsonProperty("myAnswer", required = true) val myAnswer: kotlin.String,
 
-    @get:JsonProperty("problemNumber") val problemNumber: kotlin.Int? = null,
-
-    @get:JsonProperty("problem") val problem: kotlin.String? = null
+    @get:JsonProperty("myAnswerVoicePath") val myAnswerVoicePath: kotlin.String? = null
     ) {
 
 }
