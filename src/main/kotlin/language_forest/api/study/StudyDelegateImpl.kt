@@ -2,6 +2,7 @@ package language_forest.api.study
 
 import language_forest.api.user.UserService
 import language_forest.entity.StudyPracticeEntity
+import language_forest.entity.StudyPracticeLogEntity
 import language_forest.entity.StudySummaryEntity
 import language_forest.generated.api.StudyApiDelegate
 import language_forest.generated.model.*
@@ -137,9 +138,20 @@ class StudyDelegateImpl(
         studyPractice.myAnswer = myAnswer
         studyPractice.myAnswerVoicePath = myAnswerVoicePath
         studyPractice.correctAnswer = correctAnswer
-        studyPractice.score = score.toInt()
+        studyPractice.score = score
         studyPractice.tip = tip
         studyService.saveStudyPractice(studyPractice)
+
+        val studyPracticeLogId = UUID.randomUUID()
+        val newStudyPracticeLog = StudyPracticeLogEntity(
+            id = studyPracticeLogId,
+            studyPracticeId = studyPracticeId,
+            problem = problem,
+            myAnswer = myAnswer,
+            tip = tip,
+            score = score
+        )
+        studyService.saveStudyPracticeLog(newStudyPracticeLog)
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
             UpdateStudyPracticeResponse(
@@ -167,9 +179,20 @@ class StudyDelegateImpl(
 
         studyPractice.myAnswer = myAnswer
         studyPractice.myAnswerVoicePath = myAnswerVoicePath
-        studyPractice.score = score.toInt()
+        studyPractice.score = score
         studyPractice.tip = tip
         studyService.saveStudyPractice(studyPractice)
+
+        val studyPracticeLogId = UUID.randomUUID()
+        val newStudyPracticeLog = StudyPracticeLogEntity(
+            id = studyPracticeLogId,
+            studyPracticeId = studyPracticeId,
+            problem = studyPractice.problem,
+            myAnswer = myAnswer,
+            tip = tip,
+            score = score
+        )
+        studyService.saveStudyPracticeLog(newStudyPracticeLog)
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
             UpdateStudyPracticeResponse(

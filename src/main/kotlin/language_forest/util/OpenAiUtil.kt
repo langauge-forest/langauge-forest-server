@@ -80,7 +80,7 @@ class OpenAiUtil(
         return apiRequest(prompt, myAnswer)
     }
 
-    fun generateScore(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): String {
+    fun generateScore(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): Int {
         val prompt = "[상황] \\n" +
                 "너는 ${studyLanguage} 문화권에서 30년 이상 살아온 원어민이야. \\n" +
                 "너는 ${userLanguage}를 모국어로 사용하는 학생에게 ${studyLanguage} 문화와 언어를 가르치는 선생님이야. \\n" +
@@ -94,7 +94,7 @@ class OpenAiUtil(
                 "\\n" +
                 "[출력 예시] \\n" +
                 "n"
-        return apiRequest(prompt, myAnswer)
+        return apiRequest(prompt, myAnswer).toInt()
     }
 
     fun generateTip(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): String {

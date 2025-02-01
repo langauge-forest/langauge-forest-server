@@ -2,7 +2,9 @@ package language_forest.api.study
 
 import language_forest.entity.StudyEntity
 import language_forest.entity.StudyPracticeEntity
+import language_forest.entity.StudyPracticeLogEntity
 import language_forest.entity.StudySummaryEntity
+import language_forest.repository.StudyPracticeLogRepository
 import language_forest.repository.StudyPracticeRepository
 import language_forest.repository.StudyRepository
 import language_forest.repository.StudySummaryRepository
@@ -15,7 +17,8 @@ import java.util.*
 class StudyService(
     private val studyRepository: StudyRepository,
     private val studySummaryRepository: StudySummaryRepository,
-    private val studyPracticeRepository: StudyPracticeRepository
+    private val studyPracticeRepository: StudyPracticeRepository,
+    private val studyPracticeLogRepository: StudyPracticeLogRepository
 ) {
     @Transactional
     fun saveStudy(newStudy: StudyEntity): StudyEntity {
@@ -60,5 +63,10 @@ class StudyService(
     @Transactional(readOnly = true)
     fun getStudyPracticeListByStudyId(studyId: UUID): List<StudyPracticeEntity>? {
         return studyPracticeRepository.findByStudyId(studyId)
+    }
+
+    @Transactional
+    fun saveStudyPracticeLog(newStudyPracticeLog: StudyPracticeLogEntity): StudyPracticeLogEntity {
+        return studyPracticeLogRepository.save(newStudyPracticeLog)
     }
 }
