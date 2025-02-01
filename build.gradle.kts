@@ -80,7 +80,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 	implementation("org.flywaydb:flyway-core:11.1.0")
 	implementation("org.flywaydb:flyway-mysql:11.1.0")
-	implementation("com.mysql:mysql-connector-j:8.2.0")
+	implementation("com.mysql:mysql-connector-j:8.4.0")
 
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.9.0")
