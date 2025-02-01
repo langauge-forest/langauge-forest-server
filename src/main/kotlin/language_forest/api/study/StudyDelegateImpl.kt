@@ -4,6 +4,7 @@ import language_forest.api.user.UserService
 import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.StudyPracticeLogEntity
 import language_forest.entity.StudySummaryEntity
+import language_forest.entity.UserPointLogEntity
 import language_forest.generated.api.StudyApiDelegate
 import language_forest.generated.model.*
 import language_forest.transformer.*
@@ -208,6 +209,30 @@ class StudyDelegateImpl(
         study.averageScore = averageScore
         study.studyStatus = StudyStatusEnum.COMPLETED
         studyService.saveStudy(study)
+
+        val studyPractices = studyService.getStudyPracticeListByStudyId(studyId)?: throw IllegalArgumentException("study practice list not found")
+        val point = studyPractices.sumOf {
+            when {
+                (it.score ?: 0) >= 90 -> 3
+                (it.score ?: 0) >= 70 -> 2
+                (it.score ?: 0) >= 50 -> 1
+                else -> 0
+            }.toInt()
+        }
+
+        val uid = getUid()
+        val userPoint = userService.getUserPoint(uid)?: throw IllegalArgumentException("user point not found")
+        userPoint.amount += point
+        userService.saveUserPoint(userPoint)
+
+        val userPointLogId = UUID.randomUUID()
+        val newUserPointLog = UserPointLogEntity(
+            id = userPointLogId,
+            uid = uid,
+            transactionType = PointEnum.DAILY_STUDY,
+            amount = point
+        )
+        userService.saveUserPointLog(newUserPointLog)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }

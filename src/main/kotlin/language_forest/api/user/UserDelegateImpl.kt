@@ -81,10 +81,16 @@ class UserDelegateImpl(
             cron = "0 0 12 * * ?"
         )
 
+        val userPoint = UserPointEntity(
+            uid = uid,
+            amount = 0
+        )
+
         userService.saveUser(user)
         userService.saveUserInfo(userInfo)
         userService.saveUserStudyInfo(userStudyInfo)
         userService.saveUserNotification(userNotification)
+        userService.saveUserPoint(userPoint)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }

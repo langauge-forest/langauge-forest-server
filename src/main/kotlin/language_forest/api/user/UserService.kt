@@ -13,7 +13,8 @@ class UserService(
     private val userInfoRepository: UserInfoRepository,
     private val userStudyInfoRepository: UserStudyInfoRepository,
     private val userPointRepository: UserPointRepository,
-    private val userNotificationRepository: UserNotificationRepository
+    private val userNotificationRepository: UserNotificationRepository,
+    private val userPointLogRepository: UserPointLogRepository
 ) {
     @Transactional(readOnly = true)
     fun getUser(uid: UUID): UserEntity? {
@@ -78,5 +79,10 @@ class UserService(
     @Transactional(readOnly = true)
     fun getUserStudyInfoById(id: UUID): UserStudyInfoEntity? {
         return userStudyInfoRepository.findByIdOrNull(id)
+    }
+
+    @Transactional
+    fun saveUserPointLog(newUserPointLog: UserPointLogEntity): UserPointLogEntity {
+        return userPointLogRepository.save(newUserPointLog)
     }
 }
