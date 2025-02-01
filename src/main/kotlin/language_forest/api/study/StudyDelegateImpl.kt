@@ -1,5 +1,6 @@
 package language_forest.api.study
 
+import kotlinx.coroutines.runBlocking
 import language_forest.api.user.UserService
 import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.StudyPracticeLogEntity
@@ -46,10 +47,18 @@ class StudyDelegateImpl(
         val study = studyService.getStudyById(studyId) ?: throw IllegalArgumentException("StudyEntity not found for id: ${studyId}")
         val story = study.story
 
-        val summary = openAiUtil.generateSummary(story)
-        val message = openAiUtil.generateMessage(story)
-        val emoji = openAiUtil.generateEmoji(story)
-        val tags = openAiUtil.generateKeywords(story)
+//        val summary = openAiUtil.generateSummary(story)
+//        val message = openAiUtil.generateMessage(story)
+//        val emoji = openAiUtil.generateEmoji(story)
+//        val tags = openAiUtil.generateTags(story)
+
+        val summaryContents = runBlocking {
+            openAiUtil.generateSummaryContents(story)
+        }
+        val summary = summaryContents.first
+        val message = summaryContents.second
+        val tags = summaryContents.third.first
+        val emoji = summaryContents.third.second
 
         val id = UUID.randomUUID()
         val newStudySummary = StudySummaryEntity(
@@ -133,8 +142,11 @@ class StudyDelegateImpl(
         val myAnswerVoicePath = updateStudyPracticeRequest.studyPractice.myAnswerVoicePath?: ""
 
         val correctAnswer = openAiUtil.generateAnswer(studyLanguageString, userLanguageString, myAnswer, problem)
-        val score = openAiUtil.generateScore(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
-        val tip = openAiUtil.generateTip(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
+        val scoreAndTip = runBlocking {
+            openAiUtil.generateScoreAndTip(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
+        }
+        val score = scoreAndTip.first
+        val tip = scoreAndTip.second
 
         studyPractice.myAnswer = myAnswer
         studyPractice.myAnswerVoicePath = myAnswerVoicePath
@@ -175,8 +187,11 @@ class StudyDelegateImpl(
         val myAnswerVoicePath = updateStudyPracticeRequest.studyPractice.myAnswerVoicePath?: ""
 
         val correctAnswer = studyPractice.correctAnswer?: throw IllegalArgumentException("correct answer not found")
-        val score = openAiUtil.generateScore(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
-        val tip = openAiUtil.generateTip(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
+        val scoreAndTip = runBlocking {
+            openAiUtil.generateScoreAndTip(studyLanguageString, userLanguageString, myAnswer, correctAnswer)
+        }
+        val score = scoreAndTip.first
+        val tip = scoreAndTip.second
 
         studyPractice.myAnswer = myAnswer
         studyPractice.myAnswerVoicePath = myAnswerVoicePath

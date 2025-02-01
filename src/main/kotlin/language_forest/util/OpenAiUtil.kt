@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
+import kotlinx.coroutines.*
 
 @Component
 class OpenAiUtil(
@@ -17,7 +18,7 @@ class OpenAiUtil(
 
 
 ) {
-    fun generateSummary(inputText: String): String {
+    suspend fun generateSummary(inputText: String): String {
         val prompt = "너는 최고의 심리상담사 선생님이야. 1) 내가 오늘 하루를 이야기를 할거야. 2)너는 나의 하루를 들어주고 어떤 감정을 느꼈는지 분석해주고 이야기해줘. 3) 심플하게 한 문장으로만 이야기해줘. 4)다만 감정 단어를 선택할 때 너무 단순한 단어말고 조금 구체적이고 섬세한 단어들을 사용해줘 \\n" +
                 "\\n" +
                 "[출력 형식] \\n" +
@@ -25,7 +26,7 @@ class OpenAiUtil(
         return apiRequest(prompt, inputText)
     }
 
-    fun generateMessage(inputText: String): String {
+    suspend fun generateMessage(inputText: String): String {
         val prompt = "너는 최고의 심리상담사 선생님이야. 1) 내가 오늘 하루를 이야기를 할거고, 너는 내 하루를 바탕으로 영어를 가르쳐주는 걸 할꺼야. 2)상담사처럼 따뜻하고 정중하게 이야기해줘. 무조건 긍정적인 것보다는 유저가 스스로 하루를 곱씹고 생각해볼 수 있게 좋은 질문을 던져주고, 마지막에는 긍정적인 공감을 해줘 4)150자 이하로 이야기해줘 5)인사는 생략해줘 \\n" +
                 "\\n" +
                 "[출력 형식] \\n" +
@@ -33,7 +34,7 @@ class OpenAiUtil(
         return apiRequest(prompt, inputText)
     }
 
-    fun generateKeywords(inputText: String): String {
+    suspend fun generateTags(inputText: String): String {
         val prompt = "너는 최고의 심리상담사 선생님이야. 1)내가 오늘 하루를 이야기할거야. 2) 너는 나의 하루를 들어주고 분석하여, 오늘 내가 느꼈던 감정이나 키워드들을 3-4개정도 도출해줘. 3)키워드는 최소 2글자, 최대 5글자로 해주. 4)키워드는 가능하면 내가 주로 사용했던 단어들을 선택해줘. 5)다만 키워드를 선택할 때 너무 단순한 단어 말고 조금 구체적이고 섬세한 단어들을 사용해줘, 고유명사가 나와도 좋아. 6) 단어마다 ','를 붙여줘 \\n" +
                 "\\n" +
                 "[출력 형식] \\n" +
@@ -41,13 +42,29 @@ class OpenAiUtil(
         return apiRequest(prompt, inputText)
     }
 
-    fun generateEmoji(inputText: String): String {
+    suspend fun generateEmoji(inputText: String): String {
         val prompt = "너는 이야기한 내용과 관련된 애플 이모지가 무엇인지 알려주는 로봇이야. 1) 내가 오늘 하루를 이야기를 할거야. 2)너는 나의 하루를 들어주고 3) 이와 관련된 애플 이모지를 답해줘. 4) 이모지는 1개만 말해야 해 \\n" +
                 "\\n" +
                 "[출력 형식] \\n" +
                 "☕️"
         return apiRequest(prompt, inputText)
     }
+
+    suspend fun generateSummaryContents(story: String): Triple<String, String, Pair<String, String>> = coroutineScope {
+
+        val summaryDeferred = async { generateSummary(story) }
+        val messageDeferred = async { generateMessage(story) }
+        val tagsDeferred = async { generateTags(story) }
+        val emojiDeferred = async { generateEmoji(story) }
+
+        val summary = summaryDeferred.await()
+        val message = messageDeferred.await()
+        val tags = tagsDeferred.await()
+        val emoji = emojiDeferred.await()
+
+        return@coroutineScope Triple(summary, message, Pair(tags, emoji))
+    }
+
 
     fun generateProblems(inputText: String, sentenceAmount: String, userLanguage: String, studyLanguage: String, level: String): String {
         val prompt = "[역할]\\n" +
@@ -80,7 +97,7 @@ class OpenAiUtil(
         return apiRequest(prompt, myAnswer)
     }
 
-    fun generateScore(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): Int {
+    suspend fun generateScore(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): Int {
         val prompt = "[상황] \\n" +
                 "너는 ${studyLanguage} 문화권에서 30년 이상 살아온 원어민이야. \\n" +
                 "너는 ${userLanguage}를 모국어로 사용하는 학생에게 ${studyLanguage} 문화와 언어를 가르치는 선생님이야. \\n" +
@@ -97,7 +114,7 @@ class OpenAiUtil(
         return apiRequest(prompt, myAnswer).toInt()
     }
 
-    fun generateTip(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): String {
+    suspend fun generateTip(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): String {
         val prompt = "[상황] \\n" +
                 "너는 ${studyLanguage} 문화권에서 30년 이상 살아온 원어민이야. \\n" +
                 "너는 ${userLanguage}를 모국어로 사용하는 학생에게 ${studyLanguage} 문화와 언어를 가르치는 선생님이야. \\n" +
@@ -120,6 +137,16 @@ class OpenAiUtil(
                 "(3) \\n" +
                 "피드백 상세 내용 (in ${userLanguage})"
             return apiRequest(prompt, myAnswer)
+    }
+
+    suspend fun generateScoreAndTip(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): Pair<Int, String> = coroutineScope {
+        val scoreDeferred = async { generateScore(studyLanguage, userLanguage, myAnswer, correctAnswer) }
+        val tipDeferred = async { generateTip(studyLanguage, userLanguage, myAnswer, correctAnswer) }
+
+        val score = scoreDeferred.await()
+        val tip = tipDeferred.await()
+
+        return@coroutineScope Pair(score, tip)
     }
 
     private fun apiRequest(prompt: String, inputText: String): String {
