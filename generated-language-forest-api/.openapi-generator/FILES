@@ -41,6 +41,7 @@ src/main/kotlin/language_forest/generated/model/LevelEnum.kt
 src/main/kotlin/language_forest/generated/model/NotificationEnum.kt
 src/main/kotlin/language_forest/generated/model/NotificationStatusEnum.kt
 src/main/kotlin/language_forest/generated/model/PointEnum.kt
+src/main/kotlin/language_forest/generated/model/PracticeTypeEnum.kt
 src/main/kotlin/language_forest/generated/model/StudyResponse.kt
 src/main/kotlin/language_forest/generated/model/StudyStatusEnum.kt
 src/main/kotlin/language_forest/generated/model/Timestamped.kt

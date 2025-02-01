@@ -1,8 +1,7 @@
 package language_forest.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import language_forest.generated.model.PracticeTypeEnum
 import java.util.*
 
 @Entity
@@ -19,5 +18,9 @@ class StudyPracticeLogEntity(
 
     val tip: String,
 
-    val score: Int
+    val score: Int,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "practice_type")
+    val practiceType: PracticeTypeEnum
 ) : BaseTimestampEntity()

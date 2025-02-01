@@ -162,7 +162,8 @@ class StudyDelegateImpl(
             problem = problem,
             myAnswer = myAnswer,
             tip = tip,
-            score = score
+            score = score,
+            practiceType = PracticeTypeEnum.FIRST
         )
         studyService.saveStudyPracticeLog(newStudyPracticeLog)
 
@@ -206,7 +207,8 @@ class StudyDelegateImpl(
             problem = studyPractice.problem,
             myAnswer = myAnswer,
             tip = tip,
-            score = score
+            score = score,
+            practiceType = PracticeTypeEnum.RETRY
         )
         studyService.saveStudyPracticeLog(newStudyPracticeLog)
 
