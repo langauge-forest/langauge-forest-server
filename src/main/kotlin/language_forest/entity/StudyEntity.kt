@@ -40,6 +40,8 @@ class StudyEntity(
 
     var averageScore: Double?,
 
+    var point: Int,
+
     @Enumerated(EnumType.STRING)
     @Column(name = "study_status")
     var studyStatus: StudyStatusEnum

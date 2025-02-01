@@ -33,6 +33,7 @@ import jakarta.validation.Valid
  * @param story 유저의 하루 일기
  * @param storyVoicePath 유저의 하루 일기 음성 파일 경로
  * @param averageScore 전체 점수 평균
+ * @param point 학습 완료로 획득한 재화의 양
  * @param studyStatus 학습 상태
  */
 data class BaseStudy(
@@ -64,6 +65,8 @@ data class BaseStudy(
     @get:JsonProperty("storyVoicePath") val storyVoicePath: kotlin.String? = null,
 
     @get:JsonProperty("averageScore") val averageScore: kotlin.Double? = null,
+
+    @get:JsonProperty("point") val point: kotlin.Int? = null,
 
     @field:Valid
     @get:JsonProperty("studyStatus") val studyStatus: StudyStatusEnum? = null

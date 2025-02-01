@@ -223,7 +223,6 @@ class StudyDelegateImpl(
 
         study.averageScore = averageScore
         study.studyStatus = StudyStatusEnum.COMPLETED
-        studyService.saveStudy(study)
 
         val studyPractices = studyService.getStudyPracticeListByStudyId(studyId)?: throw IllegalArgumentException("study practice list not found")
         val point = studyPractices.sumOf {
@@ -234,6 +233,8 @@ class StudyDelegateImpl(
                 else -> 0
             }.toInt()
         }
+        study.point = point
+        studyService.saveStudy(study)
 
         val uid = getUid()
         val userPoint = userService.getUserPoint(uid)?: throw IllegalArgumentException("user point not found")

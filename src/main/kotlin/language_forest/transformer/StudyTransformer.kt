@@ -21,7 +21,8 @@ fun CreateStudy.toStudyEntity(id: UUID, uid: UUID, userStudyInfo: UserStudyInfoE
         story = this.story,
         storyVoicePath = this.storyVoicePath,
         averageScore = 0.0,
-        studyStatus = StudyStatusEnum.PENDING
+        studyStatus = StudyStatusEnum.PENDING,
+        point = 0
     )
 }
 
@@ -59,7 +60,8 @@ fun StudyEntity.toBaseStudy(): BaseStudy {
         story = this.story,
         storyVoicePath = this.storyVoicePath,
         averageScore = this.averageScore,
-        studyStatus = this.studyStatus
+        studyStatus = this.studyStatus,
+        point = this.point
     )
 }
 
