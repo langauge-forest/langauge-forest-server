@@ -69,16 +69,15 @@ class OpenAiUtil(
 
     fun generateAnswer(studyLanguage: String, userLanguage: String, myAnswer: String, problem: String): String {
         val prompt = "[역할] \\n" +
-                "너는 ${studyLanguage} 문화권 국가에서 30년 이상 살아온 원어민이야. \\n" +
+                "너는 ${studyLanguage} 문화권에서 30년 이상 살아온 원어민이야. \\n" +
                 "너는 ${userLanguage}를 모국어로 사용하는 학생에게 ${studyLanguage} 문화와 언어를 가르치는 선생님이야. \\n" +
                 "학생이 입력한 ${studyLanguage} 원문을 바탕으로 자연스럽고 세련된 원어민 표현으로 교정해줄 거야. \\n" +
                 "\\n" +
                 "[조건] \\n" +
                 "1) 원문을 ${studyLanguage} 원어민이 자연스럽게 쓸 법한 표현으로 부드럽고 세련되게 수정해줘. (입력한 원문의 뉘앙스를 최대한 살려서) \\n" +
-                "2) 학생이 입력한 원문: ${myAnswer} \\n" +
-                "3) 학생이 의도한 ${userLanguage} 표현: ${problem} \\n" +
-                "4) 교정된 영어 문장만 출력해줘."
-        return apiRequest(prompt, problem)
+                "2) 학생이 의도한 ${userLanguage} 표현: ${problem} \\n" +
+                "3) 교정된 ${studyLanguage} 문장만 출력해줘."
+        return apiRequest(prompt, myAnswer)
     }
 
     fun generateScore(studyLanguage: String, userLanguage: String, myAnswer: String, correctAnswer: String): String {
@@ -88,12 +87,12 @@ class OpenAiUtil(
                 "학생이 입력한 ${studyLanguage} 원문을 바탕으로 100점 만점으로 채점을 해줄거야. \\n" +
                 "\\n" +
                 "[조건] \\n" +
-                "1) 학생이 말한 ${studyLanguage} 문장 '${myAnswer}'과 정답인 ${studyLanguage} 문장인 '${correctAnswer}'을 비교해서 채점해줘. \\n" +
+                "1) 정답은 ${studyLanguage} 문장으로 '${correctAnswer}'이야. 학생이 입력한 ${studyLanguage} 문장과 비교해줘 \\n" +
                 "2) 100점 만점에 n점으로 평가해줘. \\n" +
                 "3) 다른 미사여구 넣지 말고 'n' 숫자만 출력해줘 \\n" +
                 "4) 텍스트가 달라도 뜻이 일치하면 맞다고 처리해줘 (ex. 어순이 다르지만 의미가 같다면 정답으로 인정) \\n" +
                 "\\n" +
-                "[출력 예시]\\n" +
+                "[출력 예시] \\n" +
                 "n"
         return apiRequest(prompt, myAnswer)
     }
@@ -105,18 +104,21 @@ class OpenAiUtil(
                 "학생이 입력한 ${studyLanguage} 원문을 바탕으로 피드백을 교정해줄 거야. \\n" +
                 "\\n" +
                 "[조건] \\n" +
-                "1) 학생이 말한 ${studyLanguage} 문장은 '${myAnswer}'이고, 정답인 ${studyLanguage} 문장은 '${correctAnswer}'야. \\n" +
-                "2) '${myAnswer}'의 표현을 '${correctAnswer}'로 고치려면 어떻게 하면 좋을지 ${userLanguage}로 문법적 및 어휘적 피드백을 제공해줘. \\n" +
-                "3) 두괄식 결론으로 먼저 이야기하고, 두괄식 설명은 기존의 표현을 어떻게 변화해야 하는지 짧게 써줘. 미사여구와 ' '는 붙이지 마. \\n" +
-                "4) 피드백은 최대 4개로, 상세하게 이야기하되 높임말로 쉽게 풀어서 각각 100자 이내로 작성해줘. \\n" +
-                "5) 텍스트가 달라도 뜻이 일치하면 특별히 피드백하지 않아도 돼. (ex. I am과 I'm은 동일하고, 대소문자는 무시 가능) \\n" +
+                "1) 정답은 ${studyLanguage} 문장으로 '${correctAnswer}' 이야. 학생이 입력한 ${studyLanguage} 문장과 비교해줘. \\n" +
+                "2) 학생이 입력한 ${studyLanguage} 문장을 '${correctAnswer}'로 고치려면 어떻게 하면 좋을지 피드백을 제공해줘. \\n" +
+                "3) 피드백은 최대 3개로, 상세하게 이야기하되 높임말로 쉽게 풀어서 각각 150자 이내로 작성해줘. \\n" +
+                "4) 텍스트가 달라도 뜻이 일치하면 특별히 피드백하지 않아도 되고, 대소문자는 무시해도 돼 \\n" +
+                "5) 피드백은 ${userLanguage} 문장으로 제공해줘. \\n" +
                 "\\n" +
                 "[출력 예시] \\n" +
+                "(1) \\n" +
+                "피드백 상세 내용 (in ${userLanguage}) \\n" +
                 "\\n" +
-                "[피드백n] \\n" +
-                "두괄식 결론n \\n" +
-                "이전 표현 -> 교정 표현 \\n" +
-                "피드백n 상세 내용"
+                "(2) \\n" +
+                "피드백 상세 내용 (in ${userLanguage}) \\n" +
+                "\\n" +
+                "(3) \\n" +
+                "피드백 상세 내용 (in ${userLanguage})"
             return apiRequest(prompt, myAnswer)
     }
 
