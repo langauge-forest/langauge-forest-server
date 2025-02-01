@@ -6,7 +6,7 @@ plugins {
 	kotlin("plugin.jpa") version "1.9.25"
 	id("org.openapi.generator") version "7.10.0"
 	id("com.google.cloud.tools.jib") version "3.4.4"
-	id("org.flywaydb.flyway") version "11.1.0"
+	id("org.flywaydb.flyway") version "11.3.0"
 }
 
 group = "language-forest"
@@ -18,40 +18,21 @@ java {
 	}
 }
 
-val envName: String? by project
-
-// 환경별 .env 파일 경로
-val envFile = when(envName) {
-	"prod" -> file(".env.prod")
-	"dev" -> file(".env.dev")
-	"local" -> file(".env.local")
-	else -> file(".env.local") // 기본값 local
-}
-
-// env 파일을 읽는 로직(커스텀)
-fun loadEnv(file: File): Map<String, String> {
-	return file.readLines()
-		.filter { it.contains("=") }
-		.map {
-			val (key, value) = it.split("=", limit=2)
-			key.trim() to value.trim()
-		}.toMap()
-}
-
-val envVars = loadEnv(envFile)
-
 springBoot {
 	mainClass = "language_forest.LanguageForestApplicationKt"
 }
 
+val projectVersion = project.version.toString()
+val ecrImage = System.getenv("ECR_IMAGE") ?: "11t518s/language-forest"
+val imageTag = System.getenv("IMAGE_TAG") ?: projectVersion // 환경변수 없으면 기본값
 
 jib {
 	from {
 		image = "amazoncorretto:21-alpine"
 	}
 	to {
-		image = "11t518s/language-forest"
-		tags = setOf("latest", "0.0.1")
+		image = ecrImage
+		tags = setOf(imageTag) // IMAGE_TAG를 사용
 	}
 	container {
 		ports = listOf("8080")
@@ -78,12 +59,14 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
-	implementation("org.flywaydb:flyway-core:11.1.0")
-	implementation("org.flywaydb:flyway-mysql:11.1.0")
+	implementation("org.flywaydb:flyway-core:11.3.0")
+	implementation("org.flywaydb:flyway-mysql:11.3.0")
 	implementation("com.mysql:mysql-connector-j:8.4.0")
 
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.9.0")
+
+	implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")  // .env 파일 로드 라이브러리
 
 	// Jackson Nullable
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
@@ -107,16 +90,41 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath("org.flywaydb:flyway-mysql:11.1.0")
+		classpath("org.flywaydb:flyway-mysql:11.3.0")
 	}
 }
 
+
+val envName: String? by project
+val envFile = file(".env.${envName ?: "local"}") // 🔥 루트에서 로드!
+
+fun loadEnv(file: File): Map<String, String> {
+	if (!file.exists()) {
+		println("⚠️ ${file.name} 파일이 존재하지 않습니다. 기본값(local) 사용")
+		return emptyMap()
+	}
+
+	return file.readLines()
+		.filter { it.contains("=") && !it.startsWith("#") }
+		.map {
+			val (key, value) = it.split("=", limit = 2)
+			key.trim() to value.trim()
+		}.toMap()
+}
+
+val envVars = loadEnv(envFile)
+
+
 flyway {
 	driver = "com.mysql.cj.jdbc.Driver"
-	url = "jdbc:mysql://localhost:3306/db"
-	user = "mysql"
-	password = "mysql"
+
+	url = envVars["DB_URL"] ?: "jdbc:mysql://localhost:3306/db"
+	user = envVars["DB_USERNAME"] ?: "mysql"
+	password = envVars["DB_PASSWORD"] ?: "mysql"
+
 	locations = arrayOf("filesystem:src/main/resources/db/migration")
+
+	println("🚀 Flyway Migration 실행: ${envName ?: "local"} 환경")
 }
 
 // OpenAPI Generator 설정
