@@ -38,6 +38,7 @@ jib {
 		ports = listOf("8080")
 		jvmFlags = listOf("-Xms512m", "-Xmx1024m")
 		mainClass = "language_forest.LanguageForestApplicationKt"
+		environment = mapOf("IMAGE_TAG" to imageTag) // 🔥 환경 변수로 자동 설정
 	}
 }
 
@@ -95,8 +96,8 @@ buildscript {
 }
 
 
-val envName: String? by project
-val envFile = file(".env.${envName ?: "local"}") // 🔥 루트에서 로드!
+val envName: String = System.getenv("SPRING_PROFILES_ACTIVE") ?: project.findProperty("envName") as? String ?: "local"
+val envFile = file(".env.$envName") // 🔥 루트에서 로드!
 
 fun loadEnv(file: File): Map<String, String> {
 	if (!file.exists()) {
@@ -114,18 +115,17 @@ fun loadEnv(file: File): Map<String, String> {
 
 val envVars = loadEnv(envFile)
 
-
 flyway {
 	driver = "com.mysql.cj.jdbc.Driver"
-
 	url = envVars["DB_URL"] ?: "jdbc:mysql://localhost:3306/db"
 	user = envVars["DB_USERNAME"] ?: "mysql"
 	password = envVars["DB_PASSWORD"] ?: "mysql"
 
 	locations = arrayOf("filesystem:src/main/resources/db/migration")
 
-	println("🚀 Flyway Migration 실행: ${envName ?: "local"} 환경")
+	println("🚀 Flyway Migration 실행: $envName 환경")
 }
+
 
 // OpenAPI Generator 설정
 openApiGenerate {

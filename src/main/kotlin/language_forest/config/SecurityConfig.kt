@@ -18,8 +18,9 @@ class SecurityConfig(
     @Bean
     fun authFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
-            .securityMatcher("/auth/**") // /auth/** 경로만 처리
+            .securityMatcher("/auth/**", "/", "health") // /auth/** 경로만 처리
             .authorizeHttpRequests { authz ->
+                authz.requestMatchers("/health").permitAll() // ✅ ALB Health Check 요청 허용
                 authz.anyRequest().permitAll() // 인증 불필요
             }
             .csrf { csrf -> csrf.disable() }

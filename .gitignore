@@ -60,3 +60,5 @@ node_modules
 .env.local
 .env.prod
 .env*
+
+ecs-task-definition.json
