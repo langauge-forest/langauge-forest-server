@@ -23,9 +23,9 @@ val envName: String? by project
 // 환경별 .env 파일 경로
 val envFile = when(envName) {
 	"prod" -> file(".env.prod")
-	"dev" -> file("..env.dev")
-	"local" -> file("..env.local")
-	else -> file("..env.local") // 기본값 local
+	"dev" -> file(".env.dev")
+	"local" -> file(".env.local")
+	else -> file(".env.local") // 기본값 local
 }
 
 // env 파일을 읽는 로직(커스텀)
