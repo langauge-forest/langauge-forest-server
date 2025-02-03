@@ -14,6 +14,9 @@ import language_forest.util.getUid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 
 @Component
@@ -220,6 +223,18 @@ class StudyDelegateImpl(
     }
 
     override fun completeStudyPractice(studyId: UUID): ResponseEntity<Unit> {
+        val uid = getUid()
+
+        val tmpTimezone = "Asia/Seoul"
+        val utcNow = LocalDateTime.now()
+        val today = utcNow.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of(tmpTimezone)).toLocalDate()
+
+        if (!studyService.existsByUidAndCreatedAtDate(uid, today, tmpTimezone)) {
+            val userStudyInfo = userService.getUserStudyInfoByUid(uid)?: throw IllegalArgumentException("user study info not found")
+            userStudyInfo.streakDays += 1
+            userService.saveUserStudyInfo(userStudyInfo)
+        }
+
         val study = studyService.getStudyById(studyId)?: throw IllegalArgumentException("study not found")
         val averageScore = studyService.getAverageScoreByStudyId(studyId)
 
@@ -238,7 +253,6 @@ class StudyDelegateImpl(
         study.point = point
         studyService.saveStudy(study)
 
-        val uid = getUid()
         val userPoint = userService.getUserPoint(uid)?: throw IllegalArgumentException("user point not found")
         userPoint.amount += point
         userService.saveUserPoint(userPoint)

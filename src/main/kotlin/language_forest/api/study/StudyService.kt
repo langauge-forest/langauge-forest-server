@@ -11,6 +11,7 @@ import language_forest.repository.StudySummaryRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 import java.util.*
 
 @Service
@@ -68,5 +69,10 @@ class StudyService(
     @Transactional
     fun saveStudyPracticeLog(newStudyPracticeLog: StudyPracticeLogEntity): StudyPracticeLogEntity {
         return studyPracticeLogRepository.save(newStudyPracticeLog)
+    }
+
+    @Transactional
+    fun existsByUidAndCreatedAtDate(uid:UUID, date: LocalDate, timezone: String): Boolean {
+        return studyRepository.existsByUidAndCreatedAtDate(uid, date, timezone)
     }
 }
