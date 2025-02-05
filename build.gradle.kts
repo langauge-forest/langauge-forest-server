@@ -105,6 +105,9 @@ dependencies {
 	// coroutine
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+
+	// spring batch
+	implementation("org.springframework.boot:spring-boot-starter-batch")
 }
 
 buildscript {

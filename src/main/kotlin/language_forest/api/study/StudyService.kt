@@ -75,4 +75,9 @@ class StudyService(
     fun existsByUidAndCreatedAtDate(uid:UUID, date: LocalDate, timezone: String): Boolean {
         return studyRepository.existsByUidAndCreatedAtDate(uid, date, timezone)
     }
+
+    @Transactional
+    fun findAllStudy(): List<StudyEntity> {
+        return studyRepository.findAll()
+    }
 }
