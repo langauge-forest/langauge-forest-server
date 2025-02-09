@@ -62,6 +62,16 @@ interface AuthApi {
 
     @RequestMapping(
             method = [RequestMethod.POST],
+            value = ["/auth/dummy"],
+            produces = ["application/json"]
+    )
+    fun dummyLogin(): ResponseEntity<TokenDto> {
+        return getDelegate().dummyLogin()
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.POST],
             value = ["/auth/google"],
             produces = ["application/json"],
             consumes = ["application/json"]
