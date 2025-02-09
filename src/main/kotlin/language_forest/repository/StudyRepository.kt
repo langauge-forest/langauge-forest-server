@@ -15,6 +15,10 @@ interface StudyRepository : JpaRepository<StudyEntity, UUID> {
         @Param("timezone") timezone: String
     ): Boolean
 
-    @Query("SELECT s FROM StudyEntity s WHERE FUNCTION('YEAR', s.createdAt) = :year AND FUNCTION('MONTH', s.createdAt) = :month")
-    fun findStudyByMonthAndYear(@Param("year") year: Int, @Param("month") month: Int): List<StudyEntity>
+    @Query("SELECT s FROM StudyEntity s WHERE FUNCTION('YEAR', DATE(CONVERT_TZ(s.createdAt, 'UTC', :timezone))) = :year AND FUNCTION('MONTH', DATE(CONVERT_TZ(s.createdAt, 'UTC', :timezone))) = :month")
+    fun findStudyByMonthAndYear(
+        @Param("year") year: Int,
+        @Param("month") month: Int,
+        @Param("timezone") timezone: String
+    ): List<StudyEntity>
 }

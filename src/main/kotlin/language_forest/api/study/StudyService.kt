@@ -82,7 +82,7 @@ class StudyService(
     }
 
     @Transactional
-    fun getStudyByMonthAndYear(year: Int, month: Int): List<StudyEntity> {
-        return studyRepository.findStudyByMonthAndYear(year, month)
+    fun getStudyByMonthAndYear(year: Int, month: Int, timezone: String): List<StudyEntity> {
+        return studyRepository.findStudyByMonthAndYear(year, month, timezone)
     }
 }

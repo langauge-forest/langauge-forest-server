@@ -295,7 +295,9 @@ class StudyDelegateImpl(
     }
 
     override fun getMontlyStudy(year: Int, month: Int): ResponseEntity<MonthlyStudyResponse> {
-        val monthlyStudies = studyService.getStudyByMonthAndYear(year, month)
+        val tmpTimezone = "Asia/Seoul"
+
+        val monthlyStudies = studyService.getStudyByMonthAndYear(year, month, tmpTimezone)
         val monthlyStudyResponseStudies: MutableList<MonthlyStudyResponseStudiesInner> = mutableListOf()
         monthlyStudies.forEach { study ->
             val studyId = study.id
@@ -304,7 +306,7 @@ class StudyDelegateImpl(
                 studyId = studyId,
                 selectedTag = studySummary.selectedTag,
                 emoji = studySummary.emoji,
-                studyDate = study.createdAt.toLocalDate()
+                studyDate = study.createdAt.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of(tmpTimezone)).toLocalDate()
             )
             monthlyStudyResponseStudies.add(newMonthlyStudy)
         }
