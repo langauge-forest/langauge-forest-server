@@ -52,6 +52,7 @@ src/main/kotlin/language_forest/generated/model/UpdateStudyPractice.kt
 src/main/kotlin/language_forest/generated/model/UpdateStudyPracticeRequest.kt
 src/main/kotlin/language_forest/generated/model/UpdateStudyPracticeResponse.kt
 src/main/kotlin/language_forest/generated/model/UpdateStudyPracticeResponseStudyPractice.kt
+src/main/kotlin/language_forest/generated/model/UpdateStudyRequest.kt
 src/main/kotlin/language_forest/generated/model/UpdateUser.kt
 src/main/kotlin/language_forest/generated/model/UpdateUserInfo.kt
 src/main/kotlin/language_forest/generated/model/UserResponse.kt

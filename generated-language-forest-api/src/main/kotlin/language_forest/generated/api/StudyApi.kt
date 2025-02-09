@@ -14,6 +14,7 @@ import language_forest.generated.model.MonthlyStudyResponse
 import language_forest.generated.model.StudyResponse
 import language_forest.generated.model.UpdateStudyPracticeRequest
 import language_forest.generated.model.UpdateStudyPracticeResponse
+import language_forest.generated.model.UpdateStudyRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -101,6 +102,16 @@ interface StudyApi {
     )
     fun getStudy( @PathVariable("studyId") studyId: java.util.UUID): ResponseEntity<StudyResponse> {
         return getDelegate().getStudy(studyId)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.PUT],
+            value = ["/study/{studyId}"],
+            consumes = ["application/json"]
+    )
+    fun updateStudy( @PathVariable("studyId") studyId: java.util.UUID, @Valid @RequestBody updateStudyRequest: UpdateStudyRequest): ResponseEntity<Unit> {
+        return getDelegate().updateStudy(studyId, updateStudyRequest)
     }
 
 

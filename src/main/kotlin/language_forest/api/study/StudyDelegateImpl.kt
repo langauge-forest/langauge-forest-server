@@ -317,4 +317,12 @@ class StudyDelegateImpl(
             )
         )
     }
+
+    override fun updateStudy(studyId: UUID, updateStudyRequest: UpdateStudyRequest): ResponseEntity<Unit> {
+        val study = studyService.getStudyById(studyId)?: throw IllegalArgumentException("study not found")
+        study.story = updateStudyRequest.story
+        studyService.saveStudy(study)
+
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
 }

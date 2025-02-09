@@ -9,6 +9,7 @@ import language_forest.generated.model.MonthlyStudyResponse
 import language_forest.generated.model.StudyResponse
 import language_forest.generated.model.UpdateStudyPracticeRequest
 import language_forest.generated.model.UpdateStudyPracticeResponse
+import language_forest.generated.model.UpdateStudyRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -117,6 +118,16 @@ interface StudyApiDelegate {
                 }
             }
         }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
+     * @see StudyApi#updateStudy
+     */
+    fun updateStudy(studyId: java.util.UUID,
+        updateStudyRequest: UpdateStudyRequest): ResponseEntity<Unit> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
 
     }
