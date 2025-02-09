@@ -60,8 +60,11 @@ class StudyDelegateImpl(
         }
         val summary = summaryContents.first
         val message = summaryContents.second
-        val tags = summaryContents.third.first
+        val tagsString = summaryContents.third.first
         val emoji = summaryContents.third.second
+        val tags = tagsString.split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
 
         val id = UUID.randomUUID()
         val newStudySummary = StudySummaryEntity(

@@ -1,8 +1,10 @@
 package language_forest.entity
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.hibernate.annotations.Type
 import java.util.*
 
 @Entity
@@ -18,7 +20,8 @@ class StudySummaryEntity(
 
     val emoji: String,
 
-    val tags: String,
+    @Type(value = JsonStringType::class)
+    val tags: List<String>?,
 
     var selectedTag: String?
 

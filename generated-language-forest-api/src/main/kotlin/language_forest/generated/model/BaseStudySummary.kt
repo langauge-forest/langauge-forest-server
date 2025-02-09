@@ -34,7 +34,7 @@ data class BaseStudySummary(
 
     @get:JsonProperty("emoji") val emoji: kotlin.String? = null,
 
-    @get:JsonProperty("tags") val tags: kotlin.String? = null,
+    @get:JsonProperty("tags") val tags: kotlin.collections.List<kotlin.String>? = null,
 
     @get:JsonProperty("selectedTag") val selectedTag: kotlin.String? = null
     ) {

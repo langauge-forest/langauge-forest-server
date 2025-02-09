@@ -30,7 +30,7 @@ data class CreateStudySummaryResponse(
 
     @get:JsonProperty("emoji") val emoji: kotlin.String? = null,
 
-    @get:JsonProperty("tags") val tags: kotlin.String? = null
+    @get:JsonProperty("tags") val tags: kotlin.collections.List<kotlin.String>? = null
     ) {
 
 }
