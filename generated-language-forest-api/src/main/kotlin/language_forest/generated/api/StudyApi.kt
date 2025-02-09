@@ -10,6 +10,7 @@ import language_forest.generated.model.CreateStudyPracticeResponse
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
 import language_forest.generated.model.CreateStudySummaryResponse
+import language_forest.generated.model.MonthlyStudyResponse
 import language_forest.generated.model.StudyResponse
 import language_forest.generated.model.UpdateStudyPracticeRequest
 import language_forest.generated.model.UpdateStudyPracticeResponse
@@ -80,6 +81,16 @@ interface StudyApi {
     )
     fun createStudySummary( @PathVariable("studyId") studyId: java.util.UUID): ResponseEntity<CreateStudySummaryResponse> {
         return getDelegate().createStudySummary(studyId)
+    }
+
+
+    @RequestMapping(
+            method = [RequestMethod.GET],
+            value = ["/study"],
+            produces = ["application/json"]
+    )
+    fun getMontlyStudy(@NotNull  @Valid @RequestParam(value = "year", required = true) year: kotlin.Int,@NotNull  @Valid @RequestParam(value = "month", required = true) month: kotlin.Int): ResponseEntity<MonthlyStudyResponse> {
+        return getDelegate().getMontlyStudy(year, month)
     }
 
 

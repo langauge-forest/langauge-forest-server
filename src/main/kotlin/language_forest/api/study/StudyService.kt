@@ -80,4 +80,9 @@ class StudyService(
     fun findAllStudy(): List<StudyEntity> {
         return studyRepository.findAll()
     }
+
+    @Transactional
+    fun getStudyByMonthAndYear(year: Int, month: Int): List<StudyEntity> {
+        return studyRepository.findStudyByMonthAndYear(year, month)
+    }
 }

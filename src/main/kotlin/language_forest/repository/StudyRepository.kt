@@ -14,4 +14,7 @@ interface StudyRepository : JpaRepository<StudyEntity, UUID> {
         @Param("date") date: LocalDate,
         @Param("timezone") timezone: String
     ): Boolean
+
+    @Query("SELECT s FROM StudyEntity s WHERE FUNCTION('YEAR', s.createdAt) = :year AND FUNCTION('MONTH', s.createdAt) = :month")
+    fun findStudyByMonthAndYear(@Param("year") year: Int, @Param("month") month: Int): List<StudyEntity>
 }

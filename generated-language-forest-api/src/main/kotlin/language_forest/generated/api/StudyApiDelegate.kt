@@ -5,6 +5,7 @@ import language_forest.generated.model.CreateStudyPracticeResponse
 import language_forest.generated.model.CreateStudyRequest
 import language_forest.generated.model.CreateStudyResponse
 import language_forest.generated.model.CreateStudySummaryResponse
+import language_forest.generated.model.MonthlyStudyResponse
 import language_forest.generated.model.StudyResponse
 import language_forest.generated.model.UpdateStudyPracticeRequest
 import language_forest.generated.model.UpdateStudyPracticeResponse
@@ -77,6 +78,24 @@ interface StudyApiDelegate {
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"summary\" : \"summary\",  \"studySummaryId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",  \"emoji\" : \"emoji\",  \"message\" : \"message\",  \"tags\" : [ \"tags\", \"tags\" ]}")
+                    break
+                }
+            }
+        }
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
+     * @see StudyApi#getMontlyStudy
+     */
+    fun getMontlyStudy(year: kotlin.Int,
+        month: kotlin.Int): ResponseEntity<MonthlyStudyResponse> {
+        getRequest().ifPresent { request ->
+            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"studies\" : [ {    \"emoji\" : \"emoji\",    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"selectedTag\" : \"selectedTag\"  }, {    \"emoji\" : \"emoji\",    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"selectedTag\" : \"selectedTag\"  } ]}")
                     break
                 }
             }

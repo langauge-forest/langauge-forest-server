@@ -38,6 +38,8 @@ src/main/kotlin/language_forest/generated/model/GoogleLoginRequest.kt
 src/main/kotlin/language_forest/generated/model/InputTypeEnum.kt
 src/main/kotlin/language_forest/generated/model/LanguageEnum.kt
 src/main/kotlin/language_forest/generated/model/LevelEnum.kt
+src/main/kotlin/language_forest/generated/model/MonthlyStudyResponse.kt
+src/main/kotlin/language_forest/generated/model/MonthlyStudyResponseStudiesInner.kt
 src/main/kotlin/language_forest/generated/model/NotificationEnum.kt
 src/main/kotlin/language_forest/generated/model/NotificationStatusEnum.kt
 src/main/kotlin/language_forest/generated/model/PointEnum.kt

@@ -293,4 +293,25 @@ class StudyDelegateImpl(
             )
         )
     }
+
+    override fun getMontlyStudy(year: Int, month: Int): ResponseEntity<MonthlyStudyResponse> {
+        val monthlyStudies = studyService.getStudyByMonthAndYear(year, month)
+        val monthlyStudyResponseStudies: MutableList<MonthlyStudyResponseStudiesInner> = mutableListOf()
+        monthlyStudies.forEach { study ->
+            val studyId = study.id
+            val studySummary = studyService.getStudySummaryByStudyId(studyId)?: throw IllegalArgumentException("study summary not found")
+            val newMonthlyStudy = MonthlyStudyResponseStudiesInner(
+                studyId = studyId,
+                selectedTag = studySummary.selectedTag,
+                emoji = studySummary.emoji
+            )
+            monthlyStudyResponseStudies.add(newMonthlyStudy)
+        }
+
+        return ResponseEntity.ok(
+            MonthlyStudyResponse(
+                studies = monthlyStudyResponseStudies.toList()
+            )
+        )
+    }
 }
