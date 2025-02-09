@@ -95,7 +95,7 @@ interface StudyApiDelegate {
         getRequest().ifPresent { request ->
             for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"studies\" : [ {    \"emoji\" : \"emoji\",    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"selectedTag\" : \"selectedTag\"  }, {    \"emoji\" : \"emoji\",    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"selectedTag\" : \"selectedTag\"  } ]}")
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"studies\" : [ {    \"emoji\" : \"emoji\",    \"studyDate\" : \"2000-01-23\",    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"selectedTag\" : \"selectedTag\"  }, {    \"emoji\" : \"emoji\",    \"studyDate\" : \"2000-01-23\",    \"studyId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",    \"selectedTag\" : \"selectedTag\"  } ]}")
                     break
                 }
             }

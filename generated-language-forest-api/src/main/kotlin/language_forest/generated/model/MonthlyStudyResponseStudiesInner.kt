@@ -14,11 +14,15 @@ import jakarta.validation.Valid
 
 /**
  * 
+ * @param studyDate 학습 날짜
  * @param studyId 
  * @param selectedTag 제시된 태그들 중 유저가 선택한 태그
  * @param emoji 하루 일지 기반 이모티콘
  */
 data class MonthlyStudyResponseStudiesInner(
+
+    @field:Valid
+    @get:JsonProperty("studyDate") val studyDate: java.time.LocalDate? = null,
 
     @get:JsonProperty("studyId") val studyId: java.util.UUID? = null,
 

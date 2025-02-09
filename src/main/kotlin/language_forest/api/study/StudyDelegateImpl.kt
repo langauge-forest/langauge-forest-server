@@ -303,7 +303,8 @@ class StudyDelegateImpl(
             val newMonthlyStudy = MonthlyStudyResponseStudiesInner(
                 studyId = studyId,
                 selectedTag = studySummary.selectedTag,
-                emoji = studySummary.emoji
+                emoji = studySummary.emoji,
+                studyDate = study.createdAt.toLocalDate()
             )
             monthlyStudyResponseStudies.add(newMonthlyStudy)
         }
