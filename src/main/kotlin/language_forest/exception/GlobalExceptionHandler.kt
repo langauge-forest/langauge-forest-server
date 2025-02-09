@@ -44,6 +44,17 @@ class GlobalExceptionHandler {
     }
 
     /**
+     * UpdateFailedException 처리
+     */
+    @ExceptionHandler(UpdateFailedException::class)
+    fun handleUpdateFailedException(ex: UpdateFailedException): ResponseEntity<Map<String, String>> {
+        return ResponseEntity
+            .status(HttpStatus.CONFLICT)
+            .body(mapOf("error" to (ex.message ?: "Access to this resource is forbidden")))
+    }
+
+
+    /**
      * ApiException 처리
      */
     @ExceptionHandler(ApiException::class)

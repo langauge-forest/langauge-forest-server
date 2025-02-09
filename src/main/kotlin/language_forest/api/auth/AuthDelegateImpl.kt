@@ -5,6 +5,7 @@ import language_forest.api.user.UserService
 import language_forest.entity.UserEntity
 import language_forest.exception.UnauthorizedException
 import language_forest.generated.api.AuthApiDelegate
+import language_forest.generated.model.AppleLoginRequest
 import language_forest.generated.model.AuthRefreshRequest
 import language_forest.generated.model.GoogleLoginRequest
 import language_forest.generated.model.TokenDto
@@ -26,6 +27,15 @@ class AuthDelegateImpl(
 
         val googleOAuth = authGoogleService.getUserInfo(googleToken)
         val user = authService.googleLogin(googleOAuth, googleLoginRequest.language.toLanguageEnum())
+
+        val accessToken = jwtUtil.generateToken(user.uid)
+        val refreshToken = jwtUtil.generateRefreshToken(user.uid)
+
+        return ResponseEntity.ok(TokenDto(accessToken, refreshToken))
+    }
+
+    override fun appleLogin(appleLoginRequest: AppleLoginRequest): ResponseEntity<TokenDto> {
+        val user= authService.appleLogin(appleLoginRequest, appleLoginRequest.language.toLanguageEnum() )
 
         val accessToken = jwtUtil.generateToken(user.uid)
         val refreshToken = jwtUtil.generateRefreshToken(user.uid)

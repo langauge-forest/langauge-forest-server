@@ -20,6 +20,7 @@ import jakarta.validation.Valid
  * @param uid 
  * @param nickname 유저 닉네임 (필수)
  * @param language 대표 언어 (필수)
+ * @param profileImage 
  */
 data class BaseUser(
 
@@ -28,7 +29,9 @@ data class BaseUser(
     @get:JsonProperty("nickname", required = true) val nickname: kotlin.String,
 
     @field:Valid
-    @get:JsonProperty("language", required = true) val language: LanguageEnum
+    @get:JsonProperty("language", required = true) val language: LanguageEnum,
+
+    @get:JsonProperty("profileImage") val profileImage: kotlin.String? = null
     ) {
 
 }

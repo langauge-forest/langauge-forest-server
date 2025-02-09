@@ -11,6 +11,7 @@ fun UserEntity.toBaseUser(): BaseUser {
         uid = this.uid,
         nickname = this.nickname,
         language = this.language,
+        profileImage = this.profileImage
     )
 }
 
@@ -19,21 +20,6 @@ fun BaseUser.toUserEntity(): UserEntity {
         uid = this.uid,
         nickname = this.nickname,
         language = this.language,
-    )
-}
-
-//CreateUserRequestUser
-fun UserEntity.toCreateUserRequestUser(): UpdateUser {
-    return UpdateUser(
-        nickname = this.nickname,
-        language = this.language,
-    )
-}
-
-fun UpdateUser.toUserEntity(uid: UUID): UserEntity {
-    return UserEntity(
-        uid = uid,
-        nickname = this.nickname ?: "",
-        language = this.language ?: LanguageEnum.EN,
+        profileImage = this.profileImage
     )
 }

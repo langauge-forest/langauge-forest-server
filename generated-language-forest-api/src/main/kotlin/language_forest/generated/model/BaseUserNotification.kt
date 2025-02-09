@@ -20,6 +20,7 @@ import jakarta.validation.Valid
  * @param uid 
  * @param notificationPreference 
  * @param cron 
+ * @param isActive 
  */
 data class BaseUserNotification(
 
@@ -28,7 +29,9 @@ data class BaseUserNotification(
     @field:Valid
     @get:JsonProperty("notificationPreference", required = true) val notificationPreference: NotificationEnum,
 
-    @get:JsonProperty("cron", required = true) val cron: kotlin.String
+    @get:JsonProperty("cron", required = true) val cron: kotlin.String,
+
+    @get:JsonProperty("isActive", required = true) val isActive: kotlin.Boolean
     ) {
 
 }

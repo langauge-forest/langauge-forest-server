@@ -8,3 +8,4 @@ class UnauthorizedException(message: String) : ApiException(HttpStatus.UNAUTHORI
 class BadRequestException(message: String) : ApiException(HttpStatus.BAD_REQUEST, message)
 class NotFoundException(message: String) : ApiException(HttpStatus.NOT_FOUND, message)
 class ForbiddenException(message: String) : ApiException(HttpStatus.FORBIDDEN, message)
+class UpdateFailedException(message: String) : ApiException(HttpStatus.CONFLICT, message)
