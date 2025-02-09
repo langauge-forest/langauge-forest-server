@@ -20,29 +20,29 @@ import jakarta.validation.Valid
  * @param problem 문제
  * @param correctAnswer 정답
  * @param myAnswer 유저의 답변
- * @param myAnswerVoicePath 유저의 답변 음성 파일 경로
  * @param tip 팁(피드백)
  * @param score 점수
+ * @param myAnswerVoicePath 유저의 답변 음성 파일 경로
  */
 data class BaseStudyPractice(
 
-    @get:JsonProperty("id") val id: java.util.UUID? = null,
+    @get:JsonProperty("id", required = true) val id: java.util.UUID,
 
-    @get:JsonProperty("studyId") val studyId: java.util.UUID? = null,
+    @get:JsonProperty("studyId", required = true) val studyId: java.util.UUID,
 
-    @get:JsonProperty("problemNumber") val problemNumber: kotlin.Int? = null,
+    @get:JsonProperty("problemNumber", required = true) val problemNumber: kotlin.Int,
 
-    @get:JsonProperty("problem") val problem: kotlin.String? = null,
+    @get:JsonProperty("problem", required = true) val problem: kotlin.String,
 
-    @get:JsonProperty("correctAnswer") val correctAnswer: kotlin.String? = null,
+    @get:JsonProperty("correctAnswer", required = true) val correctAnswer: kotlin.String,
 
-    @get:JsonProperty("myAnswer") val myAnswer: kotlin.String? = null,
+    @get:JsonProperty("myAnswer", required = true) val myAnswer: kotlin.String,
 
-    @get:JsonProperty("myAnswerVoicePath") val myAnswerVoicePath: kotlin.String? = null,
+    @get:JsonProperty("tip", required = true) val tip: kotlin.String,
 
-    @get:JsonProperty("tip") val tip: kotlin.String? = null,
+    @get:JsonProperty("score", required = true) val score: kotlin.Int,
 
-    @get:JsonProperty("score") val score: kotlin.Int? = null
+    @get:JsonProperty("myAnswerVoicePath") val myAnswerVoicePath: kotlin.String? = null
     ) {
 
 }

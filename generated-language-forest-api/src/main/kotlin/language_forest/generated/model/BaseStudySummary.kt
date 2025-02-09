@@ -24,19 +24,19 @@ import jakarta.validation.Valid
  */
 data class BaseStudySummary(
 
-    @get:JsonProperty("id") val id: java.util.UUID? = null,
+    @get:JsonProperty("id", required = true) val id: java.util.UUID,
 
-    @get:JsonProperty("studyId") val studyId: java.util.UUID? = null,
+    @get:JsonProperty("studyId", required = true) val studyId: java.util.UUID,
 
-    @get:JsonProperty("summary") val summary: kotlin.String? = null,
+    @get:JsonProperty("summary", required = true) val summary: kotlin.String,
 
-    @get:JsonProperty("message") val message: kotlin.String? = null,
+    @get:JsonProperty("message", required = true) val message: kotlin.String,
 
-    @get:JsonProperty("emoji") val emoji: kotlin.String? = null,
+    @get:JsonProperty("emoji", required = true) val emoji: kotlin.String,
 
-    @get:JsonProperty("tags") val tags: kotlin.collections.List<kotlin.String>? = null,
+    @get:JsonProperty("tags", required = true) val tags: kotlin.collections.List<kotlin.String>,
 
-    @get:JsonProperty("selectedTag") val selectedTag: kotlin.String? = null
+    @get:JsonProperty("selectedTag", required = true) val selectedTag: kotlin.String
     ) {
 
 }

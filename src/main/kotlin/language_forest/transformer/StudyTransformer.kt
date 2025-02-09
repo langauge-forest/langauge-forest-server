@@ -59,7 +59,7 @@ fun StudyEntity.toBaseStudy(): BaseStudy {
         inputType = this.inputType,
         story = this.story,
         storyVoicePath = this.storyVoicePath,
-        averageScore = this.averageScore,
+        averageScore = this.averageScore?: 0.0,
         studyStatus = this.studyStatus,
         point = this.point
     )
@@ -72,8 +72,8 @@ fun StudySummaryEntity.toBaseStudySummary(): BaseStudySummary {
         summary = this.summary,
         message = this.message,
         emoji = this.emoji,
-        tags = this.tags,
-        selectedTag = this.selectedTag
+        tags = this.tags?: listOf(),
+        selectedTag = this.selectedTag?: ""
     )
 }
 
@@ -83,10 +83,10 @@ fun StudyPracticeEntity.toBaseStudyPractice(): BaseStudyPractice {
         studyId = this.studyId,
         problemNumber = this.problemNumber,
         problem = this.problem,
-        correctAnswer = this.correctAnswer,
-        myAnswer = this.myAnswer,
+        correctAnswer = this.correctAnswer?: "",
+        myAnswer = this.myAnswer?: "",
         myAnswerVoicePath = this.myAnswerVoicePath,
-        tip = this.tip,
-        score = this.score,
+        tip = this.tip?: "",
+        score = this.score?: 0
     )
 }

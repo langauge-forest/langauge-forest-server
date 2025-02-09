@@ -31,45 +31,45 @@ import jakarta.validation.Valid
  * @param startQuestion 시작 질문
  * @param inputType 문장 입력 타입
  * @param story 유저의 하루 일기
- * @param storyVoicePath 유저의 하루 일기 음성 파일 경로
  * @param averageScore 전체 점수 평균
  * @param point 학습 완료로 획득한 재화의 양
  * @param studyStatus 학습 상태
+ * @param storyVoicePath 유저의 하루 일기 음성 파일 경로
  */
 data class BaseStudy(
 
-    @get:JsonProperty("id") val id: java.util.UUID? = null,
+    @get:JsonProperty("id", required = true) val id: java.util.UUID,
 
-    @get:JsonProperty("uid") val uid: java.util.UUID? = null,
+    @get:JsonProperty("uid", required = true) val uid: java.util.UUID,
 
-    @get:JsonProperty("userStudyInfoId") val userStudyInfoId: java.util.UUID? = null,
-
-    @field:Valid
-    @get:JsonProperty("voiceType") val voiceType: VoiceTypeEnum? = null,
+    @get:JsonProperty("userStudyInfoId", required = true) val userStudyInfoId: java.util.UUID,
 
     @field:Valid
-    @get:JsonProperty("level") val level: LevelEnum? = null,
-
-    @get:JsonProperty("sentenceAmount") val sentenceAmount: kotlin.Int? = null,
+    @get:JsonProperty("voiceType", required = true) val voiceType: VoiceTypeEnum,
 
     @field:Valid
-    @get:JsonProperty("language") val language: LanguageEnum? = null,
+    @get:JsonProperty("level", required = true) val level: LevelEnum,
 
-    @get:JsonProperty("startQuestion") val startQuestion: kotlin.String? = null,
-
-    @field:Valid
-    @get:JsonProperty("inputType") val inputType: InputTypeEnum? = null,
-
-    @get:JsonProperty("story") val story: kotlin.String? = null,
-
-    @get:JsonProperty("storyVoicePath") val storyVoicePath: kotlin.String? = null,
-
-    @get:JsonProperty("averageScore") val averageScore: kotlin.Double? = null,
-
-    @get:JsonProperty("point") val point: kotlin.Int? = null,
+    @get:JsonProperty("sentenceAmount", required = true) val sentenceAmount: kotlin.Int,
 
     @field:Valid
-    @get:JsonProperty("studyStatus") val studyStatus: StudyStatusEnum? = null
+    @get:JsonProperty("language", required = true) val language: LanguageEnum,
+
+    @get:JsonProperty("startQuestion", required = true) val startQuestion: kotlin.String,
+
+    @field:Valid
+    @get:JsonProperty("inputType", required = true) val inputType: InputTypeEnum,
+
+    @get:JsonProperty("story", required = true) val story: kotlin.String,
+
+    @get:JsonProperty("averageScore", required = true) val averageScore: kotlin.Double,
+
+    @get:JsonProperty("point", required = true) val point: kotlin.Int,
+
+    @field:Valid
+    @get:JsonProperty("studyStatus", required = true) val studyStatus: StudyStatusEnum,
+
+    @get:JsonProperty("storyVoicePath") val storyVoicePath: kotlin.String? = null
     ) {
 
 }
