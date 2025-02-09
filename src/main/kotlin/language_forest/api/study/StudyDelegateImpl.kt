@@ -6,6 +6,7 @@ import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.StudyPracticeLogEntity
 import language_forest.entity.StudySummaryEntity
 import language_forest.entity.UserPointLogEntity
+import language_forest.exception.NotFoundException
 import language_forest.generated.api.StudyApiDelegate
 import language_forest.generated.model.*
 import language_forest.transformer.*
@@ -323,6 +324,14 @@ class StudyDelegateImpl(
         study.story = updateStudyRequest.story
         studyService.saveStudy(study)
 
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+
+    override fun deleteStudy(studyId: UUID): ResponseEntity<Unit> {
+        val isDeleted = studyService.deleteStudy(studyId)
+        if (!isDeleted) {
+            throw NotFoundException("$studyId 학습 삭제에 실패했습니다.")
+        }
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 }

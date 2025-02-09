@@ -6,4 +6,6 @@ import java.util.*
 
 interface StudySummaryRepository : JpaRepository<StudySummaryEntity, UUID> {
     fun findByStudyId(studyId: UUID): StudySummaryEntity
+
+    fun deleteByStudyId(studyId: UUID)
 }

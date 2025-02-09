@@ -89,6 +89,15 @@ interface StudyApiDelegate {
 
 
     /**
+     * @see StudyApi#deleteStudy
+     */
+    fun deleteStudy(studyId: java.util.UUID): ResponseEntity<Unit> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
      * @see StudyApi#getMontlyStudy
      */
     fun getMontlyStudy(year: kotlin.Int,

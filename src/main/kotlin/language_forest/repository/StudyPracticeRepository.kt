@@ -12,4 +12,6 @@ interface StudyPracticeRepository : JpaRepository<StudyPracticeEntity, UUID> {
     fun getAverageScoreByStudyId(@Param("studyId") studyId: UUID): Double
 
     fun findByStudyId(studyId: UUID): List<StudyPracticeEntity>
+
+    fun deleteByStudyId(studyId: UUID)
 }

@@ -86,6 +86,15 @@ interface StudyApi {
 
 
     @RequestMapping(
+            method = [RequestMethod.DELETE],
+            value = ["/study/{studyId}"]
+    )
+    fun deleteStudy( @PathVariable("studyId") studyId: java.util.UUID): ResponseEntity<Unit> {
+        return getDelegate().deleteStudy(studyId)
+    }
+
+
+    @RequestMapping(
             method = [RequestMethod.GET],
             value = ["/study"],
             produces = ["application/json"]

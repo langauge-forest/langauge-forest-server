@@ -1,5 +1,6 @@
 package language_forest.api.study
 
+import kotlinx.coroutines.*
 import language_forest.entity.StudyEntity
 import language_forest.entity.StudyPracticeEntity
 import language_forest.entity.StudyPracticeLogEntity
@@ -84,5 +85,21 @@ class StudyService(
     @Transactional
     fun getStudyByMonthAndYear(year: Int, month: Int, timezone: String): List<StudyEntity> {
         return studyRepository.findStudyByMonthAndYear(year, month, timezone)
+    }
+
+    @Transactional
+    fun deleteStudy(studyId: UUID): Boolean = runBlocking {
+        try {
+            val deferredResults = listOf(
+                async { studyPracticeRepository.deleteByStudyId(studyId) },
+                async { studySummaryRepository.deleteByStudyId(studyId) },
+                async { studyRepository.deleteById(studyId) }
+            )
+
+            deferredResults.awaitAll()
+            return@runBlocking true
+        } catch (e: Exception) {
+            return@runBlocking false
+        }
     }
 }
