@@ -43,18 +43,6 @@ class AuthDelegateImpl(
         return ResponseEntity.ok(TokenDto(accessToken, refreshToken))
     }
 
-    override fun dummyLogin(): ResponseEntity<TokenDto> {
-        val user = authService.dummyLogin()
-
-        val accessToken = jwtUtil.generateToken(user.uid)
-        val refreshToken = jwtUtil.generateRefreshToken(user.uid)
-
-        val userStudyInfoId = userService.getUserStudyInfoByUid(user.uid)?.id
-        println(userStudyInfoId)
-
-        return ResponseEntity.ok(TokenDto(accessToken, refreshToken))
-    }
-
     override fun authRefresh(authRefreshRequest: AuthRefreshRequest): ResponseEntity<TokenDto> {
         val refreshToken = authRefreshRequest.refreshToken
         val isValidatedRefreshToken = jwtUtil.validateRefreshToken(refreshToken)

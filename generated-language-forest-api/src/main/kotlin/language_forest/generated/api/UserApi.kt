@@ -44,15 +44,6 @@ interface UserApi {
 
     @RequestMapping(
             method = [RequestMethod.POST],
-            value = ["/user/dummy"]
-    )
-    fun createDummy(): ResponseEntity<Unit> {
-        return getDelegate().createDummy()
-    }
-
-
-    @RequestMapping(
-            method = [RequestMethod.POST],
             value = ["/user"],
             consumes = ["application/json"]
     )

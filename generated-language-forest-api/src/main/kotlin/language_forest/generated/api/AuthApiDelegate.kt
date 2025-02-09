@@ -56,23 +56,6 @@ interface AuthApiDelegate {
 
 
     /**
-     * @see AuthApi#dummyLogin
-     */
-    fun dummyLogin(): ResponseEntity<TokenDto> {
-        getRequest().ifPresent { request ->
-            for (mediaType in MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"accessToken\" : \"accessToken\",  \"refreshToken\" : \"refreshToken\"}")
-                    break
-                }
-            }
-        }
-        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
-
-    }
-
-
-    /**
      * @see AuthApi#googleLogin
      */
     fun googleLogin(googleLoginRequest: GoogleLoginRequest): ResponseEntity<TokenDto> {
