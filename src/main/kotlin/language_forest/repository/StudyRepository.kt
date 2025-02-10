@@ -1,6 +1,7 @@
 package language_forest.repository
 
 import language_forest.entity.StudyEntity
+import language_forest.generated.model.StudyStatusEnum
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -15,10 +16,16 @@ interface StudyRepository : JpaRepository<StudyEntity, UUID> {
         @Param("timezone") timezone: String
     ): Boolean
 
-    @Query("SELECT s FROM StudyEntity s WHERE FUNCTION('YEAR', DATE(CONVERT_TZ(s.createdAt, 'UTC', :timezone))) = :year AND FUNCTION('MONTH', DATE(CONVERT_TZ(s.createdAt, 'UTC', :timezone))) = :month")
+    @Query(
+        "SELECT s FROM StudyEntity s " +
+        "WHERE FUNCTION('YEAR', DATE(CONVERT_TZ(s.createdAt, 'UTC', :timezone))) = :year " +
+        "AND FUNCTION('MONTH', DATE(CONVERT_TZ(s.createdAt, 'UTC', :timezone))) = :month " +
+        "AND s.studyStatus = :status"
+    )
     fun findStudyByMonthAndYear(
         @Param("year") year: Int,
         @Param("month") month: Int,
-        @Param("timezone") timezone: String
+        @Param("timezone") timezone: String,
+        @Param("status") status: StudyStatusEnum = StudyStatusEnum.COMPLETED
     ): List<StudyEntity>
 }
