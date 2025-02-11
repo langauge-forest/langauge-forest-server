@@ -106,7 +106,6 @@ buildscript {
 	}
 }
 
-
 val envName: String = project.findProperty("env") as? String ?: System.getenv("SPRING_PROFILES_ACTIVE") ?: "local"
 System.setProperty("SPRING_PROFILES_ACTIVE", envName)
 val envFile = file(".env.$envName") // 🔥 루트에서 로드!
