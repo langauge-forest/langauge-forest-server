@@ -7,6 +7,7 @@ plugins {
 	id("org.openapi.generator") version "7.10.0"
 	id("com.google.cloud.tools.jib") version "3.4.4"
 	id("org.flywaydb.flyway") version "11.3.0"
+	kotlin("plugin.serialization") version "1.9.0"
 }
 
 group = "language-forest"
@@ -84,6 +85,16 @@ dependencies {
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+	// Kotlin Serailization
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+	// coroutine
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+
+	// spring batch
+	implementation("org.springframework.boot:spring-boot-starter-batch")
 }
 
 buildscript {
@@ -95,8 +106,8 @@ buildscript {
 	}
 }
 
-
-val envName: String = System.getenv("SPRING_PROFILES_ACTIVE") ?: project.findProperty("envName") as? String ?: "local"
+val envName: String = project.findProperty("env") as? String ?: System.getenv("SPRING_PROFILES_ACTIVE") ?: "local"
+System.setProperty("SPRING_PROFILES_ACTIVE", envName)
 val envFile = file(".env.$envName") // 🔥 루트에서 로드!
 
 fun loadEnv(file: File): Map<String, String> {

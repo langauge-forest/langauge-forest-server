@@ -26,6 +26,15 @@ interface UserApiDelegate {
     fun getRequest(): Optional<NativeWebRequest> = Optional.empty()
 
     /**
+     * @see UserApi#createDummy
+     */
+    fun createDummy(): ResponseEntity<Unit> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+
+    }
+
+
+    /**
      * @see UserApi#createUser
      */
     fun createUser(createUserRequest: CreateUserRequest): ResponseEntity<Unit> {

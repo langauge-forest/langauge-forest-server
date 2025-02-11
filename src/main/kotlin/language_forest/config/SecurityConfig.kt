@@ -18,7 +18,7 @@ class SecurityConfig(
     @Bean
     fun authFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
-            .securityMatcher("/auth/**", "/", "health") // /auth/** 경로만 처리
+            .securityMatcher("/auth/**", "/user/dummy", "/", "health") // /auth/** 경로만 처리
             .authorizeHttpRequests { authz ->
                 authz.requestMatchers("/health").permitAll() // ✅ ALB Health Check 요청 허용
                 authz.anyRequest().permitAll() // 인증 불필요

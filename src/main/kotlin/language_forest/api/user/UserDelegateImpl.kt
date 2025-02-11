@@ -1,5 +1,6 @@
 package language_forest.api.user
 
+import language_forest.entity.*
 import kotlinx.coroutines.runBlocking
 import language_forest.entity.UserPointEntity
 import language_forest.exception.NotFoundException

@@ -9,4 +9,5 @@ import java.util.*
 
 @Repository
 interface UserRepository : JpaRepositoryWithSoftDelete<UserEntity, UUID> {
+    fun findByNickname(nickname: String): UserEntity
 }
